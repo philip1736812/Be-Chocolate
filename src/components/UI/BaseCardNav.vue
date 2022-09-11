@@ -27,7 +27,7 @@ export default {
   transition: all 0.25s ease-in-out;
 
   &.itemNav:hover {
-    background: #f4f4f4;
+    background: #FFF;
   }
 
   img {

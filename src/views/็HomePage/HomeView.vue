@@ -24,19 +24,29 @@
         v-for="item in cacaoPodsItems"
         :key="item"
         :product="item"
+        @selectedProductToCart="addToCart"
+        @deletedProduct="deleteSelectedProd"
       ></base-product-card>
+
+      <router-link to="/"> See All </router-link>
     </section>
   </main>
 </template>
 
 <script>
-import { mapState } from "pinia";
-import BaseCardNav from "../components/TheNavigator/BaseUI/BaseCardNav.vue";
-import BaseProductCard from "../components/TheNavigator/BaseUI/BaseProductCard.vue";
-import { useProductStore } from "../stores/Store_index";
+import { mapState, mapActions } from "pinia";
+import BaseCardNav from "@/components/UI/BaseCardNav.vue";
+import BaseProductCard from "@/components/UI/BaseProductCard.vue";
+import { useProductStore } from "@/stores/Store_index";
+import { userCartList } from "@/stores/Cart/Cart_items";
 
 export default {
   components: { BaseCardNav, BaseProductCard },
+  setup() {
+    const cartList = userCartList();
+
+    return { cartList };
+  },
   data() {
     return {
       productsNav: [
@@ -83,6 +93,50 @@ export default {
   },
   computed: {
     ...mapState(useProductStore, ["cacaoPodsItems"]),
+
+    itemInCart() {
+      return this.cartList.itemInCart;
+    },
+  },
+  methods: {
+    addToCart(prod) {
+      const hasItemProd = this.itemInCart.find(
+        (product) => product.id === prod.id
+      );
+      const item_qty = hasItemProd ? (hasItemProd.prodItem_qty += 1) : 1;
+
+      const remainCart = this.itemInCart.slice();
+      // add to cart
+      if (!hasItemProd) {
+        const dataToCart = {
+          ...prod,
+          prodItem_qty: item_qty,
+        };
+
+        remainCart.unshift(dataToCart);
+        this.cartList.addToTheCart(remainCart);
+        return;
+      }
+
+      // update qty
+      const updateCart = {
+        ...hasItemProd,
+        prodItem_qty: item_qty,
+      };
+      const newCart = remainCart.filter((product) => product.id !== prod.id);
+
+      newCart.unshift(updateCart);
+      this.cartList.addToTheCart(newCart);
+    },
+
+    deleteSelectedProd(prodId) {
+      const inCart = this.cartList.cart.find(
+        (item) => item.id === prodId
+      );
+
+      // delete Items
+      // console.log(inCart.prodItem_qty--);
+    },
   },
 };
 </script>
@@ -90,7 +144,7 @@ export default {
 <style lang="scss" scoped>
 header {
   height: 376px;
-  background-image: url("../assets/Home/front-view-sweet-chocolate-assortment-dark-board.png");
+  background-image: url("@/assets/Home/front-view-sweet-chocolate-assortment-dark-board.png");
   background-repeat: no-repeat, repeat;
   background-color: #cccccc;
   background-size: cover;
@@ -162,7 +216,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 65px auto;
+    margin: auto auto;
+    padding: 65px 0;
 
     &::before {
       position: absolute;
@@ -171,12 +226,32 @@ main {
       border-bottom: 1px solid #e8e8e8;
       padding: 0 0 40px 0;
 
-      bottom: -50px;
+      bottom: 28px;
     }
   }
 
   section.showHotItem {
-    margin-top: 6rem;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin: 6px auto 6rem auto;
+
+    &::before {
+      position: absolute;
+      width: 70%;
+      content: "";
+      border-bottom: 1px solid #e8e8e8;
+      padding: 0 0 40px 0;
+
+      bottom: 28px;
+    }
+
+    a {
+      font-size: 20px;
+      color: #0042a6;
+      text-decoration: underline;
+    }
   }
 }
 </style>

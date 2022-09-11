@@ -8,6 +8,7 @@ import {
   faMagnifyingGlass,
   faCartArrowDown,
   faPlus,
+  faMinus,
 } from "@fortawesome/free-solid-svg-icons";
 
 import App from "./App.vue";
@@ -21,7 +22,7 @@ app.use(createPinia());
 app.use(router);
 
 // font awesome
-library.add(faUser, faMagnifyingGlass, faCartArrowDown, faPlus);
+library.add(faUser, faMagnifyingGlass, faCartArrowDown, faPlus, faMinus);
 app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.mount("#app");

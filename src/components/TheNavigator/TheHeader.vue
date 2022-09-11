@@ -17,9 +17,24 @@
         <router-link to="#"> Your Shop </router-link>
       </li>
       <li>
-        <router-link to="#">
-          <img src="../../assets/TheNavigation/shopping-bag 2.png" alt="Cart" />
-        </router-link>
+        <div class="cartIcon" @click="activeCart">
+          <router-link to="#">
+            <img
+              src="../../assets/TheNavigation/shopping-bag 2.png"
+              alt="Cart"
+            />
+          </router-link>
+          <div class="numberItems">{{ cartAmount }}</div>
+
+          <transition name="cartListDraw">
+            <cart-list
+              v-if="cartIsHover"
+              @closeOverlayCart="closeCart"
+              :userCart="userCartData"
+              :cartAmount="cartAmount"
+            ></cart-list>
+          </transition>
+        </div>
         <router-link to="#">
           <font-awesome-icon icon="fa-solid fa-user" size="lg" />
           Profile
@@ -30,7 +45,38 @@
 </template>
 
 <script>
-export default {};
+import { userCartList } from "@/stores/Cart/Cart_items";
+import CartList from "./cartList.vue";
+
+export default {
+  components: { CartList },
+  setup() {
+    const cartList = userCartList();
+    return { cartList };
+  },
+  data() {
+    return {
+      cartIsHover: false,
+    };
+  },
+  methods: {
+    activeCart() {
+      this.cartIsHover = true;
+    },
+    closeCart() {
+      this.cartIsHover = false;
+    },
+  },
+  computed: {
+    cartAmount() {
+      return this.cartList.itemInCartAmount;
+    },
+    userCartData() {
+      return this.cartList.itemInCart;
+    },
+  },
+  components: { CartList },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -51,12 +97,30 @@ ul {
   list-style: none;
 
   li {
+    display: flex;
     margin: auto 0;
 
+    .cartIcon {
+      position: relative;
+
+      .numberItems {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        width: 25px;
+        height: 25px;
+        background: red;
+        border-radius: 50%;
+        color: #f5f5f5;
+        text-align: center;
+      }
+    }
+
     img {
+      display: inline;
       width: 40px;
     }
-    a {
+    & > a {
       position: relative;
 
       margin: auto 2rem;
@@ -82,6 +146,24 @@ ul {
       //   transform: translate(-50%, 50%);
       // }
     }
+  }
+}
+
+.cartListDraw-enter-active {
+  animation: expandDraw 0.25s ease-in;
+}
+
+.cartListDraw-leave-active {
+  animation: expandDraw 0.25s ease-out reverse;
+}
+
+@keyframes expandDraw {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 </style>
