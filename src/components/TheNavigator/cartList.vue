@@ -2,9 +2,16 @@
   <div
     class="container overflow-hidden absolute top-0 left-0 w-96 h-auto mx-auto p-6 -translate-x-1/4 translate-y-16 bg-gray-50 rounded-md z-20"
   >
-    <div class="container w-full w-8 pb-4 border-b-2 border-slate-800 text-lg">
-      <h2 class="text-slate-500 text-2xl">Shopping List</h2>
+    <div class="container w-full pb-4 border-b-2 border-slate-800 text-lg">
+      <h2 class="text-slate-500 text-2xl">
+        <font-awesome-icon
+          icon="fa-cart-shopping"
+          class="inline mr-2.5"
+        />Shopping List
+      </h2>
     </div>
+
+    <div class="arrow"></div>
 
     <ul
       class="flex flex-col divide-y-2 divide-slate-600 border-b-2 border-slate-800 mb-6 py-3"
@@ -36,11 +43,7 @@
         Total Items :
         <span class="inline text-bold">{{ cartAmountItems }} </span>
       </p>
-      <button
-        class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
-      >
-        Go To Cart
-      </button>
+      <base-button link to="/" mode="mainBtn"> Go To Cart </base-button>
     </div>
 
     <div class="haveNoItems py-8" v-else>
@@ -57,8 +60,11 @@
 </template>
 
 <script>
+import BaseButton from "../UI/BaseButton.vue";
+
 export default {
   props: ["userCart", "cartAmount"],
+  components: { BaseButton },
   methods: {
     exitCart() {
       this.$emit("closeOverlayCart");

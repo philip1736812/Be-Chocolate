@@ -5,8 +5,15 @@
     @mouseleave="mouseOut"
     :class="{ containerHover: isHover }"
   >
-    <div class="content" :class="{ hover: isHover, selected: selected_prod }">
-      <p class="storeName">{{ product.storeName }}</p>
+    <div
+      class="content"
+      :class="{ hover: isHover, selected: selected_prod && qty_thisItem >= 1 }"
+    >
+      <base-button link to="/" class="storeName">
+        <font-awesome-icon icon="fa-store" />{{
+          product.storeName
+        }}</base-button
+      >
       <h2>{{ product.price }} Bath/kg.</h2>
       <p class="remaining">
         Remaining: <strong> {{ product.remaining }} kg.</strong>
@@ -16,22 +23,29 @@
         class="addToCart"
         :class="{
           buttonShow: isHover,
-          btnSelected: selected_prod,
+          btnSelected: selected_prod && qty_thisItem >= 1,
           selectedItem: selected_prod,
         }"
       >
         <transition name="minusBtn" mode="out-in">
-          <button v-if="selected_prod" @click="deleteProd">
+          <button v-if="selected_prod && qty_thisItem >= 1" @click="deleteProd">
             <font-awesome-icon icon="fa-minus" />
           </button>
         </transition>
 
         <transition name="qty" mode="out-in">
-          <p v-if="selected_prod" class="qtyProduct">{{ qty_thisItem }} kg</p>
+          <p v-if="selected_prod && qty_thisItem >= 1" class="qtyProduct">
+            {{ qty_thisItem }} kg
+          </p>
         </transition>
 
         <transition name="addCart" mode="out-in">
-          <button @click="selectedItem" v-if="!selected_prod">
+          <button
+            @click="selectedItem"
+            v-if="
+              !selected_prod || qty_thisItem === 0 || qty_thisItem === undefined
+            "
+          >
             <font-awesome-icon icon="fa-cart-arrow-down" />
           </button>
 
@@ -49,13 +63,21 @@
       <p>IMG</p>
       <p class="sold"><strong>Sold:</strong> {{ product.soldCount }} time</p>
     </div>
+
+    <transition name="addedCart" mode="out-in">
+      <div v-if="isAddedInCart" class="addedInCart">
+        <font-awesome-icon icon="fa-cart-arrow-down" />
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import { userCartList } from "@/stores/Cart/Cart_items";
+import BaseButton from "./BaseButton.vue";
 
 export default {
+  components: { BaseButton },
   props: ["product"],
   setup() {
     const cartList = userCartList();
@@ -70,8 +92,13 @@ export default {
   },
   computed: {
     qty_thisItem() {
-      return this.cartList.cart.find((prod) => prod.id === this.product.id)
-        .prodItem_qty;
+      return this.cartList?.cart.find((prod) => prod.id === this.product.id)
+        ?.prodItem_qty;
+    },
+    isAddedInCart() {
+      return this.cartList.cart.length <= 0
+        ? false
+        : this.cartList.cart.find((el) => el.id === this.product.id);
     },
   },
   methods: {
@@ -102,6 +129,7 @@ export default {
 
 <style lang="scss" scoped>
 .card_container {
+  position: relative;
   display: grid;
   grid-template-columns: 0.5fr 1fr;
 
@@ -109,7 +137,6 @@ export default {
   width: 75%;
 
   border: 1px solid #efefef;
-  // background: #ffffff;
   border-radius: 10px;
   margin: 15px auto;
   padding: 17px 44px;
@@ -139,9 +166,13 @@ export default {
       transform: translateY(0px);
     }
 
-    p.storeName {
+    a.storeName {
       font-size: 23px;
       margin: 0 0 7px 0;
+
+      & > svg {
+        margin-right: 1rem;
+      }
     }
 
     h2 {
@@ -185,9 +216,6 @@ export default {
         margin: 0 2.6rem;
       }
 
-      .selectedItem {
-      }
-
       button {
         width: 100%;
         height: 45px;
@@ -226,17 +254,36 @@ export default {
       font-size: 17px;
     }
   }
+
+  .addedInCart {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+    background: red;
+    color: #fafafa;
+    font-size: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .minusBtn-enter-active,
 .qty-enter-active,
-.addCart-enter-active {
+.addCart-enter-active,
+.addedCart-enter-active {
   animation: scale 0.25s ease-in;
 }
 
 .minusBtn-leave-active,
 .qty-leave-active,
-.addCart-leave-active {
+.addCart-leave-active,
+.addedCart-leave-active {
   animation: scale 0.25s ease-out reverse;
 }
 

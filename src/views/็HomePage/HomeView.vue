@@ -10,6 +10,12 @@
     </form>
   </header>
   <main>
+    <teleport to="body">
+      <transition name="cartBalloon" mode="out-in">
+        <cart-balloon v-if="leaveHeaderStatus"></cart-balloon>
+      </transition>
+    </teleport>
+
     <div class="itemNav_container">
       <base-card-nav
         v-for="prod in productsNav"
@@ -30,22 +36,36 @@
 
       <router-link to="/"> See All </router-link>
     </section>
+
+    <section class="craftChocolate">
+      <craft-chocolate-section></craft-chocolate-section>
+    </section>
   </main>
 </template>
 
 <script>
-import { mapState, mapActions } from "pinia";
+import { mapState } from "pinia";
+import { useProductStore } from "@/stores/ProductItems/Store_product";
+import { userCartList } from "@/stores/Cart/Cart_items";
+import { useIndexStore } from "@/stores/Store_index";
+
 import BaseCardNav from "@/components/UI/BaseCardNav.vue";
 import BaseProductCard from "@/components/UI/BaseProductCard.vue";
-import { useProductStore } from "@/stores/Store_index";
-import { userCartList } from "@/stores/Cart/Cart_items";
+import CraftChocolateSection from "@/components/HomeView/CraftChocolateSection.vue";
+import CartBalloon from "@/components/TheNavigator/CartBalloon.vue";
 
 export default {
-  components: { BaseCardNav, BaseProductCard },
+  components: {
+    BaseCardNav,
+    BaseProductCard,
+    CraftChocolateSection,
+    CartBalloon,
+  },
   setup() {
     const cartList = userCartList();
+    const indexStore = useIndexStore();
 
-    return { cartList };
+    return { cartList, indexStore };
   },
   data() {
     return {
@@ -89,13 +109,21 @@ export default {
 
       productCardActive: false,
       hoverKey: null,
+      observer: null,
     };
+  },
+  created() {
+    this.indexStore.createObserver();
   },
   computed: {
     ...mapState(useProductStore, ["cacaoPodsItems"]),
 
     itemInCart() {
       return this.cartList.itemInCart;
+    },
+
+    leaveHeaderStatus() {
+      return this.indexStore.getLeaveHeaderStatus;
     },
   },
   methods: {
@@ -130,12 +158,22 @@ export default {
     },
 
     deleteSelectedProd(prodId) {
-      const inCart = this.cartList.cart.find(
-        (item) => item.id === prodId
-      );
+      const inCart = this.cartList.cart.find((item) => item.id === prodId);
+      if (inCart.prodItem_qty >= 1) {
+        inCart.prodItem_qty -= 1;
 
-      // delete Items
-      // console.log(inCart.prodItem_qty--);
+        if (inCart.prodItem_qty !== 0) return;
+
+        // update qty
+        const newCart = this.cartList.cart.filter(
+          (product) => product.id !== inCart.id
+        );
+        this.cartList.addToTheCart(newCart);
+      }
+    },
+
+    onElementObserved(entries) {
+      this.indexStore.onElementObserved(entries);
     },
   },
 };
@@ -244,7 +282,7 @@ main {
       border-bottom: 1px solid #e8e8e8;
       padding: 0 0 40px 0;
 
-      bottom: 28px;
+      bottom: -45%;
     }
 
     a {
@@ -252,6 +290,28 @@ main {
       color: #0042a6;
       text-decoration: underline;
     }
+  }
+}
+
+.cartBalloon-enter-active {
+  animation: scaleBubble 0.15s ease-in;
+}
+
+.cartBalloon-leave-active {
+  animation: scaleBubble 0.15s ease-out reverse;
+}
+
+@keyframes scaleBubble {
+  0% {
+    transform: scale(0);
+  }
+
+  80% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
 </style>

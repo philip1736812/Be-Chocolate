@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header ref="header">
     <ul>
       <li>
         <router-link to="/">
@@ -46,13 +46,20 @@
 
 <script>
 import { userCartList } from "@/stores/Cart/Cart_items";
+import { useIndexStore } from "@/stores/Store_index";
 import CartList from "./cartList.vue";
 
 export default {
   components: { CartList },
   setup() {
     const cartList = userCartList();
-    return { cartList };
+    const indexStore = useIndexStore();
+
+    return { cartList, indexStore };
+  },
+  mounted() {
+    const observer = this.getObserver;
+    observer.observe(this.$refs.header);
   },
   data() {
     return {
@@ -74,8 +81,10 @@ export default {
     userCartData() {
       return this.cartList.itemInCart;
     },
+    getObserver() {
+      return this.indexStore.getObserver;
+    },
   },
-  components: { CartList },
 };
 </script>
 
