@@ -11,7 +11,7 @@
       </li>
       <li>
         <router-link to="/"> Home </router-link>
-        <router-link to="#"> Craft Chocolate </router-link>
+        <router-link to="/craftChocolate"> Craft Chocolate </router-link>
         <router-link to="#"> Rating </router-link>
         <router-link to="#"> Community </router-link>
         <router-link to="#"> Your Shop </router-link>
@@ -108,6 +108,7 @@ ul {
   li {
     display: flex;
     margin: auto 0;
+    transition: all 0.25s ease-in-out;
 
     .cartIcon {
       position: relative;
@@ -136,10 +137,11 @@ ul {
       text-decoration: none;
       font-size: 20px;
       font-weight: normal;
-      color: #44342b;
+      color: rgb(101, 112, 124);
 
       &:hover {
-        font-weight: bold;
+        // font-weight: bold;
+        color: rgb(68, 76, 84);
       }
 
       &.router-link-active {

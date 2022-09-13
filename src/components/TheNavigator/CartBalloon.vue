@@ -9,10 +9,26 @@
       <router-link to="#">
         <img src="../../assets/TheNavigation/shopping-bag 2.png" alt="Cart" />
       </router-link>
+
       <div
-        class="absolute top-0 right-0 w-6 h-6 bg-red-500 rounded-full text-center text-white shadow-md"
+        class="absolute top-0 right-0 w-6 h-6 bg-red-500 rounded-full shadow-md"
       >
-        {{ cartAmount }}
+        <span class="flex h-full w-full" v-if="cartAmount > 0">
+          <span
+            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"
+          ></span>
+          <div class="w-6 h-6 flex justify-center items-center text-white">
+            <p class="font-xl text-centers">
+              {{ cartAmount }}
+            </p>
+          </div>
+        </span>
+
+        <div v-else class="w-6 h-6 flex justify-center items-center text-white">
+          <p>
+            {{ cartAmount }}
+          </p>
+        </div>
       </div>
 
       <div class="-translate-x-64 -translate-y-4">

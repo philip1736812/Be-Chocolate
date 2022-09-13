@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import "flowbite";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -11,6 +12,7 @@ import {
   faMinus,
   faCartShopping,
   faStore,
+  faFireFlameCurved,
 } from "@fortawesome/free-solid-svg-icons";
 
 import App from "./App.vue";
@@ -32,6 +34,7 @@ library.add(
   faMinus,
   faCartShopping,
   faStore,
+  faFireFlameCurved
 );
 app.component("font-awesome-icon", FontAwesomeIcon);
 

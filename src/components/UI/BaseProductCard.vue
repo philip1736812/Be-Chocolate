@@ -19,42 +19,15 @@
         Remaining: <strong> {{ product.remaining }} kg.</strong>
       </p>
 
-      <div
-        class="addToCart"
-        :class="{
-          buttonShow: isHover,
-          btnSelected: selected_prod && qty_thisItem >= 1,
-          selectedItem: selected_prod,
-        }"
-      >
-        <transition name="minusBtn" mode="out-in">
-          <button v-if="selected_prod && qty_thisItem >= 1" @click="deleteProd">
-            <font-awesome-icon icon="fa-minus" />
-          </button>
-        </transition>
-
-        <transition name="qty" mode="out-in">
-          <p v-if="selected_prod && qty_thisItem >= 1" class="qtyProduct">
-            {{ qty_thisItem }} kg
-          </p>
-        </transition>
-
-        <transition name="addCart" mode="out-in">
-          <button
-            @click="selectedItem"
-            v-if="
-              !selected_prod || qty_thisItem === 0 || qty_thisItem === undefined
-            "
-          >
-            <font-awesome-icon icon="fa-cart-arrow-down" />
-          </button>
-
-          <button v-else @click="selectedItem">
-            <font-awesome-icon icon="fa-plus" />
-          </button>
-        </transition>
-      </div>
+      <base-btn-add-to-cart
+        :qty_thisItem="qty_thisItem"
+        :selected_prod="selected_prod"
+        :isHover="isHover"
+        @selectedItem="selectedItem"
+        @deleteProd="deleteProd"
+      ></base-btn-add-to-cart>
     </div>
+
     <div class="picture">
       <p>IMG</p>
       <p>IMG</p>
@@ -75,9 +48,10 @@
 <script>
 import { userCartList } from "@/stores/Cart/Cart_items";
 import BaseButton from "./BaseButton.vue";
+import BaseBtnAddToCart from "./BaseBtnAddToCart.vue";
 
 export default {
-  components: { BaseButton },
+  components: { BaseButton, BaseBtnAddToCart },
   props: ["product"],
   setup() {
     const cartList = userCartList();
@@ -85,10 +59,7 @@ export default {
     return { cartList };
   },
   data() {
-    return {
-      isHover: false,
-      selected_prod: false,
-    };
+    return { isHover: false, selected_prod: false };
   },
   computed: {
     qty_thisItem() {
@@ -152,6 +123,10 @@ export default {
   .content {
     transform: translateY(30px);
     transition: all 0.25s ease-in-out;
+    max-width: 290.77px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     padding-right: 1rem;
     & > * {
@@ -186,59 +161,7 @@ export default {
       font-weight: 400;
       margin-bottom: 26px;
     }
-
-    .addToCart {
-      display: flex;
-      align-items: center;
-
-      transition: all 0.25s ease-in-out;
-      opacity: 0;
-
-      &.buttonShow {
-        opacity: 1;
-      }
-
-      &.btnSelected {
-        opacity: 1;
-
-        button {
-          width: 45px;
-
-          background: #d8612f;
-          color: #fff;
-          border: none;
-        }
-      }
-
-      .qtyProduct {
-        font-size: 26px;
-        font-weight: bold;
-        margin: 0 2.6rem;
-      }
-
-      button {
-        width: 100%;
-        height: 45px;
-        border-radius: 10px;
-        font-size: 25px;
-        background: #fafafa;
-        border: 1px solid #444444;
-        cursor: pointer;
-        transition: all 0.25s ease-in-out;
-
-        &:hover {
-          background: #d8612f;
-          border: none;
-          color: #fff;
-        }
-      }
-      p.cart {
-        font-size: 25px;
-        margin: 0 0 0 1rem;
-      }
-    }
   }
-
   .picture {
     position: relative;
     display: flex;
@@ -273,16 +196,10 @@ export default {
   }
 }
 
-.minusBtn-enter-active,
-.qty-enter-active,
-.addCart-enter-active,
 .addedCart-enter-active {
   animation: scale 0.25s ease-in;
 }
 
-.minusBtn-leave-active,
-.qty-leave-active,
-.addCart-leave-active,
 .addedCart-leave-active {
   animation: scale 0.25s ease-out reverse;
 }

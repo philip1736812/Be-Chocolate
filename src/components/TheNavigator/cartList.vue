@@ -22,10 +22,14 @@
         v-for="item in cartItems"
         :key="item.id"
       >
-        <div class="w-1/4 h-2/4 border">IMG</div>
+        <div class="w-1/4 h-2/4">
+          <img class="rounded-md" :src="item.picUrl" :alt="item.name" />
+        </div>
+
         <div class="container mx-sm ml-4">
           <div class="text-xl font-bold">
-            {{ item.type }} <span> x </span> {{ item.prodItem_qty }}
+            {{ item.name ? item.name : item.type }} <span> x </span>
+            {{ item.prodItem_qty }}
           </div>
           <div class="text-xm">
             <p>{{ item.storeName }}</p>

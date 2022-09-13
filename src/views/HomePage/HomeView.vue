@@ -1,13 +1,8 @@
 <template>
   <header>
     <h2>Find Your Ingredient.</h2>
-    <form action="">
-      <input type="text" placeholder="Craft Chocolate..." />
-      <button>
-        <font-awesome-icon class="searchIcon" icon="fa-magnifying-glass" />
-      </button>
-      <p><strong>Ex.</strong> Chocolate bar, Coco nib</p>
-    </form>
+    <base-search-bar></base-search-bar>
+    <p><strong>Ex.</strong> Chocolate bar, Coco nib</p>
   </header>
   <main>
     <teleport to="body">
@@ -53,6 +48,7 @@ import BaseCardNav from "@/components/UI/BaseCardNav.vue";
 import BaseProductCard from "@/components/UI/BaseProductCard.vue";
 import CraftChocolateSection from "@/components/HomeView/CraftChocolateSection.vue";
 import CartBalloon from "@/components/TheNavigator/CartBalloon.vue";
+import BaseSearchBar from "../../components/UI/BaseSearchBar.vue";
 
 export default {
   components: {
@@ -60,6 +56,7 @@ export default {
     BaseProductCard,
     CraftChocolateSection,
     CartBalloon,
+    BaseSearchBar,
   },
   setup() {
     const cartList = userCartList();
@@ -109,7 +106,6 @@ export default {
 
       productCardActive: false,
       hoverKey: null,
-      observer: null,
     };
   },
   created() {
@@ -198,53 +194,11 @@ header {
     margin: 0 0 34px 0;
   }
 
-  form {
-    position: relative;
-    width: 65%;
-
-    button {
-      cursor: pointer;
-      position: absolute;
-      top: 10px;
-      right: 13px;
-      background: none;
-      border: none;
-    }
-
-    .searchIcon {
-      font-size: 30px;
-      color: #646464;
-      transition: all 0.25s ease-in;
-
-      &:hover {
-        color: #444444;
-        transform: scale(1.1);
-      }
-    }
-
-    input {
-      width: 100%;
-      height: 49px;
-      border-radius: 10px;
-      outline: none;
-      padding: 0 1.3rem;
-      margin: 0 0 0.6rem 0;
-      font-size: 19px;
-      border: 1px solid #c4c4c4;
-      transition: all 0.25s ease-in;
-
-      &::placeholder {
-        font-size: 16px;
-      }
-
-      &:focus {
-        border: 1px solid #858585;
-      }
-    }
-
-    p {
-      font-size: 18px;
-    }
+  p {
+    max-width: 1200px;
+    width: 100%;
+    text-align: start;
+    font-size: 18px;
   }
 }
 
