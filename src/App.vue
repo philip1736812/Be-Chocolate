@@ -1,6 +1,10 @@
 <template>
   <router-view name="navigation"></router-view>
-  <router-view></router-view>
+  <router-view v-slot="slotProps">
+    <transition name="mainRoute-animated" mode="out-in">
+      <component :is="slotProps.Component"></component>
+    </transition>
+  </router-view>
 </template>
 
 <script>
@@ -16,5 +20,22 @@ export default {
 
 * {
   font-family: "Montserrat", sans-serif;
+}
+
+.mainRoute-animated-enter-active {
+  animation: fade-in-out 0.25s ease-in;
+}
+
+.mainRoute-animated-leave-active {
+  animation: fade-in-out 0.25s ease-in reverse;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>

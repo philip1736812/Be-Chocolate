@@ -1,48 +1,52 @@
 <template>
-  <header>
-    <h2>Find Your Ingredient.</h2>
-    <base-search-bar></base-search-bar>
-    <p><strong>Ex.</strong> Chocolate bar, Coco nib</p>
-  </header>
-  <main>
-    <teleport to="body">
-      <cart-balloon></cart-balloon>
-    </teleport>
+  <div>
+    <header>
+      <h2>Find Your Ingredient.</h2>
+      <base-search-bar></base-search-bar>
+      <p><strong>Ex.</strong> Chocolate bar, Coco nib</p>
+    </header>
+    <main>
+      <teleport to="body">
+        <cart-balloon></cart-balloon>
+      </teleport>
 
-    <div class="itemNav_container">
-      <base-card-nav
-        v-for="prod in productsNav"
-        :key="prod.name"
-        :navName="prod.name"
-        :urlNav="prod.pictureUrl"
-        @productSelected="selectedNav"
-      ></base-card-nav>
-    </div>
-
-    <transition name="hotItems" mode="out-in">
-      <section class="showHotItem" v-if="getProducts">
-        <div>
-          <h2>Hot Items</h2>
-        </div>
-        <base-product-card
-          v-for="item in getProducts"
-          :key="item"
-          :product="item"
-          @selectedProductToCart="addToCart"
-          @deletedProduct="deleteSelectedProd"
-        ></base-product-card>
-
-        <router-link to="/"> See All </router-link>
-      </section>
-      <div class="haveNoItem" v-else>
-        <p>Have No Products</p>
+      <div class="itemNav_container">
+        <base-card-nav
+          v-for="prod in productsNav"
+          :key="prod.name"
+          :navName="prod.name"
+          :urlNav="prod.pictureUrl"
+          @productSelected="selectedNav"
+        ></base-card-nav>
       </div>
-    </transition>
 
-    <section class="craftChocolate">
-      <craft-chocolate-section></craft-chocolate-section>
-    </section>
-  </main>
+      <transition name="hotItems" mode="out-in">
+        <section class="showHotItem" v-if="getProducts">
+          <div class="hotItemsTopic">
+            <font-awesome-icon icon="fa-fire-flame-curved" />
+            <h2>Hot Items</h2>
+            <p>{{ hotItem }}</p>
+          </div>
+          <base-product-card
+            v-for="item in getProducts"
+            :key="item"
+            :product="item"
+            @selectedProductToCart="addToCart"
+            @deletedProduct="deleteSelectedProd"
+          ></base-product-card>
+
+          <router-link to="/"> See All </router-link>
+        </section>
+        <div class="haveNoItem" v-else>
+          <p>Have No Products</p>
+        </div>
+      </transition>
+
+      <section class="craftChocolate">
+        <craft-chocolate-section></craft-chocolate-section>
+      </section>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -121,6 +125,12 @@ export default {
 
     itemInCart() {
       return this.cartList.itemInCart;
+    },
+
+    hotItem() {
+      return (
+        this.selectedNavName.replace(/([A-Z])/g, " $1").trim() || "cacao Pods"
+      );
     },
   },
   methods: {
@@ -237,6 +247,30 @@ main {
     justify-content: center;
     align-items: center;
     margin: 6px auto 6rem auto;
+
+    .hotItemsTopic {
+      max-width: 963px;
+      width: 75%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      svg {
+        font-size: 2rem;
+        margin-right: 1.5rem;
+        color: rgb(208, 56, 1, 1);
+      }
+
+      h2 {
+        font-size: 1.875rem;
+      }
+
+      p {
+        margin: 0 1rem 0 1rem;
+        font-size: 1.5rem;
+        color: rgb(100, 116, 139, 1);
+      }
+    }
 
     &::before {
       position: absolute;

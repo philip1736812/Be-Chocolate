@@ -39,7 +39,7 @@
         <div class="-translate-x-64 -translate-y-4">
           <transition name="cartListDraw">
             <cart-list
-              v-if="cartIsHover"
+              v-if="isCartActive && leaveHeaderStatus"
               @closeOverlayCart="closeCart"
               :userCart="userCartData"
               :cartAmount="cartAmount"
@@ -64,11 +64,6 @@ export default {
 
     return { cartList, indexStore };
   },
-  data() {
-    return {
-      cartIsHover: false,
-    };
-  },
 
   created() {
     this.indexStore.createObserver();
@@ -85,13 +80,16 @@ export default {
     leaveHeaderStatus() {
       return this.indexStore.getLeaveHeaderStatus;
     },
+    isCartActive() {
+      return this.indexStore.isActiveCartList;
+    },
   },
   methods: {
     activeCart() {
-      this.cartIsHover = true;
+      this.indexStore.isActiveCartList = true;
     },
     closeCart() {
-      this.cartIsHover = false;
+      this.indexStore.isActiveCartList = false;
     },
 
     onElementObserved(entries) {

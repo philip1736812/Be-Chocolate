@@ -1,75 +1,79 @@
 <template>
-  <section class="mt-8">
-    <div class="container mx-auto grid grid-cols-1">
-      <div
-        class="w-3/4 flex flex-col justify-center items-center text-center mx-auto mb-16"
-      >
-        <h2 class="text-5xl mb-8">Craft Chocolate</h2>
-        <p class="text-xl">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta rerum
-          illo tempore debitis autem aspernatur consequatur repellat totam
-          eveniet dolores nihil minus fugiat, reiciendis perspiciatis, ducimus
-          perferendis iusto ad exercitationem minima omnis facilis veritatis?
-          Incidunt.
-        </p>
-      </div>
+  <div>
+    <section class="mt-8">
+      <div class="container mx-auto grid grid-cols-1">
+        <div
+          class="w-3/4 flex flex-col justify-center items-center text-center mx-auto mb-16"
+        >
+          <h2 class="text-5xl mb-8">Craft Chocolate</h2>
+          <p class="text-xl">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta
+            rerum illo tempore debitis autem aspernatur consequatur repellat
+            totam eveniet dolores nihil minus fugiat, reiciendis perspiciatis,
+            ducimus perferendis iusto ad exercitationem minima omnis facilis
+            veritatis? Incidunt.
+          </p>
+        </div>
 
-      <div class="w-3/4 mx-auto bg-slate-600 rounded-lg text-white text-center">
-        <carousel></carousel>
+        <div
+          class="w-3/4 mx-auto bg-slate-600 rounded-lg text-white text-center"
+        >
+          <carousel></carousel>
+        </div>
       </div>
+    </section>
+
+    <div class="searching container w-3/4 mx-auto mt-16 mb-8">
+      <base-search-bar></base-search-bar>
     </div>
-  </section>
 
-  <div class="searching container w-3/4 mx-auto mt-16 mb-8">
-    <base-search-bar></base-search-bar>
+    <main class="container mx-auto">
+      <teleport to="body">
+        <cart-balloon></cart-balloon>
+      </teleport>
+
+      <section
+        class="container w-3/4 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
+      >
+        <div class="my-8">
+          <p class="text-3xl text-bold">
+            <span class="inline">
+              <font-awesome-icon
+                icon="fa-fire-flame-curved"
+                class="mr-2 text-orange-600"
+            /></span>
+            Popular Choice
+          </p>
+        </div>
+        <div class="container flex flex-wrap justify-between">
+          <base-product-card-vertical
+            v-for="item in getProduct"
+            :key="item.id"
+            :product="item"
+            @addToCart="addToCartStore"
+            @deletedProduct="deleteFromStore"
+          ></base-product-card-vertical>
+        </div>
+      </section>
+
+      <section
+        class="container w-3/4 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
+      >
+        <div class="my-8">
+          <p class="text-3xl text-bold">Blend To Bar Chocolate</p>
+        </div>
+        <div class="container flex flex-wrap justify-between">
+          <base-product-card-vertical
+            v-for="item in getProduct"
+            @addToCart="addToCartStore"
+            @deletedProduct="deleteFromStore"
+            :key="item.id"
+            :product="item"
+          ></base-product-card-vertical>
+        </div>
+      </section>
+    </main>
   </div>
-
-  <main class="container mx-auto">
-    <teleport to="body">
-      <cart-balloon></cart-balloon>
-    </teleport>
-
-    <section
-      class="container w-3/4 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
-    >
-      <div class="my-8">
-        <p class="text-3xl text-bold">
-          <span class="inline">
-            <font-awesome-icon
-              icon="fa-fire-flame-curved"
-              class="mr-2 text-orange-600"
-          /></span>
-          Popular Choice
-        </p>
-      </div>
-      <div class="container flex flex-wrap justify-between">
-        <base-product-card-vertical
-          v-for="item in getProduct"
-          :key="item.id"
-          :product="item"
-          @addToCart="addToCartStore"
-          @deletedProduct="deleteFromStore"
-        ></base-product-card-vertical>
-      </div>
-    </section>
-
-    <section
-      class="container w-3/4 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
-    >
-      <div class="my-8">
-        <p class="text-3xl text-bold">Blend To Bar Chocolate</p>
-      </div>
-      <div class="container flex flex-wrap justify-between">
-        <base-product-card-vertical
-          v-for="item in getProduct"
-          @addToCart="addToCartStore"
-          @deletedProduct="deleteFromStore"
-          :key="item.id"
-          :product="item"
-        ></base-product-card-vertical>
-      </div>
-    </section>
-  </main>
 </template>
 
 <script>

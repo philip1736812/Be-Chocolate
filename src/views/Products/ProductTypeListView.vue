@@ -1,7 +1,9 @@
 <template>
-  <div class="w-full"></div>
+  <div>
+    <div class="w-full"></div>
 
-  {{ productTypeName }}
+    {{ productTypeName }}
+  </div>
 </template>
 
 <script>

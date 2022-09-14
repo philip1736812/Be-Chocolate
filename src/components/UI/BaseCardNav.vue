@@ -46,14 +46,14 @@ export default {
     selectedNav() {
       this.countingTime = 0;
       this.intervalFn = setInterval(() => {
-        this.countingTime += 200;
+        this.countingTime += 300;
 
-        if (this.countingTime === 200) return;
+        if (this.countingTime === 300) return;
         this.clearIntervalFn();
 
         this.productSelected = this.routeUrlGen;
         this.$emit("productSelected", this.productSelected);
-      }, 200);
+      }, 300);
     },
   },
 };

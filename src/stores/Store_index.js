@@ -6,6 +6,7 @@ export const useIndexStore = defineStore({
     return {
       observer: null,
       leaveHeader: false,
+      isActiveCartList: false,
     };
   },
   getters: {

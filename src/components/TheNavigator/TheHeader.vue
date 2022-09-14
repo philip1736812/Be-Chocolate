@@ -28,7 +28,7 @@
 
           <transition name="cartListDraw">
             <cart-list
-              v-if="cartIsHover"
+              v-if="isCartActive && !indexStore.getLeaveHeaderStatus"
               @closeOverlayCart="closeCart"
               :userCart="userCartData"
               :cartAmount="cartAmount"
@@ -61,20 +61,18 @@ export default {
     const observer = this.getObserver;
     observer.observe(this.$refs.header);
   },
-  data() {
-    return {
-      cartIsHover: false,
-    };
-  },
   methods: {
     activeCart() {
-      this.cartIsHover = true;
+      this.indexStore.isActiveCartList = true;
     },
     closeCart() {
-      this.cartIsHover = false;
+      this.indexStore.isActiveCartList = false;
     },
   },
   computed: {
+    isCartActive() {
+      return this.indexStore.isActiveCartList;
+    },
     cartAmount() {
       return this.cartList.itemInCartAmount;
     },
