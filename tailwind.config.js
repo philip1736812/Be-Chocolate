@@ -11,6 +11,7 @@ module.exports = {
     "./src/components/HomeView/CraftChocolateSection.vue",
     "./src/components/UI/BaseProductCardVertical.vue",
     "./src/components/CraftChocolateView/Carousel.vue",
+    "./src/views/products/ProductTypeListView.vue"
   ],
   theme: {
     extend: {},

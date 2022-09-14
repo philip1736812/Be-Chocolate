@@ -6,9 +6,7 @@
   </header>
   <main>
     <teleport to="body">
-      <transition name="cartBalloon" mode="out-in">
-        <cart-balloon v-if="leaveHeaderStatus"></cart-balloon>
-      </transition>
+      <cart-balloon></cart-balloon>
     </teleport>
 
     <div class="itemNav_container">
@@ -17,20 +15,29 @@
         :key="prod.name"
         :navName="prod.name"
         :urlNav="prod.pictureUrl"
+        @productSelected="selectedNav"
       ></base-card-nav>
     </div>
 
-    <section class="showHotItem">
-      <base-product-card
-        v-for="item in cacaoPodsItems"
-        :key="item"
-        :product="item"
-        @selectedProductToCart="addToCart"
-        @deletedProduct="deleteSelectedProd"
-      ></base-product-card>
+    <transition name="hotItems" mode="out-in">
+      <section class="showHotItem" v-if="getProducts">
+        <div>
+          <h2>Hot Items</h2>
+        </div>
+        <base-product-card
+          v-for="item in getProducts"
+          :key="item"
+          :product="item"
+          @selectedProductToCart="addToCart"
+          @deletedProduct="deleteSelectedProd"
+        ></base-product-card>
 
-      <router-link to="/"> See All </router-link>
-    </section>
+        <router-link to="/"> See All </router-link>
+      </section>
+      <div class="haveNoItem" v-else>
+        <p>Have No Products</p>
+      </div>
+    </transition>
 
     <section class="craftChocolate">
       <craft-chocolate-section></craft-chocolate-section>
@@ -39,10 +46,8 @@
 </template>
 
 <script>
-import { mapState } from "pinia";
 import { useProductStore } from "@/stores/ProductItems/Store_product";
 import { userCartList } from "@/stores/Cart/Cart_items";
-import { useIndexStore } from "@/stores/Store_index";
 
 import BaseCardNav from "@/components/UI/BaseCardNav.vue";
 import BaseProductCard from "@/components/UI/BaseProductCard.vue";
@@ -60,9 +65,9 @@ export default {
   },
   setup() {
     const cartList = userCartList();
-    const indexStore = useIndexStore();
+    const productItems = useProductStore();
 
-    return { cartList, indexStore };
+    return { cartList, productItems };
   },
   data() {
     return {
@@ -106,20 +111,16 @@ export default {
 
       productCardActive: false,
       hoverKey: null,
+      selectedNavName: "",
     };
   },
-  created() {
-    this.indexStore.createObserver();
-  },
   computed: {
-    ...mapState(useProductStore, ["cacaoPodsItems"]),
+    getProducts() {
+      return this.productItems.getProduct;
+    },
 
     itemInCart() {
       return this.cartList.itemInCart;
-    },
-
-    leaveHeaderStatus() {
-      return this.indexStore.getLeaveHeaderStatus;
     },
   },
   methods: {
@@ -168,8 +169,9 @@ export default {
       }
     },
 
-    onElementObserved(entries) {
-      this.indexStore.onElementObserved(entries);
+    selectedNav(name) {
+      this.selectedNavName = name;
+      this.productItems.filterProduct(name);
     },
   },
 };
@@ -222,6 +224,13 @@ main {
     }
   }
 
+  .haveNoItem {
+    text-align: center;
+    margin: 0 auto;
+    padding: 8rem 0;
+    font-size: 2rem;
+  }
+
   section.showHotItem {
     display: flex;
     flex-flow: column;
@@ -245,27 +254,22 @@ main {
       text-decoration: underline;
     }
   }
-}
 
-.cartBalloon-enter-active {
-  animation: scaleBubble 0.15s ease-in;
-}
-
-.cartBalloon-leave-active {
-  animation: scaleBubble 0.15s ease-out reverse;
-}
-
-@keyframes scaleBubble {
-  0% {
-    transform: scale(0);
+  .hotItems-enter-active {
+    animation: fadeTransition 0.25s ease-in;
   }
 
-  80% {
-    transform: scale(1.12);
+  .hotItems-leave-active {
+    animation: fadeTransition 0.25s ease-in reverse;
   }
 
-  100% {
-    transform: scale(1);
+  @keyframes fadeTransition {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 }
 </style>

@@ -28,12 +28,14 @@
       ></base-btn-add-to-cart>
     </div>
 
-    <div class="picture">
-      <p>IMG</p>
-      <p>IMG</p>
-      <p>IMG</p>
-      <p>IMG</p>
-      <p>IMG</p>
+    <div class="pictureContainer">
+      <img
+        class="pictureItems"
+        v-for="picUrl in product.picUrl"
+        :key="picUrl"
+        :src="picUrl"
+        :alt="product.type"
+      />
       <p class="sold"><strong>Sold:</strong> {{ product.soldCount }} time</p>
     </div>
 
@@ -88,6 +90,10 @@ export default {
         type: this.product.type,
         price: this.product.price,
         storeName: this.product.storeName,
+        picUrl:
+          this.product.picUrl[
+            Math.floor(Math.random() * this.product.picUrl.length)
+          ],
       });
     },
 
@@ -162,12 +168,24 @@ export default {
       margin-bottom: 26px;
     }
   }
-  .picture {
+  .pictureContainer {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-around;
     padding-left: 1rem;
+
+    img.pictureItems {
+      cursor: pointer;
+      border-radius: 5px;
+      max-width: 120px;
+      transition: all 0.25s ease-in-out;
+
+      &:hover {
+        box-shadow: 1px 1px 10px 1px rgba(50, 50, 50, 0.6);
+        transform: scale(1.05);
+      }
+    }
 
     p.sold {
       position: absolute;

@@ -1,13 +1,61 @@
 <template>
-  <div class="itemNav">
-    <img :src="urlNav" :alt="navName" />
-    <p>{{ navName }}</p>
+  <div>
+    <base-button
+      @mouseenter="selectedNav"
+      @mouseleave="clearIntervalFn"
+      link
+      :to="{ name: 'productType', params: { productTypeName: routeUrlGen } }"
+      class="itemNav"
+    >
+      <img :src="urlNav" :alt="navName" />
+      <p>{{ navName }}</p>
+    </base-button>
   </div>
 </template>
 
 <script>
+import BaseButton from "./BaseButton.vue";
+
 export default {
   props: ["navName", "urlNav"],
+  components: { BaseButton },
+  data() {
+    return {
+      productSelected: null,
+      countingTime: 0,
+      intervalFn: null,
+    };
+  },
+  computed: {
+    routeUrlGen() {
+      return this.navName
+        .split(" ")
+        .map((str, i) => {
+          return i === 0
+            ? str.toLowerCase()
+            : str[0].toUpperCase() + str.slice(1);
+        })
+        .join("");
+    },
+  },
+  created() {},
+  methods: {
+    clearIntervalFn() {
+      clearInterval(this.intervalFn);
+    },
+    selectedNav() {
+      this.countingTime = 0;
+      this.intervalFn = setInterval(() => {
+        this.countingTime += 200;
+
+        if (this.countingTime === 200) return;
+        this.clearIntervalFn();
+
+        this.productSelected = this.routeUrlGen;
+        this.$emit("productSelected", this.productSelected);
+      }, 200);
+    },
+  },
 };
 </script>
 
@@ -27,7 +75,7 @@ export default {
   transition: all 0.25s ease-in-out;
 
   &.itemNav:hover {
-    background: #FFF;
+    background: #fff;
   }
 
   img {

@@ -26,9 +26,7 @@
 
   <main class="container mx-auto">
     <teleport to="body">
-      <transition name="cartBalloon" mode="out-in">
-        <cart-balloon v-if="leaveHeaderStatus"></cart-balloon>
-      </transition>
+      <cart-balloon></cart-balloon>
     </teleport>
 
     <section
@@ -75,7 +73,6 @@
 </template>
 
 <script>
-import { useIndexStore } from "@/stores/Store_index";
 import { useCraftChocolateStore } from "../../stores/CraftChocolate/Store_craftChocolate";
 import { userCartList } from "@/stores/Cart/Cart_items";
 
@@ -92,19 +89,12 @@ export default {
     Carousel,
   },
   setup() {
-    const indexStore = useIndexStore();
     const craftChocolateStore = useCraftChocolateStore();
     const cartList = userCartList();
 
-    return { indexStore, craftChocolateStore, cartList };
-  },
-  created() {
-    this.indexStore.createObserver();
+    return { craftChocolateStore, cartList };
   },
   computed: {
-    leaveHeaderStatus() {
-      return this.indexStore.getLeaveHeaderStatus;
-    },
     getProduct() {
       return this.craftChocolateStore.getStoreProduct;
     },
@@ -155,9 +145,6 @@ export default {
         );
         this.cartList.addToTheCart(newCart);
       }
-    },
-    onElementObserved(entries) {
-      this.indexStore.onElementObserved(entries);
     },
   },
 };

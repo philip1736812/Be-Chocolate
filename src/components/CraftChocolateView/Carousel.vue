@@ -9,7 +9,7 @@
         data-carousel-item="active"
       >
         <img
-          src="/docs/images/carousel/carousel-1.svg"
+          src="http://drive.google.com/uc?export=view&id=1bc9DJhE9csefiM34WwIPyhUCbC-Cc8TW"
           class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           alt="..."
         />
@@ -21,7 +21,7 @@
         data-carousel-item=""
       >
         <img
-          src="/docs/images/carousel/carousel-2.svg"
+          src="http://drive.google.com/uc?export=view&id=1bc9DJhE9csefiM34WwIPyhUCbC-Cc8TW"
           class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           alt="..."
         />
@@ -33,7 +33,7 @@
         data-carousel-item=""
       >
         <img
-          src="/docs/images/carousel/carousel-3.svg"
+          src="http://drive.google.com/uc?export=view&id=1bc9DJhE9csefiM34WwIPyhUCbC-Cc8TW"
           class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           alt="..."
         />
@@ -45,7 +45,7 @@
         data-carousel-item=""
       >
         <img
-          src="/docs/images/carousel/carousel-4.svg"
+          src="http://drive.google.com/uc?export=view&id=1bc9DJhE9csefiM34WwIPyhUCbC-Cc8TW"
           class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           alt="..."
         />
@@ -57,7 +57,7 @@
         data-carousel-item=""
       >
         <img
-          src="/docs/images/carousel/carousel-5.svg"
+          src="http://drive.google.com/uc?export=view&id=1bc9DJhE9csefiM34WwIPyhUCbC-Cc8TW"
           class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           alt="..."
         />

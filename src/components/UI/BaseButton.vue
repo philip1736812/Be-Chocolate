@@ -22,7 +22,6 @@ export default {
       default: false,
     },
     to: {
-      type: String,
       required: false,
       default: "/",
     },

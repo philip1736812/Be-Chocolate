@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container overflow-hidden absolute top-0 left-0 w-96 h-auto mx-auto p-6 -translate-x-1/4 translate-y-16 bg-gray-50 rounded-md z-20"
+    class="container overflow-hidden absolute top-0 left-0 w-96 h-auto mx-auto p-6 -translate-x-1/4 translate-y-16 bg-gray-50 rounded-md z-50"
   >
     <div class="container w-full pb-4 border-b-2 border-slate-800 text-lg">
       <h2 class="text-slate-500 text-2xl">
@@ -22,8 +22,8 @@
         v-for="item in cartItems"
         :key="item.id"
       >
-        <div class="w-1/4 h-2/4">
-          <img class="rounded-md" :src="item.picUrl" :alt="item.name" />
+        <div class="w-1/4 h-2/4 overflow-hidden rounded-md">
+          <img class="rounded-md w-auto h-full" :src="item.picUrl" :alt="item.name" />
         </div>
 
         <div class="container mx-sm ml-4">
