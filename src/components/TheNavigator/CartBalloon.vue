@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div class="-translate-x-64 -translate-y-4">
+        <div class="-translate-x-64 -translate-y-2">
           <transition name="cartListDraw">
             <cart-list
               v-if="isCartActive && leaveHeaderStatus"

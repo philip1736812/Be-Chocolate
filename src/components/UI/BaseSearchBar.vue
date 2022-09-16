@@ -1,11 +1,23 @@
 <template>
-  <form>
-    <input type="text" placeholder="Craft Chocolate..." />
+  <form @input.prevent="$emit('submitSearchEmit', inputSearchText)">
+    <input
+      type="text"
+      placeholder="Craft Chocolate..."
+      v-model="inputSearchText"
+    />
     <button>
       <font-awesome-icon class="searchIcon" icon="fa-magnifying-glass" />
     </button>
   </form>
 </template>
+
+<script>
+export default {
+  data() {
+    return { inputSearchText: "" };
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 button {

@@ -35,7 +35,15 @@
             @deletedProduct="deleteSelectedProd"
           ></base-product-card>
 
-          <router-link to="/"> See All </router-link>
+          <base-button
+            link
+            :to="{
+              name: 'productType',
+              params: { productTypeName: `${selectedNavName || 'cacaoPods'}` },
+            }"
+          >
+            See All
+          </base-button>
         </section>
         <div class="haveNoItem" v-else>
           <p>Have No Products</p>
@@ -57,7 +65,8 @@ import BaseCardNav from "@/components/UI/BaseCardNav.vue";
 import BaseProductCard from "@/components/UI/BaseProductCard.vue";
 import CraftChocolateSection from "@/components/HomeView/CraftChocolateSection.vue";
 import CartBalloon from "@/components/TheNavigator/CartBalloon.vue";
-import BaseSearchBar from "../../components/UI/BaseSearchBar.vue";
+import BaseSearchBar from "@/components/UI/BaseSearchBar.vue";
+import BaseButton from "@/components/UI/BaseButton.vue";
 
 export default {
   components: {
@@ -66,6 +75,7 @@ export default {
     CraftChocolateSection,
     CartBalloon,
     BaseSearchBar,
+    BaseButton,
   },
   setup() {
     const cartList = userCartList();
@@ -135,48 +145,11 @@ export default {
   },
   methods: {
     addToCart(prod) {
-      const hasItemProd = this.itemInCart.find(
-        (product) => product.id === prod.id
-      );
-      const item_qty = hasItemProd ? (hasItemProd.prodItem_qty += 1) : 1;
-
-      const remainCart = this.itemInCart.slice();
-      // add to cart
-      if (!hasItemProd) {
-        const dataToCart = {
-          ...prod,
-          prodItem_qty: item_qty,
-        };
-
-        remainCart.unshift(dataToCart);
-        this.cartList.addToTheCart(remainCart);
-        return;
-      }
-
-      // update qty
-      const updateCart = {
-        ...hasItemProd,
-        prodItem_qty: item_qty,
-      };
-      const newCart = remainCart.filter((product) => product.id !== prod.id);
-
-      newCart.unshift(updateCart);
-      this.cartList.addToTheCart(newCart);
+      this.cartList.addToTheCart(prod);
     },
 
     deleteSelectedProd(prodId) {
-      const inCart = this.cartList.cart.find((item) => item.id === prodId);
-      if (inCart.prodItem_qty >= 1) {
-        inCart.prodItem_qty -= 1;
-
-        if (inCart.prodItem_qty !== 0) return;
-
-        // update qty
-        const newCart = this.cartList.cart.filter(
-          (product) => product.id !== inCart.id
-        );
-        this.cartList.addToTheCart(newCart);
-      }
+      this.cartList.deleteFromCart(prodId);
     },
 
     selectedNav(name) {
@@ -279,7 +252,7 @@ main {
       border-bottom: 1px solid #e8e8e8;
       padding: 0 0 40px 0;
 
-      bottom: -45%;
+      bottom: -47%;
     }
 
     a {

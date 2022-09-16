@@ -7,6 +7,7 @@ export const useIndexStore = defineStore({
       observer: null,
       leaveHeader: false,
       isActiveCartList: false,
+      isActiveNotification: false,
     };
   },
   getters: {
@@ -22,6 +23,10 @@ export const useIndexStore = defineStore({
       this.observer = new IntersectionObserver(this.onElementObserved, {
         root: null,
         threshold: 0,
+      });
+
+      return new Promise((resolve) => {
+        if (this.observer !== null) resolve(this.observer);
       });
     },
 

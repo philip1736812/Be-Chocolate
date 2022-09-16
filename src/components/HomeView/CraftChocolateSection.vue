@@ -11,7 +11,7 @@
       </p>
 
       <div class="mt-6 text-lg">
-        <base-button mode="mainBtn"> View Craft </base-button>
+        <base-button mode="mainBtn" @click="goToHash"> View Craft </base-button>
       </div>
     </div>
   </div>
@@ -22,6 +22,11 @@ import BaseButton from "../UI/BaseButton.vue";
 
 export default {
   components: { BaseButton },
+  methods: {
+    goToHash() {
+      this.$router.push({ name: "craftChocolate" });
+    },
+  },
 };
 </script>
 
