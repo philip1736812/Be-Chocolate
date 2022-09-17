@@ -2,7 +2,7 @@
   <header ref="header">
     <ul>
       <li>
-        <router-link to="/">
+        <router-link :to="{ name: 'home' }" style="border: none">
           <img
             src="../../assets/TheNavigation/ChocolateBar_logo.png"
             alt="BeChocolate"
@@ -10,13 +10,65 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/"> Home </router-link>
-        <router-link to="/craftChocolate"> Craft Chocolate </router-link>
-        <router-link to="#"> Rating </router-link>
-        <router-link to="#"> Community </router-link>
-        <router-link to="#"> Your Shop </router-link>
+        <span>
+          <router-link :to="{ name: 'home' }"> Home </router-link>
+          <div class="relative w-full h-2.5">
+            <transition name="routeCircle" mode="out-in">
+              <div
+                v-if="routeUrl === 'home'"
+                class="absolute right-2/4 translate-x-2/4 w-2.5 h-2.5 mt-2 bg-slate-700 rounded-full"
+              ></div>
+            </transition>
+          </div>
+        </span>
+        <span>
+          <router-link :to="{ name: 'craftChocolate' }">
+            Craft Chocolate
+          </router-link>
+          <div class="relative w-full h-2.5">
+            <transition name="routeCircle" mode="out-in">
+              <div
+                v-if="routeUrl === 'craftChocolate'"
+                class="absolute right-2/4 translate-x-2/4 w-2.5 h-2.5 mt-2 bg-slate-700 rounded-full"
+              ></div>
+            </transition>
+          </div>
+        </span>
+        <span>
+          <router-link :to="{ name: 'rating' }"> Rating </router-link>
+          <div class="relative w-full h-2.5">
+            <transition name="routeCircle" mode="out-in">
+              <div
+                v-if="routeUrl === 'rating'"
+                class="absolute right-2/4 translate-x-2/4 w-2.5 h-2.5 mt-2 mx-auto bg-slate-700 rounded-full"
+              ></div>
+            </transition>
+          </div>
+        </span>
+        <span>
+          <router-link to="#"> Community </router-link>
+          <div class="relative w-full h-2.5">
+            <transition name="routeCircle" mode="out-in">
+              <div
+                v-if="routeUrl === '#'"
+                class="absolute right-2/4 translate-x-2/4 w-2.5 h-2.5 mt-2 mx-auto bg-slate-700 rounded-full"
+              ></div>
+            </transition>
+          </div>
+        </span>
+        <span>
+          <router-link to="#"> Your Shop </router-link>
+          <div class="relative w-full h-2.5">
+            <transition name="routeCircle" mode="out-in">
+              <div
+                v-if="routeUrl === '#'"
+                class="absolute right-2/4 translate-x-2/4 w-2.5 h-2.5 mt-2 mx-auto bg-slate-700 rounded-full"
+              ></div>
+            </transition>
+          </div>
+        </span>
       </li>
-      <li>
+      <li class="relative flex items-center">
         <div class="notifications">
           <button
             id="dropdownNotificationButton"
@@ -44,11 +96,12 @@
           </button>
 
           <transition name="notificationPop">
-            <div v-if="isNotificationActive && !isLeaveHeader">
+            <div v-if="isNotificationActive && !isLeaveHeader" class="w-full">
               <notifications @disActive="activeNotifications"></notifications>
             </div>
           </transition>
         </div>
+
         <div class="cartIcon mx-2" @click="activeCart">
           <router-link to="#">
             <img
@@ -67,10 +120,46 @@
             ></cart-list>
           </transition>
         </div>
-        <router-link to="#">
-          <font-awesome-icon icon="fa-solid fa-user" size="lg" />
-          Profile
-        </router-link>
+
+        <div class="relative h-full ml-8" v-if="true">
+          <base-button link>
+            <span class="text-xl font-medium">
+              <font-awesome-icon icon="fa-right-to-bracket" class="mx-2" />
+              Login
+            </span>
+          </base-button>
+        </div>
+        <div class="relative ml-8" v-else>
+          <button
+            id="dropdownAvatarNameButton"
+            data-dropdown-toggle="dropdownAvatarName"
+            class="static flex items-center text-lg font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+            type="button"
+          >
+            <span class="sr-only">Open user menu</span>
+            <img
+              class="mr-2 w-8 h-8 rounded-full"
+              src="/docs/images/people/profile-picture-3.jpg"
+              alt="user photo"
+            />
+            Bonnie Green
+            <svg
+              class="w-4 h-4 mx-1.5"
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+
+          <user-profile id="dropdownAvatarName"></user-profile>
+        </div>
       </li>
     </ul>
   </header>
@@ -82,9 +171,19 @@ import { useIndexStore } from "@/stores/Store_index";
 import { onUpdated, ref } from "vue";
 import CartList from "./cartList.vue";
 import Notifications from "./Notifications.vue";
+import UserProfile from "./UserProfile.vue";
+import BaseButton from "../UI/BaseButton.vue";
 
 export default {
-  components: { CartList, Notifications },
+  components: { CartList, Notifications, UserProfile, BaseButton },
+  data() {
+    return {
+      dropdownAvatarNameButton: null,
+      dropdownAvatarName: null,
+      dropdown: null,
+      options: null,
+    };
+  },
   setup() {
     const cartList = userCartList();
     const indexStore = useIndexStore();
@@ -97,13 +196,32 @@ export default {
       });
     });
 
-    return { cartList, indexStore, header };
+    return {
+      cartList,
+      indexStore,
+      header,
+    };
   },
   mounted() {
     const observer = this.getObserver;
     if (!observer) return;
 
     observer.observe(this.header);
+
+    // active profile dropdown
+    this.dropdownAvatarButton = this.$el.querySelector(
+      "#dropdownAvatarNameButton"
+    );
+    this.dropdownAvatar = this.$el.querySelector("#dropdownAvatarName");
+
+    this.options = {
+      placement: "bottom",
+    };
+    this.dropdown = new Dropdown(
+      this.dropdownAvatar,
+      this.dropdownAvatarButton,
+      this.options
+    );
   },
   methods: {
     activeCart() {
@@ -115,6 +233,10 @@ export default {
     activeNotifications() {
       this.indexStore.isActiveNotification =
         !this.indexStore.isActiveNotification;
+    },
+    activeProfile() {
+      console.log(this.dropdown);
+      this.dropdown.show();
     },
   },
   computed: {
@@ -136,6 +258,9 @@ export default {
     isLeaveHeader() {
       return this.indexStore.getLeaveHeaderStatus;
     },
+    routeUrl() {
+      return this.$route.name;
+    },
   },
 };
 </script>
@@ -147,7 +272,7 @@ header {
   align-items: center;
 
   background-color: #f5f5f5;
-  height: 140px;
+  height: 110px;
 }
 
 ul {
@@ -182,7 +307,7 @@ ul {
       display: inline;
       width: 36px;
     }
-    & > a {
+    & > span {
       position: relative;
 
       margin: auto 2rem;
@@ -190,24 +315,16 @@ ul {
       font-size: 20px;
       font-weight: normal;
       color: rgb(101, 112, 124);
+      transition: all 0.3s ease-in-out;
 
-      &:hover {
+      & > a:hover {
         // font-weight: bold;
         color: rgb(68, 76, 84);
       }
 
-      &.router-link-active {
+      & > a.router-link-active {
         font-weight: bold;
       }
-
-      // &::before {
-      //   position: absolute;
-      //   content: "💢";
-
-      //   bottom: -20px;
-      //   right: 0;
-      //   transform: translate(-50%, 50%);
-      // }
     }
   }
 }
@@ -228,6 +345,31 @@ ul {
   }
 
   100% {
+    opacity: 1;
+  }
+}
+
+.routeCircle-enter-active {
+  animation: circleMoveIn 0.25s ease-in;
+}
+
+.routeCircle-leave-active {
+  animation: circleMoveIn 0.25s ease-out reverse;
+}
+
+@keyframes circleMoveIn {
+  0% {
+    transform: translate(50%, 3rem);
+    opacity: 0;
+  }
+
+  85% {
+    transform: translate(50%, -0.3rem);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(50%, 0rem);
     opacity: 1;
   }
 }

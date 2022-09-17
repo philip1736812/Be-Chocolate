@@ -133,9 +133,16 @@ export default {
       return this.searchVal === ""
         ? this.craftChocolateStore.getStoreProduct
         : this.craftChocolateStore.getStoreProduct.filter((item) => {
-            return item.name
-              .toLowerCase()
-              .includes(this.searchVal.toLowerCase());
+            console.log(typeof `${item.price}`);
+            return (
+              item.name.toLowerCase().includes(this.searchVal.toLowerCase()) ||
+              item.storeName
+                .toLowerCase()
+                .includes(this.searchVal.toLowerCase()) ||
+              `${item.price}`
+                .toLowerCase()
+                .includes(this.searchVal.toLowerCase())
+            );
           });
     },
     itemInCart() {

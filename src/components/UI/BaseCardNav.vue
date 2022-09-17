@@ -3,6 +3,7 @@
     <base-button
       @mouseenter="selectedNav"
       @mouseleave="clearIntervalFn"
+      @click="clickThisNavEmit"
       link
       :to="{ name: 'productType', params: { productTypeName: routeUrlGen } }"
       class="itemNav"
@@ -19,6 +20,7 @@ import BaseButton from "./BaseButton.vue";
 export default {
   props: ["navName", "urlNav"],
   components: { BaseButton },
+  emits: ["clickThisNav"],
   data() {
     return {
       productSelected: null,
@@ -54,6 +56,10 @@ export default {
         this.productSelected = this.routeUrlGen;
         this.$emit("productSelected", this.productSelected);
       }, 300);
+    },
+    clickThisNavEmit() {
+      this.productSelected = this.routeUrlGen;
+      this.$emit("clickThisNav", this.productSelected);
     },
   },
 };

@@ -13,6 +13,9 @@ import {
   faCartShopping,
   faStore,
   faFireFlameCurved,
+  faRightToBracket,
+  faFilter,
+  faSquarePollVertical,
 } from "@fortawesome/free-solid-svg-icons";
 
 import App from "./App.vue";
@@ -34,7 +37,10 @@ library.add(
   faMinus,
   faCartShopping,
   faStore,
-  faFireFlameCurved
+  faFireFlameCurved,
+  faRightToBracket,
+  faFilter,
+  faSquarePollVertical
 );
 app.component("font-awesome-icon", FontAwesomeIcon);
 

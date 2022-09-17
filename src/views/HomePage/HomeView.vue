@@ -17,6 +17,7 @@
           :navName="prod.name"
           :urlNav="prod.pictureUrl"
           @productSelected="selectedNav"
+          @clickThisNav="selectedNav"
         ></base-card-nav>
       </div>
 
@@ -130,7 +131,7 @@ export default {
   },
   computed: {
     getProducts() {
-      return this.productItems.getProduct;
+      return this.productItems.getAllProductType?.slice(0, 4);
     },
 
     itemInCart() {
@@ -154,7 +155,7 @@ export default {
 
     selectedNav(name) {
       this.selectedNavName = name;
-      this.productItems.filterProduct(name);
+      this.productItems.activeProduct(name);
     },
   },
 };

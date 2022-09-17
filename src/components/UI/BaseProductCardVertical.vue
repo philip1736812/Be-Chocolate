@@ -1,10 +1,10 @@
 <template>
   <div
-    class="relative w-72 text-gray-800 px-3 py-2 rounded-lg hover:shadow-xl hover:scale-105 hover:bg-slate-100 transition-all"
+    class="relative w-72 text-gray-800 px-3 py-2 rounded-lg hover:shadow-xl hover:z-50 hover:scale-105 hover:bg-slate-100 transition-all"
   >
-    <div>
+    <div class="w-64 h-80 overflow-hidden">
       <img
-        class="rounded-lg w-full h-full"
+        class="rounded-lg w-auto h-full"
         :src="product.pictureUrl"
         :alt="product.storeName"
       />

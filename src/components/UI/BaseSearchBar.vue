@@ -1,8 +1,8 @@
 <template>
-  <form @input.prevent="$emit('submitSearchEmit', inputSearchText)">
+  <form @submit.prevent="$emit('submitSearchEmit', inputSearchText)">
     <input
       type="text"
-      placeholder="Craft Chocolate..."
+      placeholder="search for..."
       v-model="inputSearchText"
     />
     <button>
@@ -53,7 +53,7 @@ input {
   border-radius: 10px;
   outline: none;
   padding: 0 1.3rem;
-  margin: 0 0 0.6rem 0;
+  // margin: 0 0 0.6rem 0;
   font-size: 19px;
   border: 1px solid #c4c4c4;
   transition: all 0.25s ease-in;

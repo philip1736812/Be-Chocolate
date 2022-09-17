@@ -16,7 +16,7 @@
       >
       <h2>{{ product.price }} Bath/kg.</h2>
       <p class="remaining">
-        Remaining: <strong> {{ product.remaining }} kg.</strong>
+        Only <strong> {{ product.remaining }} kg.</strong> left in stock!
       </p>
 
       <base-btn-add-to-cart

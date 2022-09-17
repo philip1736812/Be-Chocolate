@@ -2,14 +2,14 @@
   <!-- Dropdown menu -->
   <div
     id="dropdownNotification"
-    class="absolute top-0 right-0 z-50 w-full max-w-sm bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-800 dark:divide-gray-700 -translate-x-44 translate-y-24"
+    class="absolute top-0 right-0 z-50 w-96 max-w-sm bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-800 dark:divide-gray-700 -translate-x-12 translate-y-12"
     aria-labelledby="dropdownNotificationButton"
     data-popper-reference-hidden=""
     data-popper-escaped=""
     data-popper-placement="bottom"
   >
     <div
-      class="block py-2 px-4 font-lg text-center text-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white"
+      class="block text-lg py-2 px-4 font-lg text-center text-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white"
     >
       Notifications
     </div>
