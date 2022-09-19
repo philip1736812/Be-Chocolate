@@ -3,7 +3,7 @@
     <section class="mt-8">
       <div class="container mx-auto grid grid-cols-1">
         <div
-          class="w-3/4 flex flex-col justify-center items-center text-center mx-auto mb-16"
+          class="w-full lg:w-3/4 px-4 lg:p-0 flex flex-col justify-center items-center text-center mx-auto mb-16"
         >
           <h2 class="text-5xl mb-8">Craft Chocolate</h2>
           <p class="text-xl">
@@ -16,7 +16,7 @@
         </div>
 
         <div
-          class="w-3/4 mx-auto bg-slate-600 rounded-lg text-white text-center"
+          class="w-11/12 lg:w-3/4 mx-auto bg-slate-600 rounded-lg text-white text-center"
         >
           <carousel></carousel>
         </div>
@@ -33,7 +33,7 @@
       </teleport>
 
       <section
-        class="container w-3/4 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
+        class="container w-full lg:w-3/4 px-4 lg:p-0 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
       >
         <div class="my-8">
           <p class="text-3xl text-bold">
@@ -45,7 +45,9 @@
             Popular Choice
           </p>
         </div>
-        <div class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8">
+        <div
+          class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"
+        >
           <base-product-card-vertical
             v-for="item in getProduct"
             :key="item.id"
@@ -57,12 +59,14 @@
       </section>
 
       <section
-        class="container w-3/4 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
+        class="container w-full lg:w-3/4 px-4 lg:p-0  mx-auto mb-12 pb-6 border-b-2 border-gray-800"
       >
         <div class="my-8">
           <p class="text-3xl text-bold">Blend To Bar Chocolate</p>
         </div>
-        <div class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8">
+        <div
+          class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"
+        >
           <base-product-card-vertical
             v-for="item in getProduct"
             @addToCart="addToCartStore"
@@ -88,7 +92,9 @@
             Popular Choice
           </p>
         </div>
-        <div class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8">
+        <div
+          class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"
+        >
           <base-product-card-vertical
             v-for="item in getProduct"
             :key="item.id"

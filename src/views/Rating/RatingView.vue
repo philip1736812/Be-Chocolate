@@ -70,7 +70,7 @@
       class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"
     >
       <base-product-card-vertical
-        v-for="prod in getProducts"
+        v-for="prod in filterTopAfterFive"
         :key="prod.id"
         :product="prod"
         :isRatingCard="true"

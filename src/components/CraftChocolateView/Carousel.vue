@@ -1,7 +1,7 @@
 <template>
   <div id="indicators-carousel" class="relative" data-carousel="static">
     <!-- Carousel wrapper -->
-    <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+    <div class="relative h-52 overflow-hidden rounded-lg md:h-96 2xl:h-80 xl:h-72 lg:h-72 md:h-64" >
       <!-- Item 1 -->
       <div
         id="carousel-item-1"
