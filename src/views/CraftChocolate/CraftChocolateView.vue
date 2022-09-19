@@ -45,7 +45,7 @@
             Popular Choice
           </p>
         </div>
-        <div class="container flex flex-wrap justify-between">
+        <div class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8">
           <base-product-card-vertical
             v-for="item in getProduct"
             :key="item.id"
@@ -62,7 +62,7 @@
         <div class="my-8">
           <p class="text-3xl text-bold">Blend To Bar Chocolate</p>
         </div>
-        <div class="container flex flex-wrap justify-between">
+        <div class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8">
           <base-product-card-vertical
             v-for="item in getProduct"
             @addToCart="addToCartStore"
@@ -88,7 +88,7 @@
             Popular Choice
           </p>
         </div>
-        <div class="container flex flex-wrap">
+        <div class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8">
           <base-product-card-vertical
             v-for="item in getProduct"
             :key="item.id"

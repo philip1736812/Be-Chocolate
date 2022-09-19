@@ -17,7 +17,11 @@
     </transition>
 
     <transition name="qty" mode="out-in">
-      <p v-if="selected_prod && qty_thisItem >= 1" class="qtyProduct">
+      <p
+        v-if="selected_prod && qty_thisItem >= 1"
+        class="qtyProduct"
+        :class="{ brightText: textBrightMode }"
+      >
         {{ qty_thisItem }} kg
       </p>
     </transition>
@@ -40,6 +44,8 @@
 </template>
 
 <script>
+import { faL } from "@fortawesome/free-solid-svg-icons";
+
 export default {
   props: {
     qty_thisItem: {
@@ -53,6 +59,11 @@ export default {
     selected_prod: {
       type: Boolean,
       required: true,
+      default: false,
+    },
+    textBrightMode: {
+      type: Boolean,
+      required: false,
       default: false,
     },
   },
@@ -88,6 +99,10 @@ export default {
     font-size: 23px;
     font-weight: bold;
     margin: 0 1.4rem;
+  }
+
+  .brightText {
+    color: #fff;
   }
 
   button {

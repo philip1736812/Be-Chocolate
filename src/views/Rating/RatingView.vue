@@ -6,9 +6,9 @@
 
     <div class="container w-3/4 mx-auto"><p>Rating of this Month</p></div>
 
-    <div class="container w-3/4 mx-auto my-20 ">
+    <div class="container w-full lg:3/4 px-4 sm-px-0 mx-auto my-20">
       <div
-        class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+        class="p-4 w-full 2xl:w-3/4 lg:w-full mx-auto text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700"
       >
         <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
           Voting now
@@ -56,70 +56,83 @@
         </div>
       </div>
     </div>
-
-    <div class="container w-3/4 mx-auto">
-      <div
-        class="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700"
-      >
-        <a href="#">
-          <img
-            class="p-8 rounded-t-lg"
-            src="/docs/images/products/apple-watch.png"
-            alt="product image"
-          />
-        </a>
-        <div class="px-5 pb-5">
-          <a href="#">
-            <h5
-              class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white"
-            >
-              Apple Watch Series 7 GPS, Aluminium Case, Starlight Sport
-            </h5>
-          </a>
-          <div class="flex items-center mt-2.5 mb-5">
-            <svg
-              aria-hidden="true"
-              class="w-5 h-5 text-yellow-300"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>First star</title>
-              <path
-                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-              ></path>
-            </svg>
-            <span
-              class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3"
-              >5.0</span
-            >
-          </div>
-          <div class="flex justify-between items-center">
-            <span class="text-3xl font-bold text-gray-900 dark:text-white"
-              >$599</span
-            >
-            <a
-              href="#"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >Add to cart</a
-            >
-          </div>
-        </div>
-      </div>
+    <div class="container w-full lg:w-3/4 mx-auto">
+      <base-rating-card-top
+        v-for="(prod, i) in filterTopFive"
+        :key="prod.id"
+        :product="prod"
+        :index="i"
+        @addToCart="addToCart"
+        @DeleteFromCart="DeleteFromCart"
+      ></base-rating-card-top>
+    </div>
+    <div
+      class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"
+    >
+      <base-product-card-vertical
+        v-for="prod in getProducts"
+        :key="prod.id"
+        :product="prod"
+        :isRatingCard="true"
+        @addToCart="addToCart"
+        @deletedProduct="DeleteFromCart"
+      ></base-product-card-vertical>
     </div>
   </div>
 </template>
 
 <script>
+import { useCraftChocolateStore } from "../../stores/CraftChocolate/Store_craftChocolate";
+import { userCartList } from "../../stores/Cart/Cart_items";
+
 import CountingTime from "../../components/RatingView/CountingTime.vue";
 import BaseButton from "../../components/UI/BaseButton.vue";
+import BaseProductCardVertical from "../../components/UI/BaseProductCardVertical.vue";
+import BaseRatingCardTop from "../../components/UI/BaseRatingCardTop.vue";
 
 export default {
-  components: { CountingTime, BaseButton },
+  components: {
+    CountingTime,
+    BaseButton,
+    BaseRatingCardTop,
+    BaseProductCardVertical,
+  },
+  setup() {
+    const craftChocolateStore = useCraftChocolateStore();
+    const cartList = userCartList();
+
+    return { craftChocolateStore, cartList };
+  },
   data() {
     return {
       deadLineSetting: "September 30, 2022",
     };
+  },
+  computed: {
+    getProducts() {
+      return this.craftChocolateStore.getStoreProduct
+        .filter((prod) => {
+          return prod.rating.vote > 0;
+        })
+        .sort((a, b) => {
+          if (a.rating.ratingStar > b.rating.ratingStar) return -1;
+        });
+    },
+
+    filterTopFive() {
+      return this.getProducts.slice(0, 5);
+    },
+    filterTopAfterFive() {
+      return this.getProducts.slice(5);
+    },
+  },
+  methods: {
+    addToCart(prod) {
+      this.cartList.addToTheCart(prod);
+    },
+    DeleteFromCart(prodId) {
+      this.cartList.deleteFromCart(prodId);
+    },
   },
 };
 </script>

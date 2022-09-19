@@ -16,6 +16,8 @@ module.exports = {
     "./src/components/TheNavigator/UserProfile.vue",
     "./node_modules/flowbite/src/dropdown.js",
     "./src/views/Rating/RatingView.vue",
+    "./src/components/UI/BaseRatingCard.vue",
+    "./src/components/UI/BaseRatingCardTop.vue",
   ],
   theme: {
     extend: {},
