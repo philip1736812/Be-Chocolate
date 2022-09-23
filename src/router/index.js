@@ -4,6 +4,7 @@ import CraftChocolateView from "@/views/CraftChocolate/CraftChocolateView.vue";
 import TheHeader from "@/components/TheNavigator/TheHeader.vue";
 import ProductTypeListView from "@/views/Products/ProductTypeListView.vue";
 import RatingView from "@/views/Rating/RatingView.vue";
+import ProductReviewView from "@/views/CraftChocolate/ProductReviewView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,9 +17,19 @@ const router = createRouter({
     {
       path: "/craftChocolate",
       name: "craftChocolate",
+      props: true,
       components: {
         navigation: TheHeader,
         default: CraftChocolateView,
+      },
+    },
+    {
+      path: "/:productId",
+      name: "productReview",
+      props: true,
+      components: {
+        navigation: TheHeader,
+        default: ProductReviewView,
       },
     },
     {

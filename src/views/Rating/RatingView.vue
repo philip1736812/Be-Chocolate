@@ -1,12 +1,10 @@
 <template>
   <div>
-    <div>
-      <p>***** Our Items *****</p>
-    </div>
+    <teleport to="body">
+      <cart-balloon></cart-balloon>
+    </teleport>
 
-    <div class="container w-3/4 mx-auto"><p>Rating of this Month</p></div>
-
-    <div class="container w-full lg:3/4 px-4 sm-px-0 mx-auto my-20">
+    <div class="container w-full lg:s3/4 px-4 sm-px-0 mx-auto my-20">
       <div
         class="p-4 w-full 2xl:w-3/4 lg:w-full mx-auto text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700"
       >
@@ -56,6 +54,11 @@
         </div>
       </div>
     </div>
+
+    <div class="container w-3/4 mx-auto mb-7">
+      <p class="text-3xl text-center font-medium text-slate-800">Rating of Last Month</p>
+    </div>
+
     <div class="container w-full lg:w-3/4 mx-auto">
       <base-rating-card-top
         v-for="(prod, i) in filterTopFive"
@@ -89,6 +92,7 @@ import CountingTime from "../../components/RatingView/CountingTime.vue";
 import BaseButton from "../../components/UI/BaseButton.vue";
 import BaseProductCardVertical from "../../components/UI/BaseProductCardVertical.vue";
 import BaseRatingCardTop from "../../components/UI/BaseRatingCardTop.vue";
+import CartBalloon from "../../components/TheNavigator/CartBalloon.vue";
 
 export default {
   components: {
@@ -96,6 +100,7 @@ export default {
     BaseButton,
     BaseRatingCardTop,
     BaseProductCardVertical,
+    CartBalloon,
   },
   setup() {
     const craftChocolateStore = useCraftChocolateStore();

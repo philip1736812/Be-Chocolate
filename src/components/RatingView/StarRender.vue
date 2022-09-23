@@ -3,7 +3,7 @@
     v-for="time in STAR_FULL_SCORE"
     :key="time"
     aria-hidden="true"
-    class="w-5 h-5 text-yellow-300"
+    class="w-5 h-5 text-yellow-400"
     :class="{
       ratingHighlight: time <= ratingStarCount,
       ratingNoneHighlight: time > ratingStarCount,
@@ -22,13 +22,10 @@
 <script>
 export default {
   props: {
-    isRating: {
-      type: Boolean,
-      require: true,
-      default: false,
-    },
     ratingStarCount: {
       type: Number,
+      required: true,
+      default: 10,
     },
   },
   data() {
@@ -43,6 +40,6 @@ export default {
 }
 
 .ratingNoneHighlight {
-  color: rgb(82 82 91);
+  color: rgb(209 213 219);
 }
 </style>

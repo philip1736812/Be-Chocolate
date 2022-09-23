@@ -18,7 +18,7 @@
         <div
           class="w-11/12 lg:w-3/4 mx-auto bg-slate-600 rounded-lg text-white text-center"
         >
-          <carousel></carousel>
+          <carousel :imgSource="[]"></carousel>
         </div>
       </div>
     </section>
@@ -59,7 +59,7 @@
       </section>
 
       <section
-        class="container w-full lg:w-3/4 px-4 lg:p-0  mx-auto mb-12 pb-6 border-b-2 border-gray-800"
+        class="container w-full lg:w-3/4 px-4 lg:p-0 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
       >
         <div class="my-8">
           <p class="text-3xl text-bold">Blend To Bar Chocolate</p>
@@ -139,7 +139,6 @@ export default {
       return this.searchVal === ""
         ? this.craftChocolateStore.getStoreProduct
         : this.craftChocolateStore.getStoreProduct.filter((item) => {
-            console.log(typeof `${item.price}`);
             return (
               item.name.toLowerCase().includes(this.searchVal.toLowerCase()) ||
               item.storeName

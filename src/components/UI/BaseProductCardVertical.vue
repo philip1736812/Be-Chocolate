@@ -18,11 +18,18 @@
         <font-awesome-icon icon="fa-cart-arrow-down" class="text-white" />
       </div>
     </transition>
-
     <div class="mt-6">
-      <h2 class="text-2xl font-medium truncate Break Words overflow-hidden">
-        {{ product.name }}
-      </h2>
+      <base-button
+        link
+        :to="{
+          name: 'productReview',
+          params: { productId: product.id },
+        }"
+      >
+        <h2 class="text-2xl font-medium truncate Break Words overflow-hidden">
+          {{ product.name }}
+        </h2>
+      </base-button>
       <base-button link to="/" class="storeName text-slate-500">
         <font-awesome-icon icon="fa-store" class="mr-2" />{{
           product.storeName
@@ -113,10 +120,11 @@ export default {
         price: this.product.price,
         storeName: this.product.storeName,
         name: this.product.name,
-        picUrl: this.product.pictureUrl,
+        picUrl: this.getRandomPic,
       });
     },
     deleteProdEmit() {
+      console.log(this.product.id);
       this.$emit("deletedProduct", this.product.id);
     },
   },

@@ -16,6 +16,7 @@ import {
   faRightToBracket,
   faFilter,
   faSquarePollVertical,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 import App from "./App.vue";
@@ -40,7 +41,8 @@ library.add(
   faFireFlameCurved,
   faRightToBracket,
   faFilter,
-  faSquarePollVertical
+  faSquarePollVertical,
+  faArrowLeft
 );
 app.component("font-awesome-icon", FontAwesomeIcon);
 

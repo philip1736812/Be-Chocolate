@@ -1,63 +1,19 @@
 <template>
   <div id="indicators-carousel" class="relative" data-carousel="static">
     <!-- Carousel wrapper -->
-    <div class="relative h-52 overflow-hidden rounded-lg md:h-96 2xl:h-80 xl:h-72 lg:h-72 md:h-64" >
-      <!-- Item 1 -->
+    <div
+      class="relative h-52 overflow-hidden rounded-lg md:h-96 2xl:h-80 xl:h-72 lg:h-72 md:h-64"
+    >
+      <!-- Items-->
       <div
-        id="carousel-item-1"
+        v-for="(picUrl, index) in imgSource.length"
+        :key="picUrl + index"
+        :id="`carousel-item-${index + 1}`"
         class="hidden duration-700 ease-in-out absolute inset-0 transition-all transform translate-x-0 z-20"
-        data-carousel-item="active"
+        :data-carousel-item="index == 0 ? `active` : ''"
       >
         <img
-          src="http://drive.google.com/uc?export=view&id=1bc9DJhE9csefiM34WwIPyhUCbC-Cc8TW"
-          class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-          alt="..."
-        />
-      </div>
-      <!-- Item 2 -->
-      <div
-        id="carousel-item-2"
-        class="hidden duration-700 ease-in-out absolute inset-0 transition-all transform translate-x-full z-10"
-        data-carousel-item=""
-      >
-        <img
-          src="http://drive.google.com/uc?export=view&id=1bc9DJhE9csefiM34WwIPyhUCbC-Cc8TW"
-          class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-          alt="..."
-        />
-      </div>
-      <!-- Item 3 -->
-      <div
-        id="carousel-item-3"
-        class="hidden duration-700 ease-in-out absolute inset-0 transition-all transform"
-        data-carousel-item=""
-      >
-        <img
-          src="http://drive.google.com/uc?export=view&id=1bc9DJhE9csefiM34WwIPyhUCbC-Cc8TW"
-          class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-          alt="..."
-        />
-      </div>
-      <!-- Item 4 -->
-      <div
-        id="carousel-item-4"
-        class="hidden duration-700 ease-in-out absolute inset-0 transition-all transform"
-        data-carousel-item=""
-      >
-        <img
-          src="http://drive.google.com/uc?export=view&id=1bc9DJhE9csefiM34WwIPyhUCbC-Cc8TW"
-          class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-          alt="..."
-        />
-      </div>
-      <!-- Item 5 -->
-      <div
-        id="carousel-item-5"
-        class="hidden duration-700 ease-in-out absolute inset-0 transition-all transform -translate-x-full z-10"
-        data-carousel-item=""
-      >
-        <img
-          src="http://drive.google.com/uc?export=view&id=1bc9DJhE9csefiM34WwIPyhUCbC-Cc8TW"
+          :src="imgSource[index]"
           class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
           alt="..."
         />
@@ -68,44 +24,14 @@
       class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2"
     >
       <button
-        id="carousel-indicator-1"
+        v-for="(picUrl, index) in imgSource.length"
+        :key="picUrl + index"
+        :id="`carousel-indicator-${index + 1}`"
         type="button"
         class="w-3 h-3 rounded-full bg-white dark:bg-gray-800"
-        aria-current="true"
-        aria-label="Slide 1"
-        data-carousel-slide-to="0"
-      ></button>
-      <button
-        id="carousel-indicator-2"
-        type="button"
-        class="w-3 h-3 rounded-full bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800"
-        aria-current="false"
-        aria-label="Slide 2"
-        data-carousel-slide-to="1"
-      ></button>
-      <button
-        id="carousel-indicator-3"
-        type="button"
-        class="w-3 h-3 rounded-full bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800"
-        aria-current="false"
-        aria-label="Slide 3"
-        data-carousel-slide-to="2"
-      ></button>
-      <button
-        id="carousel-indicator-4"
-        type="button"
-        class="w-3 h-3 rounded-full bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800"
-        aria-current="false"
-        aria-label="Slide 4"
-        data-carousel-slide-to="3"
-      ></button>
-      <button
-        id="carousel-indicator-5"
-        type="button"
-        class="w-3 h-3 rounded-full bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800"
-        aria-current="false"
-        aria-label="Slide 5"
-        data-carousel-slide-to="4"
+        :aria-current="index == 0 ? true : false"
+        :aria-label="`Slide ${index + 1}`"
+        :data-carousel-slide-to="index"
       ></button>
     </div>
     <!-- Slider controls -->
@@ -166,67 +92,46 @@
 
 <script>
 export default {
+  props: {
+    imgSource: {
+      type: Array,
+      required: true,
+      default: [],
+    },
+  },
+  setup(props) {
+    const items = props.imgSource.map((_, i) => {
+      return {
+        position: i,
+        el: null,
+      };
+    });
+
+    const options = {
+      indicators: {
+        activeClasses: "bg-white dark:bg-gray-800",
+        inactiveClasses:
+          "bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800",
+        items: props.imgSource.map((_, i) => {
+          return {
+            position: i,
+            el: null,
+          };
+        }),
+      },
+    };
+
+    return { items, options };
+  },
   data() {
     return {
-      items: [
-        {
-          position: 0,
-          el: null,
-        },
-        {
-          position: 1,
-          el: null,
-        },
-        {
-          position: 2,
-          el: null,
-        },
-        {
-          position: 3,
-          el: null,
-        },
-        {
-          position: 4,
-          el: null,
-        },
-      ],
-
-      options: {
-        indicators: {
-          activeClasses: "bg-white dark:bg-gray-800",
-          inactiveClasses:
-            "bg-white/50 dark:bg-gray-800/50 hover:bg-white dark:hover:bg-gray-800",
-          items: [
-            {
-              position: 0,
-              el: null,
-            },
-            {
-              position: 1,
-              el: null,
-            },
-            {
-              position: 2,
-              el: null,
-            },
-            {
-              position: 3,
-              el: null,
-            },
-            {
-              position: 4,
-              el: null,
-            },
-          ],
-        },
-      },
-
       carousel: null,
     };
   },
   mounted() {
-    this.items.forEach((ele, i) => {
-      ele.el = this.$el.querySelector(`#carousel-item-${i + 1}`);
+    if (!this.imgSource || this.imgSource.length <= 0) return;
+    this.imgSource.forEach((_, i) => {
+      this.items[i].el = this.$el.querySelector(`#carousel-item-${i + 1}`);
     });
 
     const { items } = this.options.indicators;
@@ -247,3 +152,5 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped></style>

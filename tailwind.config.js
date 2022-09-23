@@ -5,6 +5,7 @@ module.exports = {
     "./index.html",
     "./src/App.vue",
     "./src/views/CraftChocolate/CraftChocolateView.vue",
+    "./src/views/CraftChocolate/ProductReviewView.vue",
     "./src/components/TheNavigator/cartList.vue",
     "./src/components/TheNavigator/CartBalloon.vue",
     "./src/components/HomeView/CraftChocolateSection.vue",
@@ -18,6 +19,7 @@ module.exports = {
     "./src/views/Rating/RatingView.vue",
     "./src/components/UI/BaseRatingCard.vue",
     "./src/components/UI/BaseRatingCardTop.vue",
+    "./src/components/UI/BaseCommentBox.vue",
   ],
   theme: {
     extend: {},

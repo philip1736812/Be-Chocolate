@@ -16,10 +16,13 @@ export const useCraftChocolateStore = defineStore({
             vote: 35400,
           },
           description:
-            "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos at quaerat quidem doloremque ut vero voluptatem, earum consequuntur molestias ipsum, veritatis ea magni, perferendis sunt. Corrupti, quae earum. Omnis, enim.",
+            "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi culpa neque architecto dolorum distinctio ducimus totam ex at, reprehenderit dolorem perspiciatis quod illo ratione odit minus a laboriosam, sit consequatur? Cupiditate blanditiis exercitationem laudantium sunt.",
           pictureUrl: [
             "https://bk.asia-city.com/sites/default/files/u143767/clean.jpg",
             "https://image.springnews.co.th/uploads/images/contents/w1024/2022/07/ynPWvXv4amxEujSBoenx.webp",
+            "https://krua.co/wp-content/uploads/2020/06/ImageBannerMobile_960x633-01-139.jpg",
+            "https://www.confectionerynews.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/confectionerynews.com/article/2021/07/15/single-origin-chocolate-and-cocoa-enters-the-mainstream/12649319-1-eng-GB/Single-origin-chocolate-and-cocoa-enters-the-mainstream.jpg",
+            "https://www.theroastedroot.net/wp-content/uploads/2020/09/how-to-make-dark-chocolate-8-720x720.jpg",
           ],
         },
         {
@@ -37,6 +40,7 @@ export const useCraftChocolateStore = defineStore({
           pictureUrl: [
             "http://www.masalathai.com/2015/wp-content/uploads/2020/11/Xoconat-3.jpg",
             "https://p16.topbuzzcdn.com/img/tos-alisg-v-a3e477-sg/5664a02fa7ed4be590d5e0dc0976e439~0x1600.jpg",
+            "https://pbs.twimg.com/media/FW3LhMvUUAA6ldz?format=jpg&name=large",
           ],
         },
         {

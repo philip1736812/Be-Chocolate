@@ -33,7 +33,7 @@ export default {
 .mainBtn {
   width: auto;
   padding: 0.7rem 2rem;
-  background: #d8612f;
+  background: rgb(249 115 22);
   color: #fff;
   border-radius: 5px;
   transition: all 0.2s ease-in-out;
@@ -44,11 +44,11 @@ export default {
   }
 
   &:hover {
-    background: #c75626;
+    background: rgb(234 88 12);
   }
 
   &:active {
-    background: #993f19;
+    background: rgb(194 65 12);
   }
 }
 

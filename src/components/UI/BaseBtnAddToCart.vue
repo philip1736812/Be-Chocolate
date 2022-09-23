@@ -44,8 +44,6 @@
 </template>
 
 <script>
-import { faL } from "@fortawesome/free-solid-svg-icons";
-
 export default {
   props: {
     qty_thisItem: {
@@ -89,7 +87,7 @@ export default {
     button {
       width: 45px;
 
-      background: #d8612f;
+      background: rgb(249 115 22);
       color: #fff;
       border: none;
     }
@@ -116,7 +114,13 @@ export default {
     transition: all 0.25s ease-in-out;
 
     &:hover {
-      background: #d8612f;
+      background: rgb(249 115 22);
+      border: none;
+      color: #fff;
+    }
+
+    &:active {
+      background: rgb(194 65 12);
       border: none;
       color: #fff;
     }

@@ -1,6 +1,6 @@
 <template>
   <div class="my-3.5 px-2 lg:px-0">
-    <base-button link to="/">
+    <div>
       <div class="relative rounded-lg w-full overflow-hidden">
         <div
           class="w-full bg-white shadow-md dark:bg-gray-800 dark:border-gray-700"
@@ -105,7 +105,7 @@
           </a>
         </div>
       </div>
-    </base-button>
+    </div>
   </div>
 </template>
 
@@ -193,7 +193,7 @@ export default {
         price: this.product.price,
         storeName: this.product.storeName,
         name: this.product.name,
-        picUrl: this.product.pictureUrl,
+        picUrl: this.getPicture,
       });
     },
     deleteFromCartEmit() {

@@ -54,9 +54,7 @@ export const userCartList = defineStore({
         if (inCart.prodItem_qty !== 0) return;
 
         // update qty
-        const newCart = this.cart.filter(
-          (product) => product.id !== inCart.id
-        );
+        const newCart = this.cart.filter((product) => product.id !== inCart.id);
 
         this.cart = newCart;
       }
