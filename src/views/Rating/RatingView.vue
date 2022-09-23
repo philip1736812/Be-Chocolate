@@ -56,18 +56,20 @@
     </div>
 
     <div class="container w-3/4 mx-auto mb-7">
-      <p class="text-3xl text-center font-medium text-slate-800">Rating of Last Month</p>
+      <p class="text-3xl text-center font-medium text-slate-800">
+        Rating of Last Month
+      </p>
     </div>
 
     <div class="container w-full lg:w-3/4 mx-auto">
-      <base-rating-card-top
+      <base-rating-card-horizontal
         v-for="(prod, i) in filterTopFive"
         :key="prod.id"
         :product="prod"
         :index="i"
         @addToCart="addToCart"
         @DeleteFromCart="DeleteFromCart"
-      ></base-rating-card-top>
+      ></base-rating-card-horizontal>
     </div>
     <div
       class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"
@@ -91,14 +93,14 @@ import { userCartList } from "../../stores/Cart/Cart_items";
 import CountingTime from "../../components/RatingView/CountingTime.vue";
 import BaseButton from "../../components/UI/BaseButton.vue";
 import BaseProductCardVertical from "../../components/UI/BaseProductCardVertical.vue";
-import BaseRatingCardTop from "../../components/UI/BaseRatingCardTop.vue";
+import BaseRatingCardHorizontal from "../../components/UI/BaseRatingCardHorizontal.vue";
 import CartBalloon from "../../components/TheNavigator/CartBalloon.vue";
 
 export default {
   components: {
     CountingTime,
     BaseButton,
-    BaseRatingCardTop,
+    BaseRatingCardHorizontal,
     BaseProductCardVertical,
     CartBalloon,
   },

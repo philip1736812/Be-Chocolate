@@ -1,10 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "@/views/HomePage/HomeView.vue";
-import CraftChocolateView from "@/views/CraftChocolate/CraftChocolateView.vue";
-import TheHeader from "@/components/TheNavigator/TheHeader.vue";
-import ProductTypeListView from "@/views/Products/ProductTypeListView.vue";
-import RatingView from "@/views/Rating/RatingView.vue";
-import ProductReviewView from "@/views/CraftChocolate/ProductReviewView.vue";
+
+import CommunityView from "../views/Community/CommunityView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,24 +8,27 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      components: { navigation: TheHeader, default: HomeView },
+      components: {
+        navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
+        default: () => import("@/views/HomePage/HomeView.vue"),
+      },
     },
     {
       path: "/craftChocolate",
       name: "craftChocolate",
       props: true,
       components: {
-        navigation: TheHeader,
-        default: CraftChocolateView,
+        navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
+        default: () => import("@/views/CraftChocolate/CraftChocolateView.vue"),
       },
     },
     {
-      path: "/:productId",
+      path: "/products/:productId",
       name: "productReview",
       props: true,
       components: {
-        navigation: TheHeader,
-        default: ProductReviewView,
+        navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
+        default: () => import("@/views/CraftChocolate/ProductReviewView.vue"),
       },
     },
     {
@@ -37,17 +36,30 @@ const router = createRouter({
       name: "productType",
       props: true,
       components: {
-        navigation: TheHeader,
-        default: ProductTypeListView,
+        navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
+        default: () => import("@/views/Products/ProductTypeListView.vue"),
       },
     },
     {
       path: "/craftChocolate/rating",
       name: "rating",
       components: {
-        navigation: TheHeader,
-        default: RatingView,
+        navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
+        default: () => import("@/views/Rating/RatingView.vue"),
       },
+    },
+    {
+      path: "/community-mall",
+      name: "communityMall",
+      components: {
+        navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
+        default: () => import("@/views/Community/CommunityView.vue"),
+      },
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "notFound",
+      redirect: "/",
     },
   ],
 });

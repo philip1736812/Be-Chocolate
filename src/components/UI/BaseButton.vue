@@ -52,6 +52,29 @@ export default {
   }
 }
 
+.articleBtn {
+  width: auto;
+  padding: 0.7rem 2rem;
+  background-color: rgb(51 65 85);
+
+  color: #fff;
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+
+  a {
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    background-color: rgb(30 41 59);
+  }
+
+  &:active {
+    background-color: rgb(15 23 42);
+  }
+}
+
 .flat {
   background-color: transparent;
   color: #3a0061;

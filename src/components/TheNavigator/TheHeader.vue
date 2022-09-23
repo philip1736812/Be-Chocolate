@@ -46,11 +46,11 @@
           </div>
         </span>
         <span>
-          <router-link to="#"> Community </router-link>
+          <router-link :to="{ name: 'communityMall' }"> Community </router-link>
           <div class="relative w-full h-2.5">
             <transition name="routeCircle" mode="out-in">
               <div
-                v-if="routeUrl === '#'"
+                v-if="routeUrl === 'communityMall'"
                 class="absolute right-2/4 translate-x-2/4 w-2.5 h-2.5 mt-2 mx-auto bg-slate-700 rounded-full"
               ></div>
             </transition>

@@ -42,7 +42,7 @@ button {
 
 form {
   position: relative;
-  max-width: 1200px;
+  max-width: 1249px;
   width: 100%;
   margin: 0 auto;
 }

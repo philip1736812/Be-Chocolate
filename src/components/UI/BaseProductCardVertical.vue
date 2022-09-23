@@ -2,13 +2,21 @@
   <div
     class="relative w-full text-gray-800 mb-6 px-3 py-2 rounded-lg hover:shadow-xl hover:z-50 hover:scale-105 hover:bg-slate-100 transition-all"
   >
-    <div class="w-full h-80 overflow-hidden">
-      <img
-        class="rounded-lg w-full h-full object-cover"
-        :src="getRandomPic"
-        :alt="product.storeName"
-      />
-    </div>
+    <base-button
+      link
+      :to="{
+        name: 'productReview',
+        params: { productId: product.id },
+      }"
+    >
+      <div class="w-full h-80 overflow-hidden">
+        <img
+          class="rounded-lg w-full h-full object-cover"
+          :src="getRandomPic"
+          :alt="product.storeName"
+        />
+      </div>
+    </base-button>
 
     <transition name="addedCart" mode="out-in">
       <div

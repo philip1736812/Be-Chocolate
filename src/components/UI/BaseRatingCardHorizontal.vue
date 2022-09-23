@@ -22,7 +22,15 @@
                   :class="{ blackText: !isHighRanking }"
                   ># {{ index + 1 }}
                 </span>
-                {{ product.name }}
+                <base-button
+                  link
+                  :to="{
+                    name: 'productReview',
+                    params: { productId: product.id },
+                  }"
+                >
+                  {{ product.name }}
+                </base-button>
               </div>
               <div
                 class="mt-1.5 text-lg"

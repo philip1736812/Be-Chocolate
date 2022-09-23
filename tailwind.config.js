@@ -18,8 +18,10 @@ module.exports = {
     "./node_modules/flowbite/src/dropdown.js",
     "./src/views/Rating/RatingView.vue",
     "./src/components/UI/BaseRatingCard.vue",
-    "./src/components/UI/BaseRatingCardTop.vue",
+    "./src/components/UI/BaseRatingCardHorizontal.vue",
     "./src/components/UI/BaseCommentBox.vue",
+    "./src/views/Community/CommunityView.vue",
+    "./src/components/CommunityView/ArticleFrame.vue",
   ],
   theme: {
     extend: {},
