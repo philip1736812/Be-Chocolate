@@ -24,7 +24,7 @@ export const useCommunityStore = defineStore({
           id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
           createdDate: "",
           ownerId: "",
-          hashTag: [],
+          hashTag: ["Blend To Bar", "Copy or Inspired", "Warm"],
           topic: "What Is Bean To Bar, Craft Chocolate?",
           content: [
             "Bean-to-bar, small batch, craft, artisan, micro-batch chocolate; whatever you call it, each one boils down to the same idea of a new way of making chocolate.",
@@ -37,7 +37,11 @@ export const useCommunityStore = defineStore({
           id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
           createdDate: "",
           ownerId: "",
-          hashTag: [],
+          hashTag: [
+            "Why we are poor",
+            "quantity more quality",
+            "Stage and belt",
+          ],
           topic: "The Craft Of Chocolate",
           content: [
             "Chocolate as we taste it starts as a seed that someone took the time to plant and then care for, just as someone created and cared for you. And just like you wouldn’t want someone to only see one still image from your life, you shouldn’t limit your chocolate experience to the bar in front of you. Each chocolate bar you taste is just a snapshot of the life of those cacao nibs and the many seeds used to make that batch of chocolate. Even that same chocolate will taste different a year later, if you can let it sit that long.",
@@ -52,7 +56,12 @@ export const useCommunityStore = defineStore({
           id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
           createdDate: "",
           ownerId: "",
-          hashTag: [],
+          hashTag: [
+            "First cacao",
+            "Grow without wether",
+            "Save the cacao",
+            "Up Coin",
+          ],
           topic: "When Did Craft Chocolate Start?",
           content: [
             "A shift in consumerism towards businesses with more transparent practices and fair traded ingredients started in the 1980’s. This eventually led to the formation of several equal trade and environmentally-friendly certification companies. However, it’s generally accepted that the craft chocolate movement began in earnest around 2005.",
@@ -66,7 +75,7 @@ export const useCommunityStore = defineStore({
           id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
           createdDate: "",
           ownerId: "",
-          hashTag: [],
+          hashTag: ["Bengal Nation", "DO NOT CARE", "Good thing grow"],
           topic: "Why Eat Craft Chocolate?",
           content: [
             "“You don’t get rich as a chocolate maker unless you’re exploiting someone else along the way.”",
@@ -85,7 +94,7 @@ export const useCommunityStore = defineStore({
       return state.articles;
     },
     getHashTag(state) {
-        return state.hashTag;
-      },
+      return state.hashTag;
+    },
   },
 });

@@ -129,6 +129,15 @@ export default {
   },
   computed: {
     getProduct() {
+      console.log(this.craftChocolateStore.getStoreProduct);
+
+      console.log(this.productId);
+
+      console.log(
+        this.craftChocolateStore.getStoreProduct.find(
+          (prod) => +prod.id === +this.productId
+        )
+      );
       return this.craftChocolateStore.getStoreProduct.find(
         (prod) => +prod.id === +this.productId
       );

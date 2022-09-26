@@ -1,21 +1,23 @@
 <template>
   <div
-    class="card_container"
+    class="card_container max-w-5xl w-full xl:w-9/12 relative grid grid-cols-7 mx-auto my-1 py-4 px-3 xl:mb-4 xl:py-4 xl:px-12 text-slate-800"
     @mouseenter="hover"
     @mouseleave="mouseOut"
     :class="{ containerHover: isHover }"
   >
     <div
-      class="content"
+      class="content col-span-5 xl:col-span-2 md:col-span-3"
       :class="{ hover: isHover, selected: selected_prod && qty_thisItem >= 1 }"
     >
-      <base-button link to="/" class="storeName">
-        <font-awesome-icon icon="fa-store" />{{
+      <base-button link to="/" class="storeName text-lg sm:text-2xl">
+        <font-awesome-icon icon="fa-store" class="text-lg sm:text-2xl mr-3" />{{
           product.storeName
         }}</base-button
       >
-      <h2>{{ product.price }} Bath/kg.</h2>
-      <p class="remaining">
+      <h2 class="text-3xl md:text-4xl font-medium mb-3 mt-1">
+        {{ product.price }} Bath/kg.
+      </h2>
+      <p class="remaining mb-4">
         Only <strong> {{ product.remaining }} kg.</strong> left in stock!
       </p>
 
@@ -28,15 +30,19 @@
       ></base-btn-add-to-cart>
     </div>
 
-    <div class="pictureContainer">
+    <div
+      class="pictureContainer col-span-2 xl:col-span-5 md:col-span-4 relative flex items-start sm:items-center justify-end"
+    >
       <img
-        class="pictureItems"
-        v-for="picUrl in product.picUrl"
+        class="pictureItems w-20 h-20 object-cover sm:w-32 sm:h-32 mx-1 xl:mx-3"
+        v-for="picUrl in filterPictureByWidth"
         :key="picUrl"
         :src="picUrl"
         :alt="product.type"
       />
-      <p class="sold"><strong>Sold:</strong> {{ product.soldCount }} time</p>
+      <p class="sold">
+        <strong>{{ product.soldCount }} </strong> Sold
+      </p>
     </div>
 
     <transition name="addedCart" mode="out-in">
@@ -61,7 +67,20 @@ export default {
     return { cartList };
   },
   data() {
-    return { isHover: false, selected_prod: false };
+    return {
+      isHover: false,
+      selected_prod: false,
+      windowWidth: window.innerWidth,
+      propsPicture: this.product.picUrl,
+    };
+  },
+  mounted() {
+    this.$nextTick(() => {
+      window.addEventListener("resize", this.onResize);
+    });
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize);
   },
   computed: {
     qty_thisItem() {
@@ -73,8 +92,32 @@ export default {
         ? false
         : this.cartList.cart.find((el) => el.id === this.product.id);
     },
+    filterPictureByWidth() {
+      let newPicArr = this.propsPicture.slice();
+
+      if (this.windowWidth >= 1024 && newPicArr.length > 4)
+        return newPicArr.splice(4);
+      else if (
+        this.windowWidth < 1024 &&
+        this.windowWidth > 768 &&
+        newPicArr.length > 3
+      )
+        return newPicArr.splice(0, 3);
+      else if (
+        this.windowWidth <= 768 &&
+        this.windowWidth > 640 &&
+        newPicArr.length > 2
+      )
+        return newPicArr.splice(0, 2);
+      else if (this.windowWidth <= 640 && newPicArr.length > 1)
+        return newPicArr.splice(0, 1);
+      else return newPicArr;
+    },
   },
   methods: {
+    onResize() {
+      this.windowWidth = window.innerWidth;
+    },
     hover() {
       this.isHover = true;
     },
@@ -106,17 +149,8 @@ export default {
 
 <style lang="scss" scoped>
 .card_container {
-  position: relative;
-  display: grid;
-  grid-template-columns: 0.5fr 1fr;
-
-  max-width: 963px;
-  width: 75%;
-
   border: 1px solid #efefef;
   border-radius: 10px;
-  margin: 15px auto;
-  padding: 17px 44px;
   background: #fff;
 
   transition: all 0.25s ease-in-out;
@@ -146,33 +180,8 @@ export default {
     &.selected {
       transform: translateY(0px);
     }
-
-    a.storeName {
-      font-size: 23px;
-      margin: 0 0 7px 0;
-
-      & > svg {
-        margin-right: 1rem;
-      }
-    }
-
-    h2 {
-      font-size: 34px;
-      font-weight: 700px;
-      margin-bottom: 5px;
-    }
-
-    p.remaining {
-      font-size: 18px;
-      font-weight: 400;
-      margin-bottom: 26px;
-    }
   }
   .pictureContainer {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
     padding-left: 1rem;
 
     img.pictureItems {

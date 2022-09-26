@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="$emit('submitSearchEmit', inputSearchText)">
+  <form @input.prevent="$emit('submitSearchEmit', inputSearchText)">
     <input
       type="text"
       placeholder="search for..."

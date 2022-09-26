@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="p-5 flex flex-col items-stretch">
-      <div class="h-64 self-stretch overflow-hidden">
+      <div class="lg:h-80 md:h-80 sm:h-96 self-stretch overflow-hidden">
         <p class="text-sm font-light">Posted 23/09/22</p>
         <base-button link to="/">
           <h5
@@ -27,11 +27,19 @@
             {{ articleTopic }}
           </h5>
         </base-button>
-        <div class="mb-2">
-          <p><span class="font-medium text-xl">#</span> tag</p>
+        <div class="mb-2 flex flex-wrap overflow-hidden">
+          <div
+            v-for="hashTag in articleHashTag"
+            :key="hashTag"
+            class="bg-slate-800 text-white m-0.5 px-1.5 rounded-md"
+          >
+            <p class="truncate whitespace-pre">
+              <span class="font-bold inline text-sm"> #</span>{{ hashTag }}
+            </p>
+          </div>
         </div>
         <p
-          class="mb-3 h-28 overflow-hidden text-ellipsis text-lg font-normal text-gray-700 dark:text-gray-400"
+          class="mb-3 mt-2 h-28 overflow-hidden text-ellipsis text-lg font-normal text-gray-700 dark:text-gray-400"
         >
           {{ articleShortContent }}
         </p>
@@ -88,6 +96,9 @@ export default {
     },
     articlePicUrl() {
       return this.articleContent.picHeaderUrl;
+    },
+    articleHashTag() {
+      return this.articleContent.hashTag;
     },
   },
 };

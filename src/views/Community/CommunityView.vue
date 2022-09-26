@@ -1,19 +1,19 @@
 <template>
   <div class="my-20 text-slate-800">
-    <div class="container w-3/4 mx-auto text-center">
+    <div class="container w-full md:w-3/4 px-2 mx-auto text-center">
       <h1 class="text-3xl font-medium mb-8">
         <span>
           <font-awesome-icon icon="fa-comments" class="mr-4 text-5xl" />
         </span>
         Let's Talk, Share, Learn and Fun
       </h1>
-      <p class="w-3/4 mx-auto text-lg">
+      <p class="w-full px-2 md:w-3/4 mx-auto text-lg">
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis, a
         eaque itaque ipsam est earum, maxime doloremque ab repellendus voluptate
         saepe molestias culpa nihil veniam.
       </p>
     </div>
-    <div class="container w-3/4 mx-auto mt-28">
+    <div class="container w-full md:w-3/4 px-2 mx-auto mt-28">
       <div class="mb-8">
         <base-search-bar></base-search-bar>
       </div>
@@ -26,7 +26,7 @@
             <li
               v-for="tag in getHashTag"
               :key="tag"
-              class="min-w-20 bg-white rounded-lg border m-0.5"
+              class="min-w-20 bg-white rounded-lg border m-0.5 transition-all hover:bg-slate-800 hover:text-white"
             >
               <base-button class="w-full h-full p-2">
                 <p class="font-medium text-left">
@@ -41,12 +41,12 @@
       <p class="text-right text-sm font-medium mt-3">More #Hashtag</p>
     </div>
 
-    <div class="container w-3/4 mx-auto mt-16">
+    <div class="container full md:w-3/4 px-2 mx-auto mt-16">
       <div id="hotArticle" class="mb-6">
         <h2 class="text-2xl font-medium">Hot Article</h2>
       </div>
       <div id="newArticle">
-        <div class="grid grid-cols-4 gap-4">
+        <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 sm:grid-cols-2 gap-4">
           <article-frame
             v-for="item in getArticle"
             :key="item.id"
@@ -56,12 +56,12 @@
       </div>
     </div>
 
-    <div class="container w-3/4 mx-auto mt-16">
+    <div class="container full md:w-3/4 px-2 mx-auto mt-16">
       <div id="hotArticle" class="mb-6">
         <h2 class="text-2xl font-medium">Last New Article</h2>
       </div>
       <div id="newArticle">
-        <div class="grid grid-cols-4 gap-4">
+        <div class="grid 2xl:grid-cols-4 xl:grid-cols-3 sm:grid-cols-2 gap-4">
           <article-frame
             v-for="item in getArticle"
             :key="item.id"

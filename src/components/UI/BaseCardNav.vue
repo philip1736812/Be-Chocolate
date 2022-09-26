@@ -6,10 +6,10 @@
       @click="clickThisNavEmit"
       link
       :to="{ name: 'productType', params: { productTypeName: routeUrlGen } }"
-      class="itemNav"
+      class="itemNav w-full md:w-24 lg:w-28 lg:h-40 lg:h-32 xl:w-40 xl:h-40 border-2 border-slate-100 mx-auto mb-6 md:mb-2 lg:mb-6 xl:mb-0 md:mx-2 lg:mx-4 p-4 lg:p-4"
     >
-      <img :src="urlNav" :alt="navName" />
-      <p>{{ navName }}</p>
+      <img :src="urlNav" :alt="navName" class="w-16 h-20 lg:w-20 lg:h-24 object-contain" />
+      <p class="text-sm lg:text-md">{{ navName }}</p>
     </base-button>
   </div>
 </template>
@@ -20,7 +20,7 @@ import BaseButton from "./BaseButton.vue";
 export default {
   props: ["navName", "urlNav"],
   components: { BaseButton },
-  emits: ["clickThisNav"],
+  emits: ["clickThisNav", "productSelected"],
   data() {
     return {
       productSelected: null,
@@ -68,13 +68,7 @@ export default {
 <style lang="scss" scoped>
 .itemNav {
   display: grid;
-  grid-template-columns: 1fr;
   grid-template-rows: 1fr 0.4fr;
-
-  width: 179px;
-  height: 179px;
-  border: 1px solid #f4f4f4;
-  margin: 0 20px;
   border-radius: 10px;
   cursor: pointer;
   background: none;

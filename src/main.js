@@ -18,6 +18,12 @@ import {
   faSquarePollVertical,
   faArrowLeft,
   faComments,
+  faBars,
+  faHouse,
+  faArrowRightFromBracket,
+  faCookieBite,
+  faStar,
+  faShop,
 } from "@fortawesome/free-solid-svg-icons";
 
 import App from "./App.vue";
@@ -44,7 +50,13 @@ library.add(
   faFilter,
   faSquarePollVertical,
   faArrowLeft,
-  faComments
+  faComments,
+  faBars,
+  faHouse,
+  faCookieBite,
+  faArrowRightFromBracket,
+  faStar,
+  faShop
 );
 app.component("font-awesome-icon", FontAwesomeIcon);
 

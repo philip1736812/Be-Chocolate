@@ -1,16 +1,20 @@
 <template>
   <div>
-    <header>
+    <header
+      class="h-96 w-full px-3 xl:p-20 sm:p-8 flex flex-col items-center justify-center text-slate-200"
+    >
       <h2>Find Your Ingredient.</h2>
       <base-search-bar></base-search-bar>
-      <p><strong>Ex.</strong> Chocolate bar, Coco nib</p>
+      <p class="text-slate-200"><strong>Ex.</strong> Chocolate bar, Coco nib</p>
     </header>
     <main>
       <teleport to="body">
         <cart-balloon></cart-balloon>
       </teleport>
 
-      <div class="itemNav_container">
+      <div
+        class="itemNav_container relative grid grid-cols-3 sm:grid-cols-4 md:flex md:items-center md:justify-center mx-auto py-14 before:right-1/2 before:translate-x-1/2"
+      >
         <base-card-nav
           v-for="prod in productsNav"
           :key="prod.name"
@@ -22,11 +26,13 @@
       </div>
 
       <transition name="hotItems" mode="out-in">
-        <section class="showHotItem" v-if="getProducts">
-          <div class="hotItemsTopic">
+        <section class="showHotItem px-4 lg:px-0" v-if="getProducts">
+          <div
+            class="hotItemsTopic flex items-end max-w-5xl w-full xl:w-9/12 mb-4"
+          >
             <font-awesome-icon icon="fa-fire-flame-curved" />
-            <h2>Hot Items</h2>
-            <p>{{ hotItem }}</p>
+            <h2 class="text-xl md:text-3xl text-slate-700">Hot Items</h2>
+            <p class="text-lg md:text-xl mx-3 text-slate-500">{{ hotItem }}</p>
           </div>
           <base-product-card
             v-for="item in getProducts"
@@ -163,17 +169,10 @@ export default {
 
 <style lang="scss" scoped>
 header {
-  height: 376px;
   background-image: url("@/assets/Home/front-view-sweet-chocolate-assortment-dark-board.png");
   background-repeat: no-repeat, repeat;
   background-color: #cccccc;
   background-size: cover;
-
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-  color: #f0f0f0;
 
   h2 {
     font-size: 25px;
@@ -190,13 +189,6 @@ header {
 
 main {
   .itemNav_container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto auto;
-    padding: 65px 0;
-
     &::before {
       position: absolute;
       width: 70%;
@@ -223,26 +215,10 @@ main {
     margin: 6px auto 6rem auto;
 
     .hotItemsTopic {
-      max-width: 963px;
-      width: 75%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-
       svg {
         font-size: 2rem;
         margin-right: 1.5rem;
         color: rgb(208, 56, 1, 1);
-      }
-
-      h2 {
-        font-size: 1.875rem;
-      }
-
-      p {
-        margin: 0 1rem 0 1rem;
-        font-size: 1.5rem;
-        color: rgb(100, 116, 139, 1);
       }
     }
 

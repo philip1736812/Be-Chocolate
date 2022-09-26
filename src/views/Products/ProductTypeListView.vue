@@ -5,7 +5,7 @@
         <div
           class="absolute z-30 text-white w-2/4 h-full flex flex-col justify-center pl-16"
         >
-          <h2 class="text-3xl mb-4 font-bold">Cacao Pods</h2>
+          <h2 class="text-3xl mb-4 font-bold">{{ convertProductName }}</h2>
           <p class="w-3/4 text-lg">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia
             laboriosam eligendi aliquam totam assumenda sapiente optio
@@ -29,7 +29,7 @@
         <cart-balloon></cart-balloon>
       </teleport>
 
-      <div>
+      <div v-if="!isEmptyProductData">
         <div
           class="container bg-slate-200 p-1.5 pl-6 rounded-lg mx-auto w-3/4 mt-12 mb-8 flex justify-between"
         >
@@ -174,7 +174,6 @@
             </div>
           </div>
         </div>
-
         <div>
           <base-product-card
             v-for="prod in getProductFromFilter"
@@ -184,6 +183,12 @@
             @deletedProduct="deleteSelectedProd"
           ></base-product-card>
         </div>
+      </div>
+      <div v-else class="container w-3/4 mx-auto my-48">
+        <h1 class="text-center text-lg font-medium">
+          ** Have No {{ convertProductName }} Dummy Data ** <br />
+          <span class="text-xl font-light">Please try later!</span>
+        </h1>
       </div>
     </main>
   </div>
@@ -209,6 +214,7 @@ export default {
   data() {
     return {
       searchText: "",
+      isEmptyProductData: false,
       isFilter: {
         byPrice: true,
         byAmount: false,
@@ -230,6 +236,7 @@ export default {
     getProductFromFilter() {
       // Filter By Price
       let allProduct = this.getProductName.slice();
+      if (allProduct.length <= 0) this.isEmptyProductData = true;
 
       const filterFn = (prevVal, crrVal, filter, isFilter) => {
         const a = prevVal[filter];
@@ -263,23 +270,21 @@ export default {
     },
     getHeaderPic() {
       // get pic from store
-      const randomNum = Math.floor(
-        Math.random() * this.productItems.headerProduct.length
-      );
-
-      return this.productItems.headerProduct[
-        Math.floor(Math.random() * this.productItems.headerProduct.length)
-      ][this.productTypeName][
+      return this.productItems.headerProduct[this.productTypeName][
         Math.floor(
           Math.random() *
-            this.productItems.headerProduct[
-              Math.floor(Math.random() * this.productItems.headerProduct.length)
-            ][this.productTypeName].length
+            this.productItems.headerProduct[this.productTypeName].length
         )
       ];
     },
     itemInCart() {
       return this.cartList.itemInCart;
+    },
+    convertProductName() {
+      const result = this.productTypeName.replace(/([A-Z])/g, " $1");
+      const finalResult = result.charAt(0).toUpperCase() + result.slice(1);
+
+      return finalResult;
     },
   },
 
