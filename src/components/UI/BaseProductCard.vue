@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card_container max-w-5xl w-full xl:w-9/12 relative grid grid-cols-7 mx-auto my-1 py-4 px-3 xl:mb-4 xl:py-4 xl:px-12 text-slate-800"
+    class="card_container max-w-5xl w-full xl:w-9/12 relative grid grid-cols-7 mx-auto my-1 py-4 px-3.5 sm:px-9 xl:mb-4 xl:py-4 xl:px-12 text-slate-800"
     @mouseenter="hover"
     @mouseleave="mouseOut"
     :class="{ containerHover: isHover }"
@@ -14,7 +14,7 @@
           product.storeName
         }}</base-button
       >
-      <h2 class="text-3xl md:text-4xl font-medium mb-3 mt-1">
+      <h2 class="text-2xl md:text-4xl font-medium mb-3 mt-1">
         {{ product.price }} Bath/kg.
       </h2>
       <p class="remaining mb-4">
@@ -31,7 +31,7 @@
     </div>
 
     <div
-      class="pictureContainer col-span-2 xl:col-span-5 md:col-span-4 relative flex items-start sm:items-center justify-end"
+      class="pictureContainer col-span-2 xl:col-span-5 md:col-span-4 relative flex items-center sm:items-center justify-end"
     >
       <img
         class="pictureItems w-20 h-20 object-cover sm:w-32 sm:h-32 mx-1 xl:mx-3"
@@ -46,7 +46,10 @@
     </div>
 
     <transition name="addedCart" mode="out-in">
-      <div v-if="isAddedInCart" class="addedInCart">
+      <div
+        v-if="isAddedInCart"
+        class="addedInCart absolute w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-red-500 text-sm sm:text-xl -right-2.5 -top-1.5 sm:-top-2.5"
+      >
         <font-awesome-icon icon="fa-cart-arrow-down" />
       </div>
     </transition>
@@ -57,14 +60,16 @@
 import { userCartList } from "@/stores/Cart/Cart_items";
 import BaseButton from "./BaseButton.vue";
 import BaseBtnAddToCart from "./BaseBtnAddToCart.vue";
+import { useIndexStore } from "../../stores/Store_index";
 
 export default {
   components: { BaseButton, BaseBtnAddToCart },
   props: ["product"],
   setup() {
     const cartList = userCartList();
+    const indexStore = useIndexStore();
 
-    return { cartList };
+    return { cartList, indexStore };
   },
   data() {
     return {
@@ -73,14 +78,6 @@ export default {
       windowWidth: window.innerWidth,
       propsPicture: this.product.picUrl,
     };
-  },
-  mounted() {
-    this.$nextTick(() => {
-      window.addEventListener("resize", this.onResize);
-    });
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.onResize);
   },
   computed: {
     qty_thisItem() {
@@ -93,31 +90,23 @@ export default {
         : this.cartList.cart.find((el) => el.id === this.product.id);
     },
     filterPictureByWidth() {
+      const windowWidth = this.indexStore.windowWidth;
       let newPicArr = this.propsPicture.slice();
+      this.isHover = false;
 
-      if (this.windowWidth >= 1024 && newPicArr.length > 4)
+      if (windowWidth >= 1024 && newPicArr.length > 4)
         return newPicArr.splice(4);
-      else if (
-        this.windowWidth < 1024 &&
-        this.windowWidth > 768 &&
-        newPicArr.length > 3
-      )
+      else if (windowWidth < 1024 && windowWidth > 768 && newPicArr.length > 3)
         return newPicArr.splice(0, 3);
-      else if (
-        this.windowWidth <= 768 &&
-        this.windowWidth > 640 &&
-        newPicArr.length > 2
-      )
+      else if (windowWidth <= 768 && windowWidth > 640 && newPicArr.length > 2)
         return newPicArr.splice(0, 2);
-      else if (this.windowWidth <= 640 && newPicArr.length > 1)
+      else if (windowWidth <= 640 && newPicArr.length > 1) {
+        this.isHover = true;
         return newPicArr.splice(0, 1);
-      else return newPicArr;
+      } else return newPicArr;
     },
   },
   methods: {
-    onResize() {
-      this.windowWidth = window.innerWidth;
-    },
     hover() {
       this.isHover = true;
     },
@@ -206,16 +195,7 @@ export default {
   }
 
   .addedInCart {
-    position: absolute;
-    top: -14px;
-    right: -14px;
-    width: 40px;
-    height: 40px;
-
-    border-radius: 50%;
-    background: red;
     color: #fafafa;
-    font-size: 20px;
 
     display: flex;
     justify-content: center;

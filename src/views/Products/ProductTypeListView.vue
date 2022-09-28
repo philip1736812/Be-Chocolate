@@ -1,12 +1,14 @@
 <template>
   <div>
     <div>
-      <div class="relative w-full h-96 overflow-hidden">
+      <div class="relative w-full h-72 md:h-96 overflow-hidden">
         <div
-          class="absolute z-30 text-white w-2/4 h-full flex flex-col justify-center pl-16"
+          class="absolute z-30 text-white w-full sm:w-2/4 h-full flex flex-col justify-center px-5 md:pl-16"
         >
-          <h2 class="text-3xl mb-4 font-bold">{{ convertProductName }}</h2>
-          <p class="w-3/4 text-lg">
+          <h2 class="text-2xl md:text-3xl mb-4 font-bold">
+            {{ convertProductName }}
+          </h2>
+          <p class="w-full text-base sm:w-3/4 sm:text-lg">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia
             laboriosam eligendi aliquam totam assumenda sapiente optio
             cupiditate laudantium quisquam distinctio nostrum eos, praesentium
@@ -18,7 +20,7 @@
           class="w-3/4 h-96 absolute overlay bg-gradient-to-r from-neutral-900 z-20"
         ></div>
         <img
-          class="absolute w-full h-auto object-cover -translate-y-1/4 z-10"
+          class="absolute w-full h-full object-cover z-10"
           :src="getHeaderPic"
           :alt="productTypeName"
         />
@@ -31,11 +33,13 @@
 
       <div v-if="!isEmptyProductData">
         <div
-          class="container bg-slate-200 p-1.5 pl-6 rounded-lg mx-auto w-3/4 mt-12 mb-8 flex justify-between"
+          class="xl:bg-slate-200 p-5 xl:p-1.5 xl:pl-6 rounded-lg mx-auto w-full xl:w-3/4 mt-1 xl:mt-12 mb-0 xl:mb-8 flex flex-col md:flex-row md:justify-between"
         >
-          <div class="flex justify-start items-center text-xl">
-            <div class="mr-20">
-              <h2 class="text-xl font-medium">
+          <div
+            class="flex justify-around xl:justify-start items-center text-base md:text-xl mb-8 md:mb-0"
+          >
+            <div class="mr-2 md:mr-20">
+              <h2 class="text-base md:text-xl font-medium">
                 <span
                   ><font-awesome-icon
                     icon="fa-filter"
@@ -44,12 +48,12 @@
                 Filter
               </h2>
             </div>
-            <div class="flex mr-8">
-              <p class="mr-2.5 text-lg">Price</p>
+            <div class="flex items-center mr-2.5 md:mr-8">
+              <p class="md:mr-1.5 md:mr-2.5 text-base md:text-lg">Price</p>
               <div @click="activeFilter('byPrice')">
                 <kbd
                   v-if="isFilter.byPrice"
-                  class="inline-flex opacity-50 hover:opacity-80 scale-y-75 items-center px-2 py-1.5 text-gray-800 bg-gray-100 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500"
+                  class="inline-flex opacity-50 hover:opacity-80 scale-y-75 items-center px-1 py-1 md:px-2 md:py-1.5 text-gray-800 bg-gray-100 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500"
                   :class="{ filterActive: isFilter.byPrice }"
                 >
                   <svg
@@ -84,8 +88,8 @@
                 </kbd>
               </div>
             </div>
-            <div class="flex mr-8">
-              <p class="mr-2.5 text-lg">Amount</p>
+            <div class="flex items-center mr-2.5 md:mr-8">
+              <p class="md:mr-1.5 md:mr-2.5 text-base md:text-lg">Amount</p>
               <div @click="activeFilter('byAmount')">
                 <kbd
                   v-if="isFilter.byAmount"
@@ -124,8 +128,8 @@
                 </kbd>
               </div>
             </div>
-            <div class="flex mr-8">
-              <p class="mr-2.5 text-lg">Sold</p>
+            <div class="flex items-center mr-2.5 md:mr-8">
+              <p class="md:mr-1.5 md:mr-2.5 text-base md:text-lg">Sold</p>
               <div @click="activeFilter('bySold')">
                 <kbd
                   v-if="isFilter.bySold"
@@ -166,15 +170,15 @@
             </div>
           </div>
 
-          <div class="flex">
-            <div class="max-w-xs">
+          <div class="flex justify-center">
+            <div class="w-full max-w-md lg:max-w-xs">
               <base-search-bar
                 @submitSearchEmit="searchActive"
               ></base-search-bar>
             </div>
           </div>
         </div>
-        <div>
+        <div class="px-4">
           <base-product-card
             v-for="prod in getProductFromFilter"
             :key="prod"

@@ -24,6 +24,8 @@ import {
   faCookieBite,
   faStar,
   faShop,
+  faXmark,
+  faFaceSadTear,
 } from "@fortawesome/free-solid-svg-icons";
 
 import App from "./App.vue";
@@ -56,7 +58,9 @@ library.add(
   faCookieBite,
   faArrowRightFromBracket,
   faStar,
-  faShop
+  faShop,
+  faXmark,
+  faFaceSadTear
 );
 app.component("font-awesome-icon", FontAwesomeIcon);
 

@@ -1,6 +1,8 @@
 <template>
   <header ref="header">
-    <div class="header py-8 px-6 md:px-32">
+    <div
+      class="header relative h-auto lg:h-24 py-4 px-4 md:py-8 sm:px-6 md:px-32 text-slate-800"
+    >
       <ul>
         <li class="hidden xl:flex">
           <router-link :to="{ name: 'home' }" style="border: none">
@@ -74,17 +76,17 @@
         <div class="sliceBarNavigation block xl:hidden">
           <multi-level-dropdown-nav></multi-level-dropdown-nav>
         </div>
-        <li class="relative flex items-center">
+        <li class="flex items-center">
           <div class="notifications">
             <button
               id="dropdownNotificationButton"
               data-dropdown-toggle="dropdownNotification"
-              class="inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400 mr-4"
+              class="inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400 mr-1 sm:mr-4"
               type="button"
               @click="activeNotifications"
             >
               <svg
-                class="w-8 h-8"
+                class="w-6 h-6 sm:w-8 sm:h-8"
                 aria-hidden="true"
                 fill="currentColor"
                 viewBox="0 0 20 20"
@@ -108,29 +110,46 @@
             </transition>
           </div>
 
-          <div class="cartIcon mx-2" @click="activeCart">
-            <router-link to="#">
-              <img
-                src="../../assets/TheNavigation/shopping-bag 2.png"
-                alt="Cart"
-              />
-            </router-link>
-            <div class="numberItems">{{ cartAmount }}</div>
+          <div class="mx-2" @click="activeCart">
+            <div class="relative">
+              <router-link to="#">
+                <img
+                  class="inline w-7 sm:w-9"
+                  src="../../assets/TheNavigation/shopping-bag 2.png"
+                  alt="Cart"
+                />
+              </router-link>
+              <div
+                class="numberItems absolute rounded-full bg-red-500 top-0 -right-2.5 text-center w-5 h-5 text-white sm:w-6 sm:h-6"
+              >
+                <p class="text-sm sm:text-base">
+                  {{ cartAmount }}
+                </p>
+              </div>
+            </div>
 
             <transition name="cartListDraw">
-              <cart-list
-                v-if="isCartActive && !indexStore.getLeaveHeaderStatus"
-                @closeOverlayCart="closeCart"
-                :userCart="userCartData"
-                :cartAmount="cartAmount"
-              ></cart-list>
+              <div
+                v-if="!indexStore.getLeaveHeaderStatus"
+                class="absolute right-1/2 translate-x-1/2 z-50 sm:right-24 sm:-translate-x-0 top-16 sm:top-20"
+              >
+                <cart-list
+                  @closeOverlayCart="closeCart"
+                  :userCart="userCartData"
+                  :cartAmount="cartAmount"
+                  :isActiveCartList="isCartActive"
+                ></cart-list>
+              </div>
             </transition>
           </div>
 
           <div class="relative h-full ml-8" v-if="true">
             <base-button link>
-              <span class="text-xl font-medium">
-                <font-awesome-icon icon="fa-right-to-bracket" class="mx-2" />
+              <span class="text-md md:text-xl font-medium">
+                <font-awesome-icon
+                  icon="fa-right-to-bracket"
+                  class="mx-1 md:mx-2 text-md"
+                />
                 Sign In
               </span>
             </base-button>
@@ -236,6 +255,14 @@ export default {
       this.dropdownAvatarButton,
       this.options
     );
+
+    // Get Resize Window
+    this.$nextTick(() => {
+      this.indexStore.windowResize();
+    });
+  },
+  beforeDestroy() {
+    this.indexStore.windowRemoveResize();
   },
   methods: {
     activeCart() {
@@ -249,7 +276,6 @@ export default {
         !this.indexStore.isActiveNotification;
     },
     activeProfile() {
-      console.log(this.dropdown);
       this.dropdown.show();
     },
   },
@@ -285,7 +311,6 @@ export default {
   align-items: center;
 
   background-color: #f5f5f5;
-  height: 110px;
 }
 
 ul {
@@ -298,26 +323,6 @@ ul {
     margin: auto 0;
     transition: all 0.25s ease-in-out;
 
-    .cartIcon {
-      position: relative;
-
-      .numberItems {
-        position: absolute;
-        top: 0;
-        right: -10px;
-        width: 25px;
-        height: 25px;
-        background: red;
-        border-radius: 50%;
-        color: #f5f5f5;
-        text-align: center;
-      }
-    }
-
-    img {
-      display: inline;
-      width: 36px;
-    }
     & > span {
       position: relative;
 

@@ -3,10 +3,11 @@
     <input
       type="text"
       placeholder="search for..."
+      class="w-full h-10 sm:h-12 mb-1"
       v-model="inputSearchText"
     />
     <button>
-      <font-awesome-icon class="searchIcon" icon="fa-magnifying-glass" />
+      <font-awesome-icon class="searchIcon text-xl sm:text-2xl" icon="fa-magnifying-glass" />
     </button>
   </form>
 </template>
@@ -30,7 +31,6 @@ button {
 }
 
 .searchIcon {
-  font-size: 30px;
   color: #646464;
   transition: all 0.25s ease-in;
 
@@ -48,12 +48,9 @@ form {
 }
 
 input {
-  width: 100%;
-  height: 49px;
   border-radius: 10px;
   outline: none;
   padding: 0 1.3rem;
-  // margin: 0 0 0.6rem 0;
   font-size: 19px;
   border: 1px solid #c4c4c4;
   transition: all 0.25s ease-in;

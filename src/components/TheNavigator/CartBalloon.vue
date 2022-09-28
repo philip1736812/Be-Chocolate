@@ -2,11 +2,11 @@
   <transition name="cartBalloon" mode="out-in">
     <div
       v-if="leaveHeaderStatus"
-      class="fixed top-8 right-16 bg-slate-50 w-16 h-16 rounded-full z-20 shadow-lg bg-orange-300"
+      class="fixed top-4 right-4 sm:top-8 sm:right-16 bg-slate-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full z-20 shadow-lg bg-orange-300"
     >
       <div
         @click="activeCart"
-        class="relative w-full h-full flex justify-center items-center"
+        class="sm:relative w-full h-full flex justify-center items-center"
       >
         <router-link to="#">
           <img src="../../assets/TheNavigation/shopping-bag 2.png" alt="Cart" />
@@ -36,16 +36,19 @@
           </div>
         </div>
 
-        <div class="-translate-x-52 -translate-y-2">
-          <transition name="cartListDraw">
+        <transition name="cartListDraw" mode="out-in">
+          <div
+            v-if="leaveHeaderStatus"
+            class="fixed top-20 right-1/2 translate-x-1/2 sm:right-0 sm:top-28 sm:-translate-x-16"
+          >
             <cart-list
-              v-if="isCartActive && leaveHeaderStatus"
               @closeOverlayCart="closeCart"
               :userCart="userCartData"
               :cartAmount="cartAmount"
+              :isActiveCartList="isCartActive"
             ></cart-list>
-          </transition>
-        </div>
+          </div>
+        </transition>
       </div>
     </div>
   </transition>
@@ -101,7 +104,7 @@ export default {
 
 <style lang="scss" scoped>
 .cartListDraw-enter-active {
-  animation: expandDraw 0.25s ease-in;
+  animation: expandDraw 0.12s ease-in;
 }
 
 .cartListDraw-leave-active {
@@ -117,7 +120,6 @@ export default {
     opacity: 1;
   }
 }
-
 .cartBalloon-enter-active {
   animation: scaleBubble 0.15s ease-in;
 }

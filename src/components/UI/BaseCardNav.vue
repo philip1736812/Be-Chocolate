@@ -6,10 +6,14 @@
       @click="clickThisNavEmit"
       link
       :to="{ name: 'productType', params: { productTypeName: routeUrlGen } }"
-      class="itemNav w-full md:w-24 lg:w-28 lg:h-40 lg:h-32 xl:w-40 xl:h-40 border-2 border-slate-100 mx-auto mb-6 md:mb-2 lg:mb-6 xl:mb-0 md:mx-2 lg:mx-4 p-4 lg:p-4"
+      class="itemNav w-full md:w-24 lg:w-28 lg:h-40 lg:h-32 xl:w-40 xl:h-40 border-2 border-slate-100 mx-auto mb-3 md:mb-2 lg:mb-6 xl:mb-0 md:mx-2 lg:mx-4 p-2 lg:p-4"
     >
-      <img :src="urlNav" :alt="navName" class="w-16 h-20 lg:w-20 lg:h-24 object-contain" />
-      <p class="text-sm lg:text-md">{{ navName }}</p>
+      <img
+        :src="urlNav"
+        :alt="navName"
+        class="w-16 h-20 lg:w-20 lg:h-24 object-contain"
+      />
+      <p class="text-sm md:text-base lg:text-lg text-center">{{ navName }}</p>
     </base-button>
   </div>
 </template>
@@ -80,10 +84,6 @@ export default {
 
   img {
     margin: auto;
-  }
-  p {
-    font-size: 18px;
-    text-align: center;
   }
 }
 </style>

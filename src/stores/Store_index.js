@@ -8,6 +8,7 @@ export const useIndexStore = defineStore({
       leaveHeader: false,
       isActiveCartList: false,
       isActiveNotification: false,
+      windowWidth: window.innerWidth,
     };
   },
   getters: {
@@ -33,6 +34,7 @@ export const useIndexStore = defineStore({
     onElementObserved(entries) {
       entries.forEach(({ target, isIntersecting }) => {
         if (!isIntersecting) {
+          this.isActiveCartList = false;
           this.leaveHeader = true;
           return;
         }
@@ -40,6 +42,20 @@ export const useIndexStore = defineStore({
         this.leaveHeader = false;
         // this.observer.unobserve(target);
       });
+    },
+
+    windowResize() {
+      window.addEventListener(
+        "resize",
+        () => (this.windowWidth = window.innerWidth)
+      );
+    },
+
+    windowRemoveResize() {
+      window.removeEventListener(
+        "resize",
+        () => (this.windowWidth = window.innerWidth)
+      );
     },
   },
 });

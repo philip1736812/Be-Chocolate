@@ -1,11 +1,11 @@
 <template>
   <div>
     <header
-      class="h-96 w-full px-3 xl:p-20 sm:p-8 flex flex-col items-center justify-center text-slate-200"
+      class="h-60 lg:h-96 w-full px-3 xl:p-20 sm:p-8 flex flex-col items-center justify-center text-slate-200"
     >
-      <h2>Find Your Ingredient.</h2>
+      <h2 class="text-xl sm:text-3xl font-medium mb-8">Find Your Ingredient.</h2>
       <base-search-bar></base-search-bar>
-      <p class="text-slate-200"><strong>Ex.</strong> Chocolate bar, Coco nib</p>
+      <p class="w-full text-base sm:text-xl font-normal text-slate-200 text-start"><strong>Ex.</strong> Chocolate bar, Coco nib</p>
     </header>
     <main>
       <teleport to="body">
@@ -57,7 +57,7 @@
         </div>
       </transition>
 
-      <section class="craftChocolate">
+      <section class="craftChocolate mb-8 px-2 sm:p-0">
         <craft-chocolate-section></craft-chocolate-section>
       </section>
     </main>
@@ -174,16 +174,8 @@ header {
   background-color: #cccccc;
   background-size: cover;
 
-  h2 {
-    font-size: 25px;
-    margin: 0 0 34px 0;
-  }
-
   p {
     max-width: 1200px;
-    width: 100%;
-    text-align: start;
-    font-size: 18px;
   }
 }
 

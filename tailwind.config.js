@@ -27,6 +27,8 @@ module.exports = {
     "./src/views/Community/CommunityView.vue",
     "./src/components/CommunityView/ArticleFrame.vue",
     "./src/components/UI/BaseCardNav.vue",
+    "./src/components/UI/BaseBtnAddToCart.vue",
+    "./src/components/UI/BaseSearchBar.vue",
   ],
   theme: {
     extend: {},
