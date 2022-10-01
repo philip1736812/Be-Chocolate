@@ -139,7 +139,6 @@ export default {
   async created() {
     // Gen Img Pic
     this.craftChocolateStore.genHeaderPic();
-    console.log(`Running Created`);
 
     this.loadPic = await getHorizontalPic(
       this.craftChocolateStore.craftHeaderPic

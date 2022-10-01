@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useIndexStore } from "../stores/Store_index";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -67,14 +68,16 @@ const router = createRouter({
         navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
         default: () => import("@/views/Rating/RatingView.vue"),
       },
+      meta: { requiredAuth: true },
     },
     {
-      path: "/craftChocolate/Voting",
+      path: "/craft-chocolate/rating/voting",
       name: "voting",
       components: {
         navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
         default: () => import("@/views/Rating/VotingItems.vue"),
       },
+      meta: { requiredAuth: true },
     },
     {
       path: "/craft-chocolate/Voting/information-review/productId",
@@ -83,6 +86,7 @@ const router = createRouter({
         navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
         default: () => import("@/views/Rating/VoteInformation.vue"),
       },
+      meta: { requiredAuth: true },
     },
     {
       path: "/community-mall",
@@ -91,6 +95,7 @@ const router = createRouter({
         navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
         default: () => import("@/views/Community/CommunityView.vue"),
       },
+      meta: { requiredAuth: true },
     },
     {
       path: "/my-store",
@@ -109,6 +114,13 @@ const router = createRouter({
       },
     },
   ],
+});
+
+router.beforeEach((to, _, next) => {
+  const indexStore = useIndexStore();
+  const isAuthentication = indexStore.isAuthentication;
+  if (to.meta.requiredAuth && !isAuthentication) next({ name: "signIn" });
+  else next();
 });
 
 export default router;

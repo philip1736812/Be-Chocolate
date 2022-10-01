@@ -5,7 +5,6 @@
     @enter="enter"
     @after-enter="afterEnter"
     @leave="leave"
-    
   >
     <div
       v-if="isActiveCartList"
@@ -147,6 +146,9 @@ export default {
       return this.indexStore.windowWidth <= 640
         ? this.indexStore.windowWidth - 12
         : 384;
+    },
+    isAuthentication() {
+      return this.indexStore.isAuthentication;
     },
   },
 };

@@ -61,7 +61,7 @@
               </transition>
             </div>
           </span>
-          <span>
+          <span v-if="isAuthentication">
             <router-link :to="{ name: 'myStore' }"> My Store </router-link>
             <div class="relative w-full h-2.5">
               <transition name="routeCircle" mode="out-in">
@@ -143,7 +143,7 @@
             </transition>
           </div>
 
-          <div class="relative h-full ml-8" v-if="!isSignIn">
+          <div class="relative h-full ml-8" v-if="!isAuthentication">
             <div class="inline-flex">
               <base-button link :to="{ name: 'signIn' }">
                 <span
@@ -309,8 +309,8 @@ export default {
     routeUrl() {
       return this.$route.name;
     },
-    isSignIn() {
-      return this.indexStore.isSignIn;
+    isAuthentication() {
+      return this.indexStore.isAuthentication;
     },
   },
 };

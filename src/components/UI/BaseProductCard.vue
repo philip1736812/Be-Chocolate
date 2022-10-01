@@ -109,6 +109,9 @@ export default {
         return newPicArr.splice(0, 1);
       } else return newPicArr;
     },
+    isAuthentication() {
+      return this.indexStore.isAuthentication;
+    },
   },
   methods: {
     hover() {
@@ -118,6 +121,11 @@ export default {
       this.isHover = false;
     },
     selectedItem() {
+      if (!this.isAuthentication) {
+        this.$router.replace({ name: "signIn" });
+        return;
+      }
+
       this.isHover = true;
       this.selected_prod = true;
 

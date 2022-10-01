@@ -10,7 +10,7 @@ export const useIndexStore = defineStore({
       isActiveNotification: false,
       windowWidth: window.innerWidth,
       API_FIREBASE_KEY: `AIzaSyCeDgaXuYfNyKUnZqY4uVCn1THb_vJwCKw`,
-      isSignIn: false,
+      isAuth: false,
       userId: null,
     };
   },
@@ -20,6 +20,9 @@ export const useIndexStore = defineStore({
     },
     getLeaveHeaderStatus(state) {
       return state.leaveHeader;
+    },
+    isAuthentication(state) {
+      return state.isAuth;
     },
   },
   actions: {
@@ -84,7 +87,7 @@ export const useIndexStore = defineStore({
           );
         const data = await authRes.json();
 
-        if (mode == "signIn" && data.localId) this.isSignIn = true;
+        if (mode == "signIn" && data.localId) this.isAuth = true;
         console.log(data);
       } catch (err) {
         console.error(err.message);

@@ -122,7 +122,7 @@ export default {
         returnSecureToken: true,
       });
 
-      if (!this.indexStore.isSignIn) return;
+      if (!this.indexStore.isAuthentication) return;
       this.$router.replace({ name: "home" });
     },
   },

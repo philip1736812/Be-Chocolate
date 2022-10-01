@@ -28,7 +28,7 @@
 
     <transition name="addCart" mode="out-in">
       <button
-        @click="$emit('selectedItem')"
+        @click="selectedItemEmit"
         v-if="
           !selected_prod || qty_thisItem === 0 || qty_thisItem === undefined
         "
@@ -36,7 +36,7 @@
         <font-awesome-icon icon="fa-cart-arrow-down" />
       </button>
 
-      <button v-else @click="$emit('selectedItem')">
+      <button v-else @click="selectedItemEmit">
         <font-awesome-icon icon="fa-plus" />
       </button>
     </transition>
@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { useIndexStore } from "../../stores/Store_index";
+
 export default {
   props: {
     qty_thisItem: {
@@ -63,6 +65,26 @@ export default {
       type: Boolean,
       required: false,
       default: false,
+    },
+  },
+  setup() {
+    const indexStore = useIndexStore();
+
+    return { indexStore };
+  },
+  emits: ["selectedItem", "deleteProd"],
+  computed: {
+    isAuthentication() {
+      return this.indexStore.isAuthentication;
+    },
+  },
+  methods: {
+    selectedItemEmit() {
+      if (!this.isAuthentication) {
+        this.$router.replace({ name: "signIn" });
+        return;
+      }
+      this.$emit("selectedItem");
     },
   },
 };
