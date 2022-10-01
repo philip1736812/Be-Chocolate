@@ -9,6 +9,9 @@ export const useIndexStore = defineStore({
       isActiveCartList: false,
       isActiveNotification: false,
       windowWidth: window.innerWidth,
+      API_FIREBASE_KEY: `AIzaSyCeDgaXuYfNyKUnZqY4uVCn1THb_vJwCKw`,
+      isSignIn: false,
+      userId: null,
     };
   },
   getters: {
@@ -34,7 +37,6 @@ export const useIndexStore = defineStore({
     onElementObserved(entries) {
       entries.forEach(({ target, isIntersecting }) => {
         if (!isIntersecting) {
-          this.isActiveCartList = false;
           this.leaveHeader = true;
           return;
         }
@@ -56,6 +58,37 @@ export const useIndexStore = defineStore({
         "resize",
         () => (this.windowWidth = window.innerWidth)
       );
+    },
+
+    async auth(mode, dataForAuth) {
+      try {
+        let url;
+        if (mode !== "signIn")
+          url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.API_FIREBASE_KEY}`;
+        else
+          url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.API_FIREBASE_KEY}`;
+
+        const authRes = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataForAuth),
+        });
+
+        if (!authRes.ok)
+          throw new Error(
+            (authRes.message &&
+              `Something Wrong! ${mode} failed: ${authRes.message}`) ||
+              `Authentication failed.`
+          );
+        const data = await authRes.json();
+
+        if (mode == "signIn" && data.localId) this.isSignIn = true;
+        console.log(data);
+      } catch (err) {
+        console.error(err.message);
+      }
     },
   },
 });

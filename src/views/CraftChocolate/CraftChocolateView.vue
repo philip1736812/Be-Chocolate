@@ -16,9 +16,10 @@
         </div>
 
         <div
+          v-if="isPictureLoad"
           class="w-11/12 lg:w-3/4 mx-auto bg-slate-600 rounded-lg text-white text-center"
         >
-          <carousel :imgSource="[]"></carousel>
+          <carousel :imgSource="getHeaderPic"></carousel>
         </div>
       </div>
     </section>
@@ -111,6 +112,7 @@
 <script>
 import { useCraftChocolateStore } from "../../stores/CraftChocolate/Store_craftChocolate";
 import { userCartList } from "@/stores/Cart/Cart_items";
+import { getHorizontalPic } from "../../components/hooks/getHorizontalPic";
 
 import CartBalloon from "@/components/TheNavigator/CartBalloon.vue";
 import BaseSearchBar from "../../components/UI/BaseSearchBar.vue";
@@ -132,7 +134,17 @@ export default {
   },
 
   data() {
-    return { searchVal: "" };
+    return { searchVal: "", loadPic: null };
+  },
+  async created() {
+    // Gen Img Pic
+    this.craftChocolateStore.genHeaderPic();
+    console.log(`Running Created`);
+
+    this.loadPic = await getHorizontalPic(
+      this.craftChocolateStore.craftHeaderPic
+    );
+
   },
   computed: {
     getProduct() {
@@ -150,8 +162,16 @@ export default {
             );
           });
     },
+    getHeaderPic() {
+      // wait getHorizontalPic Fn
+      if (!this.loadPic) return;
+      return this.loadPic;
+    },
     itemInCart() {
       return this.cartList.itemInCart;
+    },
+    isPictureLoad() {
+      return this.loadPic && this.loadPic.length !== 0;
     },
   },
   methods: {

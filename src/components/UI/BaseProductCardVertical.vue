@@ -38,7 +38,11 @@
           {{ product.name }}
         </h2>
       </base-button>
-      <base-button link to="/" class="storeName text-slate-500">
+      <base-button
+        link
+        :to="{ name: 'StoreInformation' }"
+        class="storeName text-slate-500"
+      >
         <font-awesome-icon icon="fa-store" class="mr-2" />{{
           product.storeName
         }}</base-button

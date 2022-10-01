@@ -75,7 +75,7 @@
               </div>
               <base-button
                 link
-                href="#"
+                :to="{ name: 'informationReview' }"
                 class="text-lg text-neutral-300 hover:text-neutral-100 transition-all"
                 :class="{ blackText: !isHighRanking }"
                 >Read More
@@ -123,6 +123,7 @@ import BaseButton from "./BaseButton.vue";
 import StarRender from "../RatingView/StarRender.vue";
 
 import { userCartList } from "../../stores/Cart/Cart_items.js";
+import { getHorizontalPic } from "../hooks/getHorizontalPic";
 
 export default {
   components: { BaseButton, BaseBtnAddToCart, StarRender },
@@ -141,24 +142,7 @@ export default {
   },
 
   async created() {
-    const sleep = (milliseconds) => {
-      return new Promise((resolve) => setTimeout(resolve, milliseconds));
-    };
-
-    const asyncFilter = async (arr, predicate) => {
-      const results = await Promise.all(arr.map(predicate));
-
-      return arr.filter((_v, index) => results[index]);
-    };
-
-    const resPic = await asyncFilter(this.product.pictureUrl, async (pic) => {
-      const img = new Image();
-      await sleep(10);
-      img.src = pic;
-      return img.naturalWidth >= img.naturalHeight;
-    });
-
-    this.loadPic = resPic;
+    this.loadPic = await getHorizontalPic(this.product.pictureUrl);
   },
   mounted() {
     this.$nextTick(() => {
@@ -180,6 +164,8 @@ export default {
 
     getPicture() {
       // Get URl With Greater Width
+      if (!this.loadPic) return;
+
       if (this.product.pictureUrl.length <= 1)
         return this.product.pictureUrl[0];
 

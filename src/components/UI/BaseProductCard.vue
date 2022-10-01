@@ -9,7 +9,11 @@
       class="content col-span-5 xl:col-span-2 md:col-span-3"
       :class="{ hover: isHover, selected: selected_prod && qty_thisItem >= 1 }"
     >
-      <base-button link to="/" class="storeName text-lg sm:text-2xl">
+      <base-button
+        link
+        :to="{ name: 'StoreInformation' }"
+        class="storeName text-lg sm:text-2xl"
+      >
         <font-awesome-icon icon="fa-store" class="text-lg sm:text-2xl mr-3" />{{
           product.storeName
         }}</base-button

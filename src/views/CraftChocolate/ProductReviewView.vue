@@ -39,7 +39,7 @@
       </div>
 
       <div class="container w-full lg:w-3/4 mx-auto mt-16">
-        <p class="text-lg font-medium">{{ getProduct.description }}</p>
+        <p class="text-lg font-base">{{ getProduct.description }}</p>
       </div>
 
       <div class="container w-60 mx-auto mt-12">
@@ -129,15 +129,6 @@ export default {
   },
   computed: {
     getProduct() {
-      console.log(this.craftChocolateStore.getStoreProduct);
-
-      console.log(this.productId);
-
-      console.log(
-        this.craftChocolateStore.getStoreProduct.find(
-          (prod) => +prod.id === +this.productId
-        )
-      );
       return this.craftChocolateStore.getStoreProduct.find(
         (prod) => +prod.id === +this.productId
       );

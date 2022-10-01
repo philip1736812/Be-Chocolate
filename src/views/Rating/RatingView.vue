@@ -37,7 +37,7 @@
 
           <base-button
             link
-            to="/"
+            :to="{ name: 'voting' }"
             class="w-full mt-8 sm:w-auto bg-gray-800 hover:bg-gray-700 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5"
           >
             <font-awesome-icon
@@ -112,7 +112,7 @@ export default {
   },
   data() {
     return {
-      deadLineSetting: "September 30, 2022",
+      deadLineSetting: "October 30, 2022",
     };
   },
   computed: {

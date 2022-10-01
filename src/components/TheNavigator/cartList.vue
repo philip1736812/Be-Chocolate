@@ -5,15 +5,15 @@
     @enter="enter"
     @after-enter="afterEnter"
     @leave="leave"
+    
   >
     <div
       v-if="isActiveCartList"
       :style="{
         width: isSmallestWidth && `${isSmallestWidth}px`,
       }"
-      class="container overflow-hidden sm:h-auto bg-gray-50 rounded-md p-6 z-50"
+      class="container overflow-hidden transition-all sm:h-auto bg-gray-50 rounded-md p-6 z-50"
     >
-      <!-- top-0 -left-8 sm:left-0 w-96  mx-auto -translate-x-1/2 sm:-translate-x-1/3 translate-y-12 -->
       <div
         class="container flex w-full pb-1.5 sm:pb-4 border-b border-slate-800 text-base sm:text-lg"
       >
@@ -128,9 +128,6 @@ export default {
       el.style.height = "auto";
     },
     leave(el) {
-      /*
-          Same as with the enter method, but only the other way around.
-        */
       el.style.height = getComputedStyle(el).height;
 
       getComputedStyle(el);

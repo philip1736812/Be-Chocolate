@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import axios from "axios";
 import "flowbite";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -33,10 +34,14 @@ import router from "./router";
 
 import "./assets/main.css";
 
+const axiosInstance = axios.create({
+  withCredentials: true,
+});
 const app = createApp(App);
 
 app.use(createPinia());
 app.use(router);
+app.config.globalProperties.$axios = { ...axiosInstance };
 
 // font awesome
 library.add(

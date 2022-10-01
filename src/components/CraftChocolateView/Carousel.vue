@@ -9,7 +9,7 @@
         v-for="(picUrl, index) in imgSource.length"
         :key="picUrl + index"
         :id="`carousel-item-${index + 1}`"
-        class="hidden duration-700 ease-in-out absolute inset-0 transition-all transform translate-x-0 z-20"
+        class="hidden duration-700 ease-in-out absolute inset-0 transition-all transform translate-x-full z-20"
         :data-carousel-item="index == 0 ? `active` : ''"
       >
         <img
@@ -141,7 +141,6 @@ export default {
 
     this.carousel = new Carousel(this.items, this.options);
   },
-
   methods: {
     dataCarouselPrev() {
       this.carousel.prev();
@@ -152,5 +151,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

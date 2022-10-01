@@ -4,6 +4,8 @@ module.exports = {
   content: [
     "./index.html",
     "./src/App.vue",
+    "./src/views/Authentication/userSignIn.vue",
+    "./src/views/Authentication/userSignUp.vue",
     "./src/components/TheNavigator/TheHeader.vue",
     "./src/components/TheNavigator/MultiLevelDropdownNav.vue",
     "./src/views/HomePage/HomeView.vue",
@@ -29,6 +31,10 @@ module.exports = {
     "./src/components/UI/BaseCardNav.vue",
     "./src/components/UI/BaseBtnAddToCart.vue",
     "./src/components/UI/BaseSearchBar.vue",
+    "./src/views/Rating/VoteInformation.vue",
+    "./src/views/Store/StoreInformation.vue",
+    "./src/components/PageNotFound/InDevelopment.vue",
+    "./src/components/PageNotFound/NotFoundPage.vue",
   ],
   theme: {
     extend: {},

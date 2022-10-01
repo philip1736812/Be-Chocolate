@@ -62,11 +62,11 @@
             </div>
           </span>
           <span>
-            <router-link to="#"> Your Shop </router-link>
+            <router-link :to="{ name: 'myStore' }"> My Store </router-link>
             <div class="relative w-full h-2.5">
               <transition name="routeCircle" mode="out-in">
                 <div
-                  v-if="routeUrl === '#'"
+                  v-if="routeUrl === 'myStore'"
                   class="absolute right-2/4 translate-x-2/4 w-2.5 h-2.5 mt-2 mx-auto bg-slate-700 rounded-full"
                 ></div>
               </transition>
@@ -143,16 +143,24 @@
             </transition>
           </div>
 
-          <div class="relative h-full ml-8" v-if="true">
-            <base-button link>
-              <span class="text-md md:text-xl font-medium">
-                <font-awesome-icon
-                  icon="fa-right-to-bracket"
-                  class="mx-1 md:mx-2 text-md"
-                />
-                Sign In
-              </span>
-            </base-button>
+          <div class="relative h-full ml-8" v-if="!isSignIn">
+            <div class="inline-flex">
+              <base-button link :to="{ name: 'signIn' }">
+                <span
+                  class="text-md md:text-lg font-medium transition-all hover:text-indigo-700"
+                >
+                  Sign In
+                </span>
+              </base-button>
+              <p class="mx-3 text-xl font-bold">/</p>
+              <base-button link :to="{ name: 'signUp' }">
+                <span
+                  class="text-md md:text-lg font-medium transition-all hover:text-indigo-700"
+                >
+                  Sign Up
+                </span>
+              </base-button>
+            </div>
           </div>
           <div class="relative ml-8" v-else>
             <button
@@ -163,8 +171,8 @@
             >
               <span class="sr-only">Open user menu</span>
               <img
-                class="mr-2 w-8 h-8 rounded-full"
-                src="/docs/images/people/profile-picture-3.jpg"
+                class="mr-3 w-12 h-12 rounded-full object-cover"
+                src="https://images.unsplash.com/photo-1603383928972-2116518cd3f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YWNuZXxlbnwwfHwwfHw%3D&w=1000&q=80"
                 alt="user photo"
               />
               Bonnie Green
@@ -300,6 +308,9 @@ export default {
     },
     routeUrl() {
       return this.$route.name;
+    },
+    isSignIn() {
+      return this.indexStore.isSignIn;
     },
   },
 };
