@@ -11,7 +11,7 @@ export const useIndexStore = defineStore({
       windowWidth: window.innerWidth,
       API_FIREBASE_KEY: `AIzaSyCeDgaXuYfNyKUnZqY4uVCn1THb_vJwCKw`,
       isAuth: false,
-      userId: null,
+      user: null,
     };
   },
   getters: {
@@ -88,10 +88,23 @@ export const useIndexStore = defineStore({
         const data = await authRes.json();
 
         if (mode == "signIn" && data.localId) this.isAuth = true;
-        console.log(data);
+
+        // Data from SignIn
+        this.user = {
+          email: data.email,
+          expiresIn: data.expiresIn,
+          idToken: data.idToken,
+          userId: data.localId,
+          registered: data.registered,
+        };
       } catch (err) {
         console.error(err.message);
       }
+    },
+
+    signOutFn() {
+      this.user = null;
+      this.isAuth = false;
     },
   },
 });

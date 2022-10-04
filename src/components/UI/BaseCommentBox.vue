@@ -3,7 +3,7 @@
     <div class="flex items-center mb-4 space-x-4">
       <img
         class="w-10 h-10 rounded-full"
-        src="/docs/images/people/profile-picture-5.jpg"
+        src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
         alt=""
       />
       <div class="space-y-1 font-medium dark:text-white">

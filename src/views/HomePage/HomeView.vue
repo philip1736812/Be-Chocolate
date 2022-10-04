@@ -3,9 +3,15 @@
     <header
       class="h-60 lg:h-96 w-full px-3 xl:p-20 sm:p-8 flex flex-col items-center justify-center text-slate-200"
     >
-      <h2 class="text-xl sm:text-3xl font-medium mb-8">Find Your Ingredient.</h2>
+      <h2 class="text-xl sm:text-3xl font-medium mb-8">
+        Find Your Ingredient.
+      </h2>
       <base-search-bar></base-search-bar>
-      <p class="w-full text-base sm:text-xl font-normal text-slate-200 text-start"><strong>Ex.</strong> Chocolate bar, Coco nib</p>
+      <p
+        class="w-full text-base sm:text-xl font-normal text-slate-200 text-start"
+      >
+        <strong>Ex.</strong> Chocolate bar, Coco nib
+      </p>
     </header>
     <main>
       <teleport to="body">
@@ -20,13 +26,17 @@
           :key="prod.name"
           :navName="prod.name"
           :urlNav="prod.pictureUrl"
+          :activeProduct="selectedNavName"
           @productSelected="selectedNav"
           @clickThisNav="selectedNav"
         ></base-card-nav>
       </div>
 
       <transition name="hotItems" mode="out-in">
-        <section class="showHotItem px-4 lg:px-0" v-if="getProducts">
+        <section
+          class="showHotItem px-4 lg:px-0"
+          v-if="getProducts && getProducts.length !== 0"
+        >
           <div
             class="hotItemsTopic flex items-end max-w-5xl w-full xl:w-9/12 mb-4"
           >

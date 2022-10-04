@@ -34,7 +34,7 @@
         type="button"
         data-drawer-dismiss="drawer-disable-body-scrolling"
         aria-controls="drawer-disable-body-scrolling"
-        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-slate-600 hover:text-slate-800 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+        class="text-stale-400 bg-transparent hover:bg-gray-200 hover:text-slate-600 hover:text-slate-800 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
       >
         <svg
           aria-hidden="true"
@@ -54,7 +54,7 @@
       <div class="py-4 overflow-y-auto">
         <div class="space-y-2 divide-y">
           <!-- User Profile Information -->
-          <ul>
+          <ul v-if="isAuthentication">
             <li class="flex flex-row flex-warp items-center">
               <div class="relative">
                 <img
@@ -74,7 +74,7 @@
           </ul>
 
           <!-- User Profile Control -->
-          <ul class="py-2">
+          <ul v-if="isAuthentication" class="py-2">
             <li>
               <button
                 type="button"
@@ -166,59 +166,65 @@
           <!-- Page Navigator -->
           <ul class="py-2">
             <li>
-              <a
-                href="#"
+              <base-button
+                link
+                :to="{ name: 'home' }"
                 class="flex items-center p-2 text-base font-normal text-slate-600 hover:text-slate-800 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <font-awesome-icon icon="fa-house" class="text-lg" />
                 <span class="ml-3">Home</span>
-              </a>
+              </base-button>
             </li>
             <li>
-              <a
-                href="#"
+              <base-button
+                link
+                :to="{ name: 'craftChocolate' }"
                 class="flex items-center p-2 text-base font-normal text-slate-600 hover:text-slate-800 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <font-awesome-icon icon="fa-cookie-bite" class="text-lg" />
                 <span class="flex-1 ml-3 whitespace-nowrap"
                   >Craft Chocolate</span
                 >
-              </a>
+              </base-button>
             </li>
             <li>
-              <a
-                href="#"
+              <base-button
+                link
+                :to="{ name: 'rating' }"
                 class="flex items-center p-2 text-base font-normal text-slate-600 hover:text-slate-800 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <font-awesome-icon icon="fa-star" class="text-lg" />
                 <span class="flex-1 ml-3 whitespace-nowrap">Rating</span>
-              </a>
+              </base-button>
             </li>
             <li>
-              <a
-                href="#"
+              <base-button
+                link
+                :to="{ name: 'communityMall' }"
                 class="flex items-center p-2 text-base font-normal text-slate-600 hover:text-slate-800 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <font-awesome-icon icon="fa-comments" class="text-lg" />
                 <span class="flex-1 ml-3 whitespace-nowrap">Community</span>
-              </a>
+              </base-button>
             </li>
-            <li>
-              <a
-                href="#"
+            <li v-if="isAuthentication">
+              <base-button
+                link
+                :to="{ name: 'myStore' }"
                 class="flex items-center p-2 text-base font-normal text-slate-600 hover:text-slate-800 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <font-awesome-icon icon="fa-shop" class="text-lg" />
                 <span class="flex-1 ml-3 whitespace-nowrap">My Shop</span>
-              </a>
+              </base-button>
             </li>
           </ul>
 
           <!-- Sign Out and Other Config -->
           <ul class="py-2">
-            <li>
-              <a
-                href="#"
+            <li v-if="isAuthentication">
+              <base-button
+                link
+                @click="signOut"
                 class="flex items-center p-2 text-base font-normal text-slate-600 hover:text-slate-800 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <font-awesome-icon
@@ -226,7 +232,20 @@
                   class="text-lg"
                 />
                 <span class="flex-1 ml-3 whitespace-nowrap">Sign Out</span>
-              </a>
+              </base-button>
+            </li>
+            <li v-else>
+              <base-button
+                link
+                :to="{ name: 'signIn' }"
+                class="flex items-center p-2 text-base font-normal text-slate-600 hover:text-slate-800 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <font-awesome-icon
+                  icon="fa-arrow-right-from-bracket"
+                  class="text-lg"
+                />
+                <span class="flex-1 ml-3 whitespace-nowrap">Sign In</span>
+              </base-button>
             </li>
           </ul>
         </div>
@@ -236,10 +255,15 @@
 </template>
 
 <script>
+import { useIndexStore } from "../../stores/Store_index";
 import BaseButton from "../UI/BaseButton.vue";
 
 export default {
   components: { BaseButton },
+  setup() {
+    const indexStore = useIndexStore();
+    return { indexStore };
+  },
   data() {
     return {
       drawer: null,
@@ -261,6 +285,11 @@ export default {
 
     this.drawer = new Drawer(targetEl, options);
   },
+  computed: {
+    isAuthentication() {
+      return this.indexStore.isAuthentication;
+    },
+  },
   methods: {
     activeDropDown() {
       this.drawer.toggle();
@@ -268,6 +297,15 @@ export default {
     deActiveDropDown() {
       this.drawer.hide();
     },
+    signOut() {
+      this.indexStore.signOutFn();
+    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.router-link-active {
+  font-weight: bold;
+}
+</style>

@@ -13,8 +13,8 @@
     "
   >
     <div class="py-3 px-4 text-sm text-gray-900 dark:text-white">
-      <div class="text-lg font-bold">Pro User</div>
-      <div class="truncate text-base">name@flowbite.com</div>
+      <div class="text-lg font-bold">User Profile</div>
+      <div class="truncate text-base">{{ userData.email }}</div>
     </div>
     <ul
       class="py-1 text-sm text-gray-700 dark:text-gray-200"
@@ -44,10 +44,22 @@
     </ul>
     <div class="py-1">
       <a
-        href="#"
+        @click="$emit('signOutEmit')"
         class="block text-base py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
         >Sign out</a
       >
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  emit: ["signOutEmit"],
+  props: {
+    userData: {
+      type: Object,
+      required: true,
+    },
+  },
+};
+</script>

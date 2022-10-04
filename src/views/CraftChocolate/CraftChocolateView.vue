@@ -143,7 +143,6 @@ export default {
     this.loadPic = await getHorizontalPic(
       this.craftChocolateStore.craftHeaderPic
     );
-
   },
   computed: {
     getProduct() {
@@ -164,7 +163,7 @@ export default {
     getHeaderPic() {
       // wait getHorizontalPic Fn
       if (!this.loadPic) return;
-      return this.loadPic;
+      return this.loadPic.slice(0,8);
     },
     itemInCart() {
       return this.cartList.itemInCart;

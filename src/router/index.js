@@ -95,7 +95,6 @@ const router = createRouter({
         navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
         default: () => import("@/views/Community/CommunityView.vue"),
       },
-      meta: { requiredAuth: true },
     },
     {
       path: "/my-store",

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="relative">
     <base-button
       @mouseenter="selectedNav"
       @mouseleave="clearIntervalFn"
@@ -14,6 +14,10 @@
         class="w-16 h-20 lg:w-20 lg:h-24 object-contain"
       />
       <p class="text-sm md:text-base lg:text-lg text-center">{{ navName }}</p>
+      <div
+        v-if="routeUrlGen === activeProduct"
+        class="absolute right-2/4 translate-x-2/4 bottom-0 w-2.5 h-2.5 mt-2 mx-auto bg-slate-700 rounded-full"
+      ></div>
     </base-button>
   </div>
 </template>
@@ -22,7 +26,19 @@
 import BaseButton from "./BaseButton.vue";
 
 export default {
-  props: ["navName", "urlNav"],
+  props: ["navName", "urlNav", "activeProduct"],
+  props: {
+    navName: {
+      type: String,
+    },
+    urlNav: {
+      type: String,
+    },
+    activeProduct: {
+      type: String,
+      default: "cacaoPods",
+    },
+  },
   components: { BaseButton },
   emits: ["clickThisNav", "productSelected"],
   data() {

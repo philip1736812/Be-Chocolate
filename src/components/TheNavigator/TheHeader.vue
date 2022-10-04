@@ -115,7 +115,7 @@
               <router-link to="#">
                 <img
                   class="inline w-7 sm:w-9"
-                  src="../../assets/TheNavigation/shopping-bag 2.png"
+                  src="../../assets/TheNavigation/shopping-bag-2.png"
                   alt="Cart"
                 />
               </router-link>
@@ -131,7 +131,7 @@
             <transition name="cartListDraw">
               <div
                 v-if="!indexStore.getLeaveHeaderStatus"
-                class="absolute right-1/2 translate-x-1/2 z-50 sm:right-24 sm:-translate-x-0 top-16 sm:top-20"
+                class="absolute right-1/2 translate-x-1/2 z-50 sm:right-24 sm:translate-x-0 lg:-translate-x-1/2 top-16 sm:top-20"
               >
                 <cart-list
                   @closeOverlayCart="closeCart"
@@ -172,10 +172,10 @@
               <span class="sr-only">Open user menu</span>
               <img
                 class="mr-3 w-12 h-12 rounded-full object-cover"
-                src="https://images.unsplash.com/photo-1603383928972-2116518cd3f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YWNuZXxlbnwwfHwwfHw%3D&w=1000&q=80"
+                src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
                 alt="user photo"
               />
-              Bonnie Green
+              {{ getUserData.email }}
               <svg
                 class="w-4 h-4 mx-1.5"
                 aria-hidden="true"
@@ -191,7 +191,11 @@
               </svg>
             </button>
 
-            <user-profile id="dropdownAvatarName"></user-profile>
+            <user-profile
+              id="dropdownAvatarName"
+              :userData="getUserData"
+              @signOutEmit="signOut"
+            ></user-profile>
           </div>
         </li>
       </ul>
@@ -286,6 +290,10 @@ export default {
     activeProfile() {
       this.dropdown.show();
     },
+    signOut() {
+      this.indexStore.signOutFn();
+      this.$router.replace({ name: "home" });
+    },
   },
   computed: {
     isCartActive() {
@@ -311,6 +319,9 @@ export default {
     },
     isAuthentication() {
       return this.indexStore.isAuthentication;
+    },
+    getUserData() {
+      return this.indexStore.user;
     },
   },
 };

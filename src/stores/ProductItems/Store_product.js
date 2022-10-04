@@ -81,6 +81,11 @@ export const useProductStore = defineStore("productItems", () => {
     ],
     craftChocolateItems: craftChocolateStore.craftChocolateProduct,
     chocolatePlateItems: [],
+    cacaoBeanItems: [],
+    cocoaPowdersItems: [],
+    cocoaButterItems: [],
+    chocolateItems: [],
+    chocolateBarItems: [],
   };
 
   const headerPic_productTypeList = {
@@ -95,6 +100,11 @@ export const useProductStore = defineStore("productItems", () => {
       "http://drive.google.com/uc?export=view&id=1IYgrseD6VDZ3WhrBO0ot6V_UBwwp_BGF",
       "http://drive.google.com/uc?export=view&id=12nXPwUZWorbCaI0m-Q88d-fV7LUkVXwp",
     ],
+    cacaoBean: [],
+    cocoaPowders: [],
+    cocoaButter: [],
+    chocolate: [],
+    chocolateBar: [],
 
     craftChocolate: [
       "http://drive.google.com/uc?export=view&id=1Qj8y3XsNEWnM-oVgEcxKmznVr1P91mES",

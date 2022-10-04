@@ -9,7 +9,7 @@
         class="sm:relative w-full h-full flex justify-center items-center"
       >
         <router-link to="#">
-          <img src="../../assets/TheNavigation/shopping-bag 2.png" alt="Cart" />
+          <img src="../../assets/TheNavigation/shopping-bag-2.png" alt="Cart" />
         </router-link>
 
         <div
