@@ -92,22 +92,25 @@ export default {
 
 <style lang="scss" scoped>
 .addToCart {
+  max-width: 200px;
   display: flex;
   align-items: center;
   justify-content: space-around;
 
   transition: all 0.25s ease-in-out;
   opacity: 0;
+  visibility: hidden;
 
   &.buttonShow {
     opacity: 1;
+    visibility: visible;
   }
 
   &.btnSelected {
     opacity: 1;
 
     button {
-      width: 45px;
+      width: 35px;
 
       background: rgb(249 115 22);
       color: #fff;
@@ -116,7 +119,7 @@ export default {
   }
 
   .qtyProduct {
-    font-size: 23px;
+    font-size: 20px;
     font-weight: bold;
     margin: 0 1.4rem;
   }
@@ -127,9 +130,9 @@ export default {
 
   button {
     width: 100%;
-    height: 45px;
+    height: 35px;
     border-radius: 10px;
-    font-size: 25px;
+    font-size: 20px;
     background: #fafafa;
     border: 1px solid #444444;
     cursor: pointer;
@@ -148,7 +151,7 @@ export default {
     }
   }
   p.cart {
-    font-size: 25px;
+    font-size: 20px;
     margin: 0 0 0 1rem;
   }
 }

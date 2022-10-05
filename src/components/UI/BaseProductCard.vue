@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card_container max-w-5xl w-full xl:w-9/12 relative grid grid-cols-7 mx-auto my-1 py-4 px-3.5 sm:px-9 xl:mb-4 xl:py-4 xl:px-12 text-slate-800"
+    class="card_container max-w-5xl w-full xl:w-9/12 relative grid grid-cols-7 mx-auto my-1 py-2 px-3.5 sm:px-9 xl:mb-2 xl:py-3 hover:py-4 xl:px-12 text-slate-800"
     @mouseenter="hover"
     @mouseleave="mouseOut"
     :class="{ containerHover: isHover }"
@@ -12,13 +12,13 @@
       <base-button
         link
         :to="{ name: 'StoreInformation' }"
-        class="storeName text-lg sm:text-2xl"
+        class="storeName text-base sm:text-xl"
       >
-        <font-awesome-icon icon="fa-store" class="text-lg sm:text-2xl mr-3" />{{
+        <font-awesome-icon icon="fa-store" class="text-lg sm:text-xl mr-3" />{{
           product.storeName
         }}</base-button
       >
-      <h2 class="text-2xl md:text-4xl font-medium mb-3 mt-1">
+      <h2 class="text-xl md:text-2xl font-medium mb-3 mt-1">
         {{ product.price }} Bath/kg.
       </h2>
       <p class="remaining mb-4">
@@ -38,7 +38,7 @@
       class="pictureContainer col-span-2 xl:col-span-5 md:col-span-4 relative flex items-center sm:items-center justify-end"
     >
       <img
-        class="pictureItems w-20 h-20 object-cover sm:w-32 sm:h-32 mx-1 xl:mx-3"
+        class="pictureItems w-20 h-20 object-cover sm:w-24 sm:h-24 mx-1 xl:mx-1.5"
         v-for="picUrl in filterPictureByWidth"
         :key="picUrl"
         :src="picUrl"
@@ -52,9 +52,9 @@
     <transition name="addedCart" mode="out-in">
       <div
         v-if="isAddedInCart"
-        class="addedInCart absolute w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-red-500 text-sm sm:text-xl -right-2.5 -top-1.5 sm:-top-2.5"
+        class="addedInCart absolute w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-red-500 text-sm sm:text-xl -right-2.5 -top-1.5 sm:-top-2.5"
       >
-        <font-awesome-icon icon="fa-cart-arrow-down" />
+        <font-awesome-icon icon="fa-cart-arrow-down" class="base-sm sm:text-base"/>
       </div>
     </transition>
   </div>
@@ -98,13 +98,19 @@ export default {
       let newPicArr = this.propsPicture.slice();
       this.isHover = false;
 
-      if (windowWidth >= 1024 && newPicArr.length > 4)
-        return newPicArr.splice(4);
-      else if (windowWidth < 1024 && windowWidth > 768 && newPicArr.length > 3)
+      if (windowWidth >= 1024 && newPicArr.length > 5)
+        return newPicArr.splice(5);
+      else if (windowWidth < 1024 && windowWidth > 768 && newPicArr.length > 4)
+        return newPicArr.splice(0, 4);
+      else if (windowWidth <= 768 && windowWidth > 640 && newPicArr.length > 3)
         return newPicArr.splice(0, 3);
-      else if (windowWidth <= 768 && windowWidth > 640 && newPicArr.length > 2)
+      else if (
+        windowWidth <= 640 &&
+        windowWidth > 540 &&
+        newPicArr.length > 2
+      ) {
         return newPicArr.splice(0, 2);
-      else if (windowWidth <= 640 && newPicArr.length > 1) {
+      } else if (windowWidth <= 540 && newPicArr.length > 1) {
         this.isHover = true;
         return newPicArr.splice(0, 1);
       } else return newPicArr;

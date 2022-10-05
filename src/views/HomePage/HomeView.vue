@@ -3,12 +3,12 @@
     <header
       class="h-60 lg:h-96 w-full px-3 xl:p-20 sm:p-8 flex flex-col items-center justify-center text-slate-200"
     >
-      <h2 class="text-xl sm:text-3xl font-medium mb-8">
+      <h2 class="text-lg sm:text-2xl font-medium mb-8">
         Find Your Ingredient.
       </h2>
       <base-search-bar></base-search-bar>
       <p
-        class="w-full text-base sm:text-xl font-normal text-slate-200 text-start"
+        class="w-full text-base sm:text-lg font-normal text-slate-200 text-start"
       >
         <strong>Ex.</strong> Chocolate bar, Coco nib
       </p>
@@ -34,15 +34,17 @@
 
       <transition name="hotItems" mode="out-in">
         <section
-          class="showHotItem px-4 lg:px-0"
+          class="relative showHotItem px-4 lg:px-0"
           v-if="getProducts && getProducts.length !== 0"
         >
           <div
             class="hotItemsTopic flex items-end max-w-5xl w-full xl:w-9/12 mb-4"
           >
-            <font-awesome-icon icon="fa-fire-flame-curved" />
-            <h2 class="text-xl md:text-3xl text-slate-700">Hot Items</h2>
-            <p class="text-lg md:text-xl mx-3 text-slate-500">{{ hotItem }}</p>
+            <font-awesome-icon icon="fa-fire-flame-curved" class="text-sm" />
+            <h2 class="text-lg md:text-xl text-slate-700">Hot Items</h2>
+            <p class="text-base md:text-lg font-light mx-3 text-slate-500">
+              {{ hotItem }}
+            </p>
           </div>
           <base-product-card
             v-for="item in getProducts"
@@ -53,6 +55,7 @@
           ></base-product-card>
 
           <base-button
+            class="mt-6"
             link
             :to="{
               name: 'productType',
@@ -206,7 +209,7 @@ main {
     text-align: center;
     margin: 0 auto;
     padding: 8rem 0;
-    font-size: 2rem;
+    font-size: 1.2rem;
   }
 
   section.showHotItem {
@@ -231,11 +234,11 @@ main {
       border-bottom: 1px solid #e8e8e8;
       padding: 0 0 40px 0;
 
-      bottom: -47%;
+      bottom: -6%;
     }
 
     a {
-      font-size: 20px;
+      font-size: 15px;
       color: #0042a6;
       text-decoration: underline;
     }

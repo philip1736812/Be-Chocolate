@@ -1,10 +1,10 @@
 <template>
   <header ref="header">
     <div
-      class="header relative h-auto lg:h-24 py-4 px-4 md:py-8 sm:px-6 md:px-32 text-slate-800"
+      class="header relative flex items-center h-auto lg:h-20 py-2 px-2 md:py-3 sm:px-6 md:px-32 text-slate-800"
     >
       <ul>
-        <li class="hidden xl:flex">
+        <li class="hidden w-6 h-6 object-cover xl:flex">
           <router-link :to="{ name: 'home' }" style="border: none">
             <img
               src="../../assets/TheNavigation/ChocolateBar_logo.png"
@@ -15,11 +15,11 @@
         <li class="hidden xl:flex">
           <span>
             <router-link :to="{ name: 'home' }"> Home </router-link>
-            <div class="relative w-full h-2.5">
+            <div class="relative w-full h-1">
               <transition name="routeCircle" mode="out-in">
                 <div
                   v-if="routeUrl === 'home'"
-                  class="absolute right-2/4 translate-x-2/4 w-2.5 h-2.5 mt-2 bg-slate-700 rounded-full"
+                  class="absolute right-2/4 translate-x-2/4 w-2 h-2 mt-2 mx-auto bg-slate-700 rounded-full"
                 ></div>
               </transition>
             </div>
@@ -28,22 +28,22 @@
             <router-link :to="{ name: 'craftChocolate' }">
               Craft Chocolate
             </router-link>
-            <div class="relative w-full h-2.5">
+            <div class="relative w-full h-1">
               <transition name="routeCircle" mode="out-in">
                 <div
                   v-if="routeUrl === 'craftChocolate'"
-                  class="absolute right-2/4 translate-x-2/4 w-2.5 h-2.5 mt-2 bg-slate-700 rounded-full"
+                  class="absolute right-2/4 translate-x-2/4 w-2 h-2 mt-2 mx-auto bg-slate-700 rounded-full"
                 ></div>
               </transition>
             </div>
           </span>
           <span>
             <router-link :to="{ name: 'rating' }"> Rating </router-link>
-            <div class="relative w-full h-2.5">
+            <div class="relative w-full h-1">
               <transition name="routeCircle" mode="out-in">
                 <div
                   v-if="routeUrl === 'rating'"
-                  class="absolute right-2/4 translate-x-2/4 w-2.5 h-2.5 mt-2 mx-auto bg-slate-700 rounded-full"
+                  class="absolute right-2/4 translate-x-2/4 w-2 h-2 mt-2 mx-auto bg-slate-700 rounded-full"
                 ></div>
               </transition>
             </div>
@@ -52,22 +52,22 @@
             <router-link :to="{ name: 'communityMall' }">
               Community
             </router-link>
-            <div class="relative w-full h-2.5">
+            <div class="relative w-full h-1">
               <transition name="routeCircle" mode="out-in">
                 <div
                   v-if="routeUrl === 'communityMall'"
-                  class="absolute right-2/4 translate-x-2/4 w-2.5 h-2.5 mt-2 mx-auto bg-slate-700 rounded-full"
+                  class="absolute right-2/4 translate-x-2/4 w-2 h-2 mt-2 mx-auto bg-slate-700 rounded-full"
                 ></div>
               </transition>
             </div>
           </span>
           <span v-if="isAuthentication">
             <router-link :to="{ name: 'myStore' }"> My Store </router-link>
-            <div class="relative w-full h-2.5">
+            <div class="relative w-full h-1">
               <transition name="routeCircle" mode="out-in">
                 <div
                   v-if="routeUrl === 'myStore'"
-                  class="absolute right-2/4 translate-x-2/4 w-2.5 h-2.5 mt-2 mx-auto bg-slate-700 rounded-full"
+                  class="absolute right-2/4 translate-x-2/4 w-2 h-2 mt-2 mx-auto bg-slate-700 rounded-full"
                 ></div>
               </transition>
             </div>
@@ -81,12 +81,12 @@
             <button
               id="dropdownNotificationButton"
               data-dropdown-toggle="dropdownNotification"
-              class="inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400 mr-1 sm:mr-4"
+              class="inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400 mr-1 sm:mr-2"
               type="button"
               @click="activeNotifications"
             >
               <svg
-                class="w-6 h-6 sm:w-8 sm:h-8"
+                class="w-6 h-6"
                 aria-hidden="true"
                 fill="currentColor"
                 viewBox="0 0 20 20"
@@ -104,7 +104,10 @@
             </button>
 
             <transition name="notificationPop">
-              <div v-if="isNotificationActive && !isLeaveHeader" class="w-full">
+              <div
+                v-if="isNotificationActive && !isLeaveHeader"
+                class="z-50 absolute top-16 right-40"
+              >
                 <notifications @disActive="activeNotifications"></notifications>
               </div>
             </transition>
@@ -114,15 +117,15 @@
             <div class="relative">
               <router-link to="#">
                 <img
-                  class="inline w-7 sm:w-9"
+                  class="inline w-6"
                   src="../../assets/TheNavigation/shopping-bag-2.png"
                   alt="Cart"
                 />
               </router-link>
               <div
-                class="numberItems absolute rounded-full bg-red-500 top-0 -right-2.5 text-center w-5 h-5 text-white sm:w-6 sm:h-6"
+                class="numberItems absolute rounded-full bg-red-500 top-0 -right-2 text-center w-5 h-5 text-white"
               >
-                <p class="text-sm sm:text-base">
+                <p class="text-sm">
                   {{ cartAmount }}
                 </p>
               </div>
@@ -131,7 +134,7 @@
             <transition name="cartListDraw">
               <div
                 v-if="!indexStore.getLeaveHeaderStatus"
-                class="absolute right-1/2 translate-x-1/2 z-50 sm:right-24 sm:translate-x-0 lg:-translate-x-1/2 top-16 sm:top-20"
+                class="absolute right-1/2 translate-x-1/2 z-50 sm:-right-16 sm:-translate-x-1/2 lg:-translate-x-1/2 top-16 sm:top-16"
               >
                 <cart-list
                   @closeOverlayCart="closeCart"
@@ -147,7 +150,7 @@
             <div class="inline-flex">
               <base-button link :to="{ name: 'signIn' }">
                 <span
-                  class="text-md md:text-lg font-medium transition-all hover:text-indigo-700"
+                  class="text-sm md:text-base font-medium transition-all hover:text-indigo-700"
                 >
                   Sign In
                 </span>
@@ -155,7 +158,7 @@
               <p class="mx-3 text-xl font-bold">/</p>
               <base-button link :to="{ name: 'signUp' }">
                 <span
-                  class="text-md md:text-lg font-medium transition-all hover:text-indigo-700"
+                  class="text-sm md:text-base font-medium transition-all hover:text-indigo-700"
                 >
                   Sign Up
                 </span>
@@ -166,12 +169,12 @@
             <button
               id="dropdownAvatarNameButton"
               data-dropdown-toggle="dropdownAvatarName"
-              class="static flex items-center text-lg font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+              class="static flex items-center text-sm lg:text-base font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
               type="button"
             >
               <span class="sr-only">Open user menu</span>
               <img
-                class="mr-3 w-12 h-12 rounded-full object-cover"
+                class="mr-3 w-8 h-8 rounded-full object-cover"
                 src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
                 alt="user photo"
               />
@@ -350,7 +353,7 @@ ul {
 
       margin: auto 2rem;
       text-decoration: none;
-      font-size: 20px;
+      font-size: 15px;
       font-weight: normal;
       color: rgb(101, 112, 124);
       transition: all 0.3s ease-in-out;

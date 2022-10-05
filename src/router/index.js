@@ -97,6 +97,14 @@ const router = createRouter({
       },
     },
     {
+      path: "/community-mall/article/articleId",
+      name: "readArticle",
+      components: {
+        navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
+        default: () => import("@/views/Community/ReadArticle.vue"),
+      },
+    },
+    {
       path: "/my-store",
       name: "myStore",
       components: {
@@ -115,10 +123,11 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, _, next) => {
+router.beforeEach((to, from, next) => {
   const indexStore = useIndexStore();
   const isAuthentication = indexStore.isAuthentication;
-  if (to.meta.requiredAuth && !isAuthentication) next({ name: "signIn" });
+  if (to.meta.requiredAuth && !isAuthentication)
+    next({ name: `signIn`, query: { next: to.name } });
   else next();
 });
 

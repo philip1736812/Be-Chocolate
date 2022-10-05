@@ -1,5 +1,5 @@
 <template>
-  <div class="my-3.5 px-2 lg:px-0">
+  <div class="container w-full xl:w-9/12 mx-auto my-3.5 px-2 lg:px-0">
     <div>
       <div class="relative rounded-lg w-full overflow-hidden">
         <div

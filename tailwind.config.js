@@ -35,6 +35,7 @@ module.exports = {
     "./src/views/Store/StoreInformation.vue",
     "./src/components/PageNotFound/InDevelopment.vue",
     "./src/components/PageNotFound/NotFoundPage.vue",
+    "./src/views/Community/ReadArticle.vue",
   ],
   theme: {
     extend: {},

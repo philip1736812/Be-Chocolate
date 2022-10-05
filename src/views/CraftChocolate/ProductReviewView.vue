@@ -4,18 +4,18 @@
       <base-button @click="$router.go(-1)">
         <font-awesome-icon
           icon="fa-arrow-left"
-          class="text-3xl cursor-pointer"
+          class="text-xl cursor-pointer"
         />
       </base-button>
     </div>
     <div>
       <div class="productName w-3/48 mb-12 mx-auto flex flex-col items-center">
-        <h2 class="text-4xl">{{ getProduct.name }}</h2>
+        <h2 class="text-2xl">{{ getProduct.name }}</h2>
         <p class="my-2">
           From <span class="font-bold ml-3"> {{ getProduct.storeName }}</span>
         </p>
         <div class="flex justify-center items-center">
-          <div class="flex justify-center items-center text-2xl">
+          <div class="flex justify-center items-center text-xl">
             <star-render
               :ratingStarCount="getProduct.rating.ratingStar"
             ></star-render>
@@ -26,7 +26,7 @@
             {{ getProduct.rating.ratingStar }}</span
           >
         </div>
-        <p class="text-md">
+        <p class="text-sm">
           {{ new Intl.NumberFormat("en-US").format(getProduct.rating.vote) }}
           Vote
         </p>
@@ -39,7 +39,7 @@
       </div>
 
       <div class="container w-full lg:w-3/4 mx-auto mt-16">
-        <p class="text-lg font-base">{{ getProduct.description }}</p>
+        <p class="text-base font-light">{{ getProduct.description }}</p>
       </div>
 
       <div class="container w-60 mx-auto mt-12">
@@ -54,35 +54,35 @@
 
     <div id="reviewProduct" class="mt-36">
       <div>
-        <h2 class="text-2xl font-medium">Comments</h2>
+        <h2 class="text-lg font-medium">Comments</h2>
         <div class="mt-10 px-16">
           <ul class="flex flex-row">
             <li
-              class="py-3.5 xl:py-2 mx-1.5 text-md lg:text-lg font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
             >
               <p>All</p>
               <p class="mx-0 xl:ml-2 text-sm mt-0.5">(1245)</p>
             </li>
             <li
-              class="py-3.5 xl:py-2 mx-1.5 text-md lg:text-lg font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
             >
               <p>0-2 Star</p>
               <p class="mx-0 xl:ml-2 text-sm mt-0.5">(1245)</p>
             </li>
             <li
-              class="py-3.5 xl:py-2 mx-1.5 text-md lg:text-lg font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
             >
               <p>3-5 Star</p>
               <p class="mx-0 xl:ml-2 text-sm mt-0.5">(1245)</p>
             </li>
             <li
-              class="py-3.5 xl:py-2 mx-1.5 text-md lg:text-lg font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
             >
               <p>6-8 Star</p>
               <p class="mx-0 xl:ml-2 text-sm mt-0.5">(1245)</p>
             </li>
             <li
-              class="py-3.5 xl:py-2 mx-1.5 text-md lg:text-lg font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
             >
               <p>9-10 Star</p>
               <p class="mx-0 xl:ml-2 text-sm mt-0.5">(1245)</p>

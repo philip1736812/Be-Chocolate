@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative w-full text-gray-800 mb-6 px-3 py-2 rounded-lg hover:shadow-xl hover:z-50 hover:scale-105 hover:bg-slate-100 transition-all"
+    class="relative w-full text-gray-800 mb-6 px-1.5 sm:px-3 py-2 rounded-lg hover:shadow-xl hover:z-50 hover:scale-105 hover:bg-slate-100 transition-all"
   >
     <base-button
       link
@@ -34,7 +34,7 @@
           params: { productId: product.id },
         }"
       >
-        <h2 class="text-2xl font-medium truncate Break Words overflow-hidden">
+        <h2 class="text-xl font-medium truncate overflow-hidden">
           {{ product.name }}
         </h2>
       </base-button>
@@ -43,13 +43,16 @@
         :to="{ name: 'StoreInformation' }"
         class="storeName text-slate-500"
       >
-        <font-awesome-icon icon="fa-store" class="mr-2" />{{
-          product.storeName
-        }}</base-button
-      >
+        <p class="truncate">
+          <span class="inline">
+            <font-awesome-icon icon="fa-store" class="mr-1 md:mr-2 text-sm" />
+          </span>
+          {{ product.storeName }}
+        </p>
+      </base-button>
       <p
         v-if="!isRatingCard"
-        class="mt-4 mb-6 text-lg h-20 text-ellipsis Break Words overflow-hidden"
+        class="mt-4 mb-3 text-sm h-20 text-ellipsis overflow-hidden"
       >
         {{ product.description }}
       </p>
@@ -68,12 +71,12 @@
           Vote
         </p>
       </div>
-      <p class="text-3xl font-bold text-gray-800">
+      <p class="text-2xl font-bold text-gray-800">
         <span> {{ product.price }}</span> ฿
       </p>
     </div>
 
-    <div class="w-3/4 mt-8">
+    <div class="flex-1 w-3/4 mt-8">
       <base-btn-add-to-cart
         @selectedItem="addToCartEmit"
         @deleteProd="deleteProdEmit"

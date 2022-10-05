@@ -3,11 +3,11 @@
     <input
       type="text"
       placeholder="search for..."
-      class="w-full h-10 sm:h-12 mb-1"
+      class="w-full h-10 sm:h-10"
       v-model="inputSearchText"
     />
     <button>
-      <font-awesome-icon class="searchIcon text-xl sm:text-2xl" icon="fa-magnifying-glass" />
+      <font-awesome-icon class="searchIcon text-lg sm:text-xl" icon="fa-magnifying-glass" />
     </button>
   </form>
 </template>

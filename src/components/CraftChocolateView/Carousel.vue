@@ -28,7 +28,7 @@
         :key="picUrl + index"
         :id="`carousel-indicator-${index + 1}`"
         type="button"
-        class="w-3 h-3 rounded-full bg-white dark:bg-gray-800"
+        class="w-2.5 h-2.5 rounded-full bg-white dark:bg-gray-800"
         :aria-current="index == 0 ? true : false"
         :aria-label="`Slide ${index + 1}`"
         :data-carousel-slide-to="index"

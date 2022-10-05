@@ -1,25 +1,32 @@
 <template>
-  <div class="fixed w-full h-full">
-    <div class="absolute right-1/2 translate-x-1/2 top-1/4 -translate-y-1/2">
-      <h1 class="text-xl font-medium mb-6">
+  <div class="fixed px-3 sm:p-0 w-full h-full">
+    <div
+      class="absolute right-1/2 translate-x-1/2 top-0 translate-y-12 sm:translate-y-1/2"
+    >
+      <h1 class="text-base sm:text-lg font-medium mb-6">
         Register new Account or Use Guest account
       </h1>
       <div>
-        <h3 class="text-xl font-medium">Guest Account:</h3>
-        <p class="text-xl font-light">
-          <span class="text-lg font-medium mr-3 mb-1">Username:</span
+        <h3 class="text-sm sm:text-base font-medium">Guest Account:</h3>
+        <p class="text-sm sm:text-base font-light">
+          <span class="text-sm sm:text-base font-medium mr-3 mb-1"
+            >Username:</span
           >guest.test@gmail.com
         </p>
-        <p class="text-xl font-light">
-          <span class="text-lg font-medium mr-3 mb-1">Password:</span>1234569
+        <p class="text-sm sm:text-base font-light">
+          <span class="text-sm sm:text-base font-medium mr-3 mb-1"
+            >Password:</span
+          >1234569
         </p>
       </div>
     </div>
     <div
-      class="absolute p-4 w-full max-w-lg right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700"
+      class="absolute p-4 w-11/12 xl:w-full max-w-lg right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700"
     >
       <form class="space-y-6" action="#" @submit.prevent="submitSignIn">
-        <h5 class="text-xl font-medium text-gray-900 dark:text-white">
+        <h5
+          class="text-lg sm:text-xl font-medium text-gray-900 dark:text-white"
+        >
           Sign in to our platform
         </h5>
         <div>
@@ -123,6 +130,11 @@ export default {
       });
 
       if (!this.indexStore.isAuthentication) return;
+
+      if (this.$route.query.next) {
+        this.$router.replace({ name: this.$route.query.next });
+        return;
+      }
       this.$router.replace({ name: "home" });
     },
   },

@@ -2,14 +2,14 @@
   <transition name="cartBalloon" mode="out-in">
     <div
       v-if="leaveHeaderStatus"
-      class="fixed top-4 right-4 sm:top-8 sm:right-16 bg-slate-50 w-14 h-14 sm:w-16 sm:h-16 rounded-full z-50 shadow-lg bg-orange-300"
+      class="fixed top-4 right-4 sm:top-8 sm:right-16 bg-slate-50 w-14 h-14 sm:w-15 sm:h-15 rounded-full z-50 shadow-lg bg-orange-300"
     >
       <div
         @click="activeCart"
         class="sm:relative w-full h-full flex justify-center items-center"
       >
         <router-link to="#">
-          <img src="../../assets/TheNavigation/shopping-bag-2.png" alt="Cart" />
+          <img src="../../assets/TheNavigation/shopping-bag-2.png" alt="Cart" class="w-8 h-8" />
         </router-link>
 
         <div
@@ -38,7 +38,7 @@
         <transition name="cartListDraw" mode="out-in">
           <div
             v-if="leaveHeaderStatus"
-            class="fixed transition-all top-20 right-1/2 translate-x-1/2 sm:right-0 sm:top-28 sm:-translate-x-16"
+            class="fixed transition-all top-20 right-1/2 translate-x-1/2 sm:right-0 sm:top-24 sm:-translate-x-16"
           >
             <cart-list
               @closeOverlayCart="closeCart"

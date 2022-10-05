@@ -3,10 +3,10 @@
     <section class="mt-8">
       <div class="container mx-auto grid grid-cols-1">
         <div
-          class="w-full lg:w-3/4 px-4 lg:p-0 flex flex-col justify-center items-center text-center mx-auto mb-16"
+          class="w-full lg:w-3/4 px-4 lg:p-0 flex flex-col justify-center items-center text-center mx-auto mb-12"
         >
-          <h2 class="text-5xl mb-8">Craft Chocolate</h2>
-          <p class="text-xl">
+          <h2 class="text-3xl mb-4">Craft Chocolate</h2>
+          <p class="text-base">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta
             rerum illo tempore debitis autem aspernatur consequatur repellat
             totam eveniet dolores nihil minus fugiat, reiciendis perspiciatis,
@@ -34,10 +34,10 @@
       </teleport>
 
       <section
-        class="container w-full lg:w-3/4 px-4 lg:p-0 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
+        class="container w-full lg:w-3/4 px-2 md:px-4 lg:p-0 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
       >
         <div class="my-8">
-          <p class="text-3xl text-bold">
+          <p class="text-lg md:text-xl text-slate-700">
             <span class="inline">
               <font-awesome-icon
                 icon="fa-fire-flame-curved"
@@ -63,7 +63,7 @@
         class="container w-full lg:w-3/4 px-4 lg:p-0 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
       >
         <div class="my-8">
-          <p class="text-3xl text-bold">Blend To Bar Chocolate</p>
+          <p class="text-lg md:text-xl text-slate-700">Blend To Bar Chocolate</p>
         </div>
         <div
           class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"

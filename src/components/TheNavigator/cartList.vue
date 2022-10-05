@@ -11,12 +11,12 @@
       :style="{
         width: isSmallestWidth && `${isSmallestWidth}px`,
       }"
-      class="container overflow-hidden transition-all sm:h-auto bg-gray-50 rounded-md p-6 z-50"
+      class="container overflow-hidden transition-all sm:h-auto bg-gray-50 rounded-md p-4 z-50"
     >
       <div
-        class="container flex w-full pb-1.5 sm:pb-4 border-b border-slate-800 text-base sm:text-lg"
+        class="container flex w-full pb-1.5 sm:pb-2 border-b border-slate-800 text-base sm:text-lg"
       >
-        <h2 class="text-slate-500 flex-1 text-md sm:text-lg font-medium">
+        <h2 class="text-slate-500 flex-1 text-base sm:text-lg">
           <font-awesome-icon
             icon="fa-cart-shopping"
             class="inline mr-2.5"
@@ -80,7 +80,7 @@
           <span
             ><font-awesome-icon
               icon="fa-face-sad-tear"
-              class="text-2xl sm:text-3xl mr-3"
+              class="text-xl sm:text-2xl mr-3"
           /></span>
           have no any items on your cart.
         </p>

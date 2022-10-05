@@ -6,18 +6,16 @@
       @click="clickThisNavEmit"
       link
       :to="{ name: 'productType', params: { productTypeName: routeUrlGen } }"
-      class="itemNav w-full md:w-24 lg:w-28 lg:h-40 lg:h-32 xl:w-40 xl:h-40 border-2 border-slate-100 mx-auto mb-3 md:mb-2 lg:mb-6 xl:mb-0 md:mx-2 lg:mx-4 p-2 lg:p-4"
+      class="itemNav w-full md:w-24 lg:w-28 lg:h-40 lg:h-32 xl:w-36 xl:h-36 border-2 border-slate-100 mx-auto mb-3 md:mb-2 lg:mb-3 xl:mb-0 md:mx-2 lg:mx-2 p-2 lg:p-2"
     >
-      <img
-        :src="urlNav"
-        :alt="navName"
-        class="w-16 h-20 lg:w-20 lg:h-24 object-contain"
-      />
-      <p class="text-sm md:text-base lg:text-lg text-center">{{ navName }}</p>
-      <div
-        v-if="routeUrlGen === activeProduct"
-        class="absolute right-2/4 translate-x-2/4 bottom-0 w-2.5 h-2.5 mt-2 mx-auto bg-slate-700 rounded-full"
-      ></div>
+      <img :src="urlNav" :alt="navName" class="w-16 h-16 object-contain" />
+      <p class="text-sm text-center">{{ navName }}</p>
+      <transition name="fade-ball">
+        <div
+          v-if="routeUrlGen === activeProduct"
+          class="absolute right-2/4 translate-x-2/4 bottom-0 w-2 h-2 mt-2 mx-auto bg-slate-700 rounded-full"
+        ></div>
+      </transition>
     </base-button>
   </div>
 </template>
@@ -94,12 +92,30 @@ export default {
   background: none;
   transition: all 0.25s ease-in-out;
 
-  &.itemNav:hover {
-    background: #fff;
-  }
-
   img {
     margin: auto;
+  }
+}
+
+.fade-ball-enter-active {
+  animation: ball-fade-pop 0.25s ease-in;
+}
+.fade-ball-leave-active {
+  animation: ball-fade-pop 0.25s ease-out reverse;
+}
+
+@keyframes ball-fade-pop {
+  0% {
+    opacity: 0;
+    transform: translate(50%, 0) scale(0);
+  }
+  85% {
+    transform: translate(50%, 0) scale(1.35);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(50%, 0) scale(1);
+    opacity: 1;
   }
 }
 </style>

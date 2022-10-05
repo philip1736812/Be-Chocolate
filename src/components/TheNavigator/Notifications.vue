@@ -2,7 +2,7 @@
   <!-- Dropdown menu -->
   <div
     id="dropdownNotification"
-    class="absolute top-0 right-0 z-50 w-96 max-w-sm bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-800 dark:divide-gray-700 -translate-x-12 translate-y-12"
+    class="w-96 max-w-sm bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-800 dark:divide-gray-700"
     aria-labelledby="dropdownNotificationButton"
     data-popper-reference-hidden=""
     data-popper-escaped=""

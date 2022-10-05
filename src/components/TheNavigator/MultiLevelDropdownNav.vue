@@ -11,7 +11,7 @@
         aria-controls="drawer-disable-body-scrolling"
         @click.stop="activeDropDown"
       >
-        <font-awesome-icon icon="fa-bars" class="text-xl" />
+        <font-awesome-icon icon="fa-bars" class="text-base" />
       </base-button>
     </div>
 
@@ -74,13 +74,14 @@
           </ul>
 
           <!-- User Profile Control -->
-          <ul v-if="isAuthentication" class="py-2">
+          <ul v-if="isAuthentication" class="py-2 opacity-40">
             <li>
               <button
                 type="button"
                 class="flex items-center w-full p-2 text-base font-normal text-slate-600 hover:text-slate-800 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 aria-controls="dropdown-example"
                 data-collapse-toggle="dropdown-example"
+                disabled
               >
                 <svg
                   aria-hidden="true"

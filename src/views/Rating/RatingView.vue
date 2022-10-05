@@ -6,13 +6,13 @@
 
     <div class="container w-full lg:s3/4 px-4 sm-px-0 mx-auto my-20">
       <div
-        class="p-4 w-full 2xl:w-3/4 lg:w-full mx-auto text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+        class="p-4 w-full 2xl:w-3/4 lg:w-full mx-auto text-center sm:p-8 dark:bg-gray-800 dark:border-gray-700"
       >
-        <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
+        <h5 class="mb-2 text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
           Voting now
         </h5>
         <p
-          class="mb-8 mt-5 text-base text-gray-500 sm:text-lg dark:text-gray-400"
+          class="mb-8 mt-5 text-sm md:text-base text-gray-500 sm:text-lg dark:text-gray-400"
         >
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero
           asperiores veritatis neque, deleniti iure necessitatibus!
@@ -56,7 +56,7 @@
     </div>
 
     <div class="container w-3/4 mx-auto mb-7">
-      <p class="text-3xl text-center font-medium text-slate-800">
+      <p class="text-xl text-center font-medium text-slate-800">
         Rating of Last Month
       </p>
     </div>
