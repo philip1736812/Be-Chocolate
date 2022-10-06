@@ -12,7 +12,7 @@
       <p class="text-sm text-center">{{ navName }}</p>
       <transition name="fade-ball">
         <div
-          v-if="routeUrlGen === activeProduct"
+          v-if="routeUrlGen === (activeProduct || 'cacaoPodsItems')"
           class="absolute right-2/4 translate-x-2/4 bottom-0 w-2 h-2 mt-2 mx-auto bg-slate-700 rounded-full"
         ></div>
       </transition>
@@ -34,7 +34,7 @@ export default {
     },
     activeProduct: {
       type: String,
-      default: "cacaoPods",
+      default: "cacaoPodsItems",
     },
   },
   components: { BaseButton },
@@ -58,7 +58,6 @@ export default {
         .join("");
     },
   },
-  created() {},
   methods: {
     clearIntervalFn() {
       clearInterval(this.intervalFn);
@@ -66,17 +65,17 @@ export default {
     selectedNav() {
       this.countingTime = 0;
       this.intervalFn = setInterval(() => {
-        this.countingTime += 300;
+        this.countingTime += 600;
 
-        if (this.countingTime === 300) return;
+        if (this.countingTime === 600) return;
         this.clearIntervalFn();
 
-        this.productSelected = this.routeUrlGen;
+        this.productSelected = `${this.routeUrlGen}Items`;
         this.$emit("productSelected", this.productSelected);
-      }, 300);
+      }, 600);
     },
     clickThisNavEmit() {
-      this.productSelected = this.routeUrlGen;
+      this.productSelected = `${this.routeUrlGen}Items`;
       this.$emit("clickThisNav", this.productSelected);
     },
   },
@@ -91,6 +90,10 @@ export default {
   cursor: pointer;
   background: none;
   transition: all 0.25s ease-in-out;
+
+  &:hover {
+    background: rgb(241, 241, 241);
+  }
 
   img {
     margin: auto;

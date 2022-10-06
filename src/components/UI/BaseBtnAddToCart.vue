@@ -99,11 +99,9 @@ export default {
 
   transition: all 0.25s ease-in-out;
   opacity: 0;
-  visibility: hidden;
 
   &.buttonShow {
     opacity: 1;
-    visibility: visible;
   }
 
   &.btnSelected {

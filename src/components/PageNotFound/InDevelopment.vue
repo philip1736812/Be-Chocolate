@@ -6,8 +6,7 @@
       Sorry! Page is not ready to show
     </h2>
     <p class="font-base text-lg md:text-lg mb-3">In Development Process</p>
-    <p class="font-light text-sm md:text-lg">
-      Recently site:
+    <p v-if="canGoBack" class="font-light text-sm md:text-lg">
       <span
         class="font-bold text-base text-indigo-700 hover:text-indigo-900 transition-all"
         ><base-button @click="$router.go(-1)">
@@ -23,5 +22,11 @@ import BaseButton from "../UI/BaseButton.vue";
 
 export default {
   components: { BaseButton },
+  props: {
+    canGoBack: {
+      type: Boolean,
+      default: true,
+    },
+  },
 };
 </script>

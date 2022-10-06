@@ -7,7 +7,7 @@ export const useCraftChocolateStore = defineStore({
       craftHeaderPic: [],
       craftChocolateProduct: [
         {
-          id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+          id: 854236512457895,
           name: "Bad Ass Bar",
           storeName: "Xoconat",
           type: "CraftChocolate",
@@ -27,7 +27,7 @@ export const useCraftChocolateStore = defineStore({
           ],
         },
         {
-          id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+          id: 987512456326597,
           name: "Salty Nuts",
           storeName: "Pridi Cacoa Fevier",
           type: "CraftChocolate",
@@ -45,7 +45,7 @@ export const useCraftChocolateStore = defineStore({
           ],
         },
         {
-          id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+          id: 751485629853647,
           name: "Kan Vale Original",
           storeName: "Kan Vela",
           type: "CraftChocolate",
@@ -63,7 +63,7 @@ export const useCraftChocolateStore = defineStore({
           ],
         },
         {
-          id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+          id: 987514523654852,
           name: "Paradai Pure Original",
           storeName: "Paradai",
           type: "CraftChocolate",
@@ -81,7 +81,7 @@ export const useCraftChocolateStore = defineStore({
           ],
         },
         {
-          id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+          id: 156325975415238,
           name: "Dark Soymilk",
           storeName: "ZORZAL",
           type: "CraftChocolate",
@@ -99,7 +99,7 @@ export const useCraftChocolateStore = defineStore({
           ],
         },
         {
-          id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+          id: 154896358951475,
           name: "Organic Craft Chocolate",
           storeName: "Organic Union Republic",
           type: "CraftChocolate",
@@ -117,7 +117,7 @@ export const useCraftChocolateStore = defineStore({
           ],
         },
         {
-          id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+          id: 654785234159652,
           name: "Green & Black's Organic Dark Chocolate 70%",
           storeName: "Ethical Cocoa",
           type: "CraftChocolate",
@@ -136,7 +136,7 @@ export const useCraftChocolateStore = defineStore({
           ],
         },
         {
-          id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+          id: 352178459632451,
           name: "Single Origin Ecuador",
           storeName: "Hemisphere Craft Chocolate",
           type: "CraftChocolate",

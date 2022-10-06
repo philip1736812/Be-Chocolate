@@ -139,7 +139,6 @@ export default {
       });
     },
     deleteProdEmit() {
-      console.log(this.product.id);
       this.$emit("deletedProduct", this.product.id);
     },
   },

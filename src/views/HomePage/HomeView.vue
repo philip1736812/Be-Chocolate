@@ -6,7 +6,10 @@
       <h2 class="text-lg sm:text-2xl font-medium mb-8">
         Find Your Ingredient.
       </h2>
-      <base-search-bar></base-search-bar>
+      <base-search-bar
+        action="submit"
+        @submitSearchEmit="submitSearch"
+      ></base-search-bar>
       <p
         class="w-full text-base sm:text-lg font-normal text-slate-200 text-start"
       >
@@ -32,43 +35,70 @@
         ></base-card-nav>
       </div>
 
-      <transition name="hotItems" mode="out-in">
-        <section
-          class="relative showHotItem px-4 lg:px-0"
-          v-if="getProducts && getProducts.length !== 0"
+      <div class="mt-3 mb-20">
+        <div
+          class="hotItemsTopic mx-auto flex items-end max-w-5xl w-full xl:w-9/12 mb-4"
         >
-          <div
-            class="hotItemsTopic flex items-end max-w-5xl w-full xl:w-9/12 mb-4"
-          >
-            <font-awesome-icon icon="fa-fire-flame-curved" class="text-sm" />
+          <div class="flex flex-1">
+            <font-awesome-icon
+              icon="fa-fire-flame-curved"
+              class="hotIcon text-sm"
+            />
             <h2 class="text-lg md:text-xl text-slate-700">Hot Items</h2>
-            <p class="text-base md:text-lg font-light mx-3 text-slate-500">
-              {{ hotItem }}
-            </p>
           </div>
-          <base-product-card
-            v-for="item in getProducts"
-            :key="item"
-            :product="item"
-            @selectedProductToCart="addToCart"
-            @deletedProduct="deleteSelectedProd"
-          ></base-product-card>
-
-          <base-button
-            class="mt-6"
-            link
-            :to="{
-              name: 'productType',
-              params: { productTypeName: `${selectedNavName || 'cacaoPods'}` },
-            }"
-          >
-            See All
-          </base-button>
-        </section>
-        <div class="haveNoItem" v-else>
-          <p>Have No Products</p>
+          <div class="flex justify-center items-center text-slate-700">
+            <font-awesome-icon
+              icon="fa-angle-left"
+              class="text-right cursor-pointer"
+              @click="prevHotItems"
+            />
+            <transition name="hotItems" mode="out-in">
+              <p
+                class="w-44 overflow-hidden text-base md:text-lg font-light text-center mx-3 text-slate-500"
+              >
+                {{ hotItem }}
+              </p>
+            </transition>
+            <font-awesome-icon
+              icon="fa-angle-right"
+              class="text-left cursor-pointer"
+              @click="nextHotItems"
+            />
+          </div>
         </div>
-      </transition>
+        <transition name="hotItems" mode="out-in">
+          <section
+            class="relative showHotItem px-4 lg:px-0"
+            v-if="getProducts && getProducts.length !== 0"
+          >
+            <base-product-card
+              v-for="item in getProducts"
+              :key="item"
+              :product="item"
+              @selectedProductToCart="addToCart"
+              @deletedProduct="deleteSelectedProd"
+            ></base-product-card>
+
+            <div class="text-center mt-8">
+              <base-button
+                class="mt-6"
+                link
+                :to="{
+                  name: 'productType',
+                  params: {
+                    productTypeName: `${selectedNavName || 'cacaoPods'}`,
+                  },
+                }"
+              >
+                See All
+              </base-button>
+            </div>
+          </section>
+          <div class="haveNoItem" v-else>
+            <p>Have No Products</p>
+          </div>
+        </transition>
+      </div>
 
       <section class="craftChocolate mb-8 px-2 sm:p-0">
         <craft-chocolate-section></craft-chocolate-section>
@@ -145,7 +175,6 @@ export default {
 
       productCardActive: false,
       hoverKey: null,
-      selectedNavName: "",
     };
   },
   computed: {
@@ -156,11 +185,11 @@ export default {
     itemInCart() {
       return this.cartList.itemInCart;
     },
-
+    selectedNavName() {
+      return this.productItems.activeProductFromNav.replace("Items", "");
+    },
     hotItem() {
-      return (
-        this.selectedNavName.replace(/([A-Z])/g, " $1").trim() || "cacao Pods"
-      );
+      return this.selectedNavName.replace(/([A-Z])/g, " $1").trim();
     },
   },
   methods: {
@@ -173,8 +202,16 @@ export default {
     },
 
     selectedNav(name) {
-      this.selectedNavName = name;
       this.productItems.activeProduct(name);
+    },
+    submitSearch() {
+      this.$router.push({ name: "searchResult" });
+    },
+    nextHotItems() {
+      this.productItems.next_prev_hotProduct("next");
+    },
+    prevHotItems() {
+      this.productItems.next_prev_hotProduct("prev");
     },
   },
 };
@@ -211,20 +248,19 @@ main {
     padding: 8rem 0;
     font-size: 1.2rem;
   }
+  .hotItemsTopic {
+    .hotIcon {
+      font-size: 2rem;
+      margin-right: 1.5rem;
+      color: rgb(208, 56, 1, 1);
+    }
 
-  section.showHotItem {
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    margin: 6px auto 6rem auto;
-
-    .hotItemsTopic {
-      svg {
-        font-size: 2rem;
-        margin-right: 1.5rem;
-        color: rgb(208, 56, 1, 1);
-      }
+    section.showHotItem {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+      margin: 6px auto 6rem auto;
     }
 
     &::before {
@@ -234,7 +270,7 @@ main {
       border-bottom: 1px solid #e8e8e8;
       padding: 0 0 40px 0;
 
-      bottom: -6%;
+      bottom: -60%;
     }
 
     a {

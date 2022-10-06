@@ -27,6 +27,14 @@ const router = createRouter({
       },
     },
     {
+      path: "/search-result",
+      name: "searchResult",
+      components: {
+        navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
+        default: () => import("@/views/HomePage/SearchResultView.vue"),
+      },
+    },
+    {
       path: "/Store/StoreId",
       name: "StoreInformation",
       components: {
@@ -110,6 +118,22 @@ const router = createRouter({
       components: {
         navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
         default: () => import("@/views/Store/My Store/myStoreDashboard.vue"),
+      },
+    },
+    {
+      path: "/review-cart",
+      name: "reviewCart",
+      components: {
+        navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
+        default: () => import("@/views/CheckOut/ReviewCartView.vue"),
+      },
+    },
+    {
+      path: "/review-cart/check-out",
+      name: "checkOutCart",
+      components: {
+        navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
+        default: () => import("@/views/CheckOut/CheckOutView.vue"),
       },
     },
     {

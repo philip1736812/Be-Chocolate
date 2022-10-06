@@ -9,7 +9,7 @@ export const useProductStore = defineStore("productItems", () => {
   const allProducts = {
     cacaoPodsItems: [
       {
-        id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+        id: 152364785212535,
         storeName: "Lala Chocolate",
         type: "cacaoPods",
         price: 150,
@@ -23,7 +23,7 @@ export const useProductStore = defineStore("productItems", () => {
         ],
       },
       {
-        id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+        id: 152365214589652,
         storeName: "Cherubin Chocolate Cafe",
         type: "cacaoPods",
         price: 154,
@@ -37,7 +37,7 @@ export const useProductStore = defineStore("productItems", () => {
         ],
       },
       {
-        id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+        id: 124784125985632,
         storeName: "95 cacao cafe",
         type: "cacaoPods",
         price: 150,
@@ -51,7 +51,7 @@ export const useProductStore = defineStore("productItems", () => {
         ],
       },
       {
-        id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+        id: 154826598712536,
         storeName: "Bake Bake",
         type: "cacaoPods",
         price: 180,
@@ -65,7 +65,7 @@ export const useProductStore = defineStore("productItems", () => {
         ],
       },
       {
-        id: Math.trunc(Math.random() * (999999 - 100000) + 100000),
+        id: 985674125412369,
         storeName: "Sweety Secret",
         type: "cacaoPods",
         price: 148,
@@ -79,7 +79,7 @@ export const useProductStore = defineStore("productItems", () => {
         ],
       },
     ],
-    craftChocolateItems: craftChocolateStore.craftChocolateProduct,
+    // craftChocolateItems: craftChocolateStore.craftChocolateProduct,
     chocolatePlateItems: [],
     cacaoBeanItems: [],
     cocoaPowdersItems: [],
@@ -113,7 +113,7 @@ export const useProductStore = defineStore("productItems", () => {
     ],
   };
 
-  const activeProductFromNav = ref("");
+  const activeProductFromNav = ref("cacaoPodsItems");
 
   const activeProduct = (name) => {
     activeProductFromNav.value = name;
@@ -123,15 +123,45 @@ export const useProductStore = defineStore("productItems", () => {
     const nav =
       activeProductFromNav.value == ""
         ? "cacaoPodsItems"
-        : activeProductFromNav.value + "Items";
+        : activeProductFromNav.value;
 
     return allProducts[nav] && allProducts[nav];
   });
+
+  // Next && Prev to change hot product view
+
+  const crrProductIndex = ref(null);
+  const next_prev_hotProduct = (mode) => {
+    const allProduct = Object.keys(allProducts);
+
+    const crrSelected = activeProductFromNav.value
+      ? activeProductFromNav.value
+      : "cacaoPodsItems";
+
+    crrProductIndex.value = allProduct.findIndex((item) => {
+      return item === crrSelected;
+    });
+
+    if (mode == "next") {
+      crrProductIndex.value < allProduct.length - 1
+        ? crrProductIndex.value++
+        : (crrProductIndex.value = 0);
+    } else {
+      crrProductIndex.value > 0 &&
+      crrProductIndex.value <= allProduct.length - 1
+        ? crrProductIndex.value--
+        : (crrProductIndex.value = 6);
+    }
+
+    activeProductFromNav.value = allProduct[crrProductIndex.value];
+  };
 
   return {
     headerProduct: headerPic_productTypeList,
     allProducts,
     getAllProductType,
     activeProduct,
+    activeProductFromNav,
+    next_prev_hotProduct,
   };
 });

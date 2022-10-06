@@ -94,7 +94,7 @@
           autocomplete="on"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="•••••••••"
-          v-model="password"
+          v-model="reCheckPassword"
           required
         />
       </div>
@@ -136,6 +136,22 @@
         </div>
       </div>
     </form>
+    <teleport to="body">
+      <transition name="fade-in-out" mode="out-in">
+        <div v-if="getErrMsg">
+          <div>
+            <base-error-pop-up
+              @closePopUp="closePopUp"
+              :errMsg="getErrMsg"
+            ></base-error-pop-up>
+          </div>
+          <div
+            @click="closePopUp"
+            class="fixed w-full h-full z-40 right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 overlay bg-black opacity-30"
+          ></div>
+        </div>
+      </transition>
+    </teleport>
   </div>
 </template>
 
@@ -143,9 +159,10 @@
 import { useIndexStore } from "../../stores/Store_index";
 import BaseButton from "@/components/UI/BaseButton.vue";
 import InDevelopment from "../../components/PageNotFound/InDevelopment.vue";
+import BaseErrorPopUp from "../../components/UI/BaseErrorPopUp.vue";
 
 export default {
-  components: { BaseButton, InDevelopment },
+  components: { BaseButton, InDevelopment, BaseErrorPopUp },
   setup() {
     const indexStore = useIndexStore();
 
@@ -158,18 +175,63 @@ export default {
       company: "",
       email: "",
       password: "",
+      reCheckPassword: "",
     };
+  },
+  computed: {
+    getErrMsg() {
+      return this.indexStore.errMessage;
+    },
+    isCorrectPassword() {
+      return this.password === this.reCheckPassword;
+    },
+    isLongPassword() {
+      return this.password.length >= 7;
+    },
   },
   methods: {
     async submitSignUp() {
+      if (!this.isCorrectPassword) {
+        this.indexStore.errMessage = "Your Confirm password not correct!";
+        return;
+      }
+
+      if (!this.isLongPassword) {
+        this.indexStore.errMessage = "Password must at least 7 character.";
+        return;
+      }
+
       await this.indexStore.auth("signUp", {
         email: this.email,
         password: this.password,
         returnSecureToken: true,
       });
 
+      if (this.getErrMsg) return;
+
       this.$router.replace({ name: "signIn" });
+    },
+    closePopUp() {
+      this.indexStore.errMessage = "";
     },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.fade-in-out-enter-active {
+  animation: fade-in-out 0.1s ease-in;
+}
+.fade-in-out-leave-active {
+  animation: fade-in-out 0.25s ease-out reverse;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+</style>

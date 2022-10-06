@@ -101,15 +101,33 @@
         </div>
       </form>
     </div>
+
+    <teleport to="body">
+      <transition name="fade-in-out" mode="out-in">
+        <div v-if="getErrMsg">
+          <div>
+            <base-error-pop-up
+              @closePopUp="closePopUp"
+              :errMsg="getErrMsg"
+            ></base-error-pop-up>
+          </div>
+          <div
+            @click="closePopUp"
+            class="fixed w-full h-full z-40 right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 overlay bg-black opacity-30"
+          ></div>
+        </div>
+      </transition>
+    </teleport>
   </div>
 </template>
 
 <script>
 import BaseButton from "../../components/UI/BaseButton.vue";
+import BaseErrorPopUp from "../../components/UI/BaseErrorPopUp.vue";
 import { useIndexStore } from "../../stores/Store_index";
 
 export default {
-  components: { BaseButton },
+  components: { BaseButton, BaseErrorPopUp },
   setup() {
     const indexStore = useIndexStore();
 
@@ -120,6 +138,11 @@ export default {
       email: "",
       password: "",
     };
+  },
+  computed: {
+    getErrMsg() {
+      return this.indexStore.errMessage;
+    },
   },
   methods: {
     async submitSignIn() {
@@ -137,6 +160,27 @@ export default {
       }
       this.$router.replace({ name: "home" });
     },
+    closePopUp() {
+      this.indexStore.errMessage = "";
+    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.fade-in-out-enter-active {
+  animation: fade-in-out 0.1s ease-in;
+}
+.fade-in-out-leave-active {
+  animation: fade-in-out 0.25s ease-out reverse;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+</style>

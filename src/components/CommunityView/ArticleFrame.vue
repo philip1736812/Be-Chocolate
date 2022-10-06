@@ -3,7 +3,7 @@
     class="w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 text-slate-800"
   >
     <div class="relative">
-      <base-button link to="/" href="#">
+      <base-button link :to="{ name: 'readArticle' }" href="#">
         <img class="rounded-t-lg" :src="articlePicUrl" :alt="articleTopic" />
       </base-button>
       <div class="absolute top-2 right-2">
@@ -20,7 +20,7 @@
     <div class="p-5 flex flex-col items-stretch">
       <div class="lg:h-80 md:h-80 sm:h-96 self-stretch overflow-hidden">
         <p class="text-sm font-light">Posted 23/09/22</p>
-        <base-button link to="/">
+        <base-button link :to="{ name: 'readArticle' }">
           <h5
             class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
           >

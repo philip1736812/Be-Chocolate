@@ -79,6 +79,18 @@ export default {
   }
 }
 
+.error {
+  width: 100%;
+  padding: 0.7rem 2rem;
+  background-color: rgb(185 28 28);
+  color: #fff;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: rgb(179, 16, 16);
+  }
+}
 .flat {
   background-color: transparent;
   color: #3a0061;

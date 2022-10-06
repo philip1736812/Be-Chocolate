@@ -12,6 +12,7 @@ export const useIndexStore = defineStore({
       API_FIREBASE_KEY: `AIzaSyCeDgaXuYfNyKUnZqY4uVCn1THb_vJwCKw`,
       isAuth: false,
       user: null,
+      errMessage: null,
     };
   },
   getters: {
@@ -23,6 +24,9 @@ export const useIndexStore = defineStore({
     },
     isAuthentication(state) {
       return state.isAuth;
+    },
+    getUserInfo(state) {
+      return state.user;
     },
   },
   actions: {
@@ -79,12 +83,18 @@ export const useIndexStore = defineStore({
           body: JSON.stringify(dataForAuth),
         });
 
-        if (!authRes.ok)
+        if (!authRes.ok) {
+          if (mode !== "signIn") {
+            throw new Error(
+              `Authentication failed. Check your filed in register form.`
+            );
+          }
+
           throw new Error(
-            (authRes.message &&
-              `Something Wrong! ${mode} failed: ${authRes.message}`) ||
-              `Authentication failed.`
+            `Authentication failed. Please check your username and password.`
           );
+        }
+
         const data = await authRes.json();
 
         if (mode == "signIn" && data.localId) this.isAuth = true;
@@ -98,6 +108,7 @@ export const useIndexStore = defineStore({
           registered: data.registered,
         };
       } catch (err) {
+        this.errMessage = err.message;
         console.error(err.message);
       }
     },

@@ -36,6 +36,10 @@ module.exports = {
     "./src/components/PageNotFound/InDevelopment.vue",
     "./src/components/PageNotFound/NotFoundPage.vue",
     "./src/views/Community/ReadArticle.vue",
+    "./src/views/CheckOut/ReviewCartView.vue",
+    "./src/components/CheckOut/ItemInCart.vue",
+    "./src/views/CheckOut/CodeVoucherView.vue",
+    "./src/components/UI/BaseErrorPopUp.vue",
   ],
   theme: {
     extend: {},

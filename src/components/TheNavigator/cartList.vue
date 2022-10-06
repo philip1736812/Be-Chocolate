@@ -11,7 +11,7 @@
       :style="{
         width: isSmallestWidth && `${isSmallestWidth}px`,
       }"
-      class="container overflow-hidden transition-all sm:h-auto bg-gray-50 rounded-md p-4 z-50"
+      class="container overflow-hidden transition-all sm:h-auto bg-gray-50 rounded-md p-5 z-50"
     >
       <div
         class="container flex w-full pb-1.5 sm:pb-2 border-b border-slate-800 text-base sm:text-lg"
@@ -23,7 +23,7 @@
           />Shopping List
         </h2>
 
-        <div @click.stop="exitCart">
+        <div @click.stop="exitCart" class="cursor-pointer">
           <font-awesome-icon icon="fa-xmark" class="text-slate-800" />
         </div>
       </div>
@@ -31,15 +31,15 @@
       <div class="arrow"></div>
 
       <ul
-        class="flex flex-col divide-y divide-slate-400 border-b border-slate-800 mb-6 py-1.5 sm:py-3 text-slate-800"
+        class="flex flex-col divide-y divide-slate-400 border-b border-slate-800 mb-4 py-1.5 sm:py-2 text-slate-800"
         v-if="cartItems.length !== 0"
       >
         <li
-          class="flex flex-row py-2 sm:py-4 text-lg"
+          class="flex flex-row py-1.5 sm:py-2 text-lg"
           v-for="item in cartItems"
           :key="item.id"
         >
-          <div class="w-32 h-16 sm:w-36 sm:h-20 overflow-hidden rounded-md">
+          <div class="w-28 h-12 sm:w-32 sm:h-16 overflow-hidden rounded-md">
             <img
               class="rounded-md object-cover w-full h-full"
               :src="item.picUrl"
@@ -48,7 +48,7 @@
           </div>
 
           <div class="container mx-sm ml-4">
-            <div class="text-base sm:text-xl font-medium">
+            <div class="text-base sm:text-lg font-medium">
               {{ item.name ? item.name : item.type }}
               <span class="text-sm">
                 <font-awesome-icon icon="fa-xmark" />
@@ -68,11 +68,13 @@
         </li>
       </ul>
       <div class="w-full flex justify-between" v-if="cartItems.length !== 0">
-        <p class="text-base sm:text-lg">
+        <p class="text-sm sm:text-base">
           Total Items :
           <span class="inline text-bold">{{ cartAmountItems }} </span>
         </p>
-        <base-button link to="/" mode="mainBtn"> Go To Cart </base-button>
+        <base-button link :to="{ name: 'reviewCart' }" mode="mainBtn">
+          Go To Cart
+        </base-button>
       </div>
 
       <div class="haveNoItems py-8" v-else>
@@ -99,14 +101,19 @@
 <script>
 import BaseButton from "../UI/BaseButton.vue";
 import { useIndexStore } from "@/stores/Store_index";
+import { userCartList } from "../../stores/Cart/Cart_items";
 
 export default {
   props: ["userCart", "cartAmount", "isActiveCartList"],
   components: { BaseButton },
   setup() {
     const indexStore = useIndexStore();
+    const cartList = userCartList();
 
-    return { indexStore };
+    return { indexStore, cartList };
+  },
+  mounted() {
+    this.cartList.loadCartData();
   },
   methods: {
     exitCart() {

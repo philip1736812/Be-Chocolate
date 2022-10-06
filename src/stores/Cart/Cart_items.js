@@ -1,4 +1,6 @@
 import { defineStore } from "pinia";
+import { useIndexStore } from "../Store_index";
+import axios from "axios";
 
 export const userCartList = defineStore({
   id: "cartList",
@@ -13,6 +15,10 @@ export const userCartList = defineStore({
     },
     itemInCartAmount(state) {
       return state.cart.length;
+    },
+    getUserInfo() {
+      const indexStore = useIndexStore();
+      return indexStore.getUserInfo;
     },
   },
   actions: {
@@ -32,6 +38,8 @@ export const userCartList = defineStore({
 
         remainCart.unshift(dataToCart);
         this.cart = remainCart;
+        this.updateInFireBase();
+
         return;
       }
 
@@ -40,14 +48,30 @@ export const userCartList = defineStore({
         ...hasItemProd,
         prodItem_qty: item_qty,
       };
+      const indexNewCart = remainCart.findIndex(
+        (product) => product.id === prod.id
+      );
       const newCart = remainCart.filter((product) => product.id !== prod.id);
 
-      newCart.unshift(updateCart);
+      newCart.splice(indexNewCart, 0, updateCart);
+
+      // newCart.unshift(updateCart);
 
       this.cart = newCart;
+      this.updateInFireBase();
     },
-    deleteFromCart(prodId) {
+    deleteFromCart(prodId, isAllDelete = false) {
       const inCart = this.cart.find((item) => item.id === prodId);
+
+      if (isAllDelete) {
+        // update qty
+        const newCart = this.cart.filter((product) => product.id !== inCart.id);
+
+        this.cart = newCart;
+        this.updateInFireBase();
+        return;
+      }
+
       if (inCart.prodItem_qty >= 1) {
         inCart.prodItem_qty -= 1;
 
@@ -57,6 +81,63 @@ export const userCartList = defineStore({
         const newCart = this.cart.filter((product) => product.id !== inCart.id);
 
         this.cart = newCart;
+        this.updateInFireBase();
+      }
+    },
+
+    async updateInFireBase() {
+      if (!this.getUserInfo) return;
+      const userId = this.getUserInfo.userId;
+      const token = this.getUserInfo.idToken;
+
+      try {
+        const updateCart = await axios.put(
+          `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId}.json?auth=${token}`,
+          {
+            cart: this.cart,
+          }
+        );
+
+        if (updateCart.statusText !== "OK")
+          throw new Error(
+            `UpdateCartError: ${updateCart.message}` ||
+              `Something wrong! Please try later!`
+          );
+
+        const res = await updateCart;
+        const { cart } = res.data;
+
+        this.cart = cart;
+      } catch (err) {
+        console.error(err.message);
+      }
+    },
+
+    async loadCartData() {
+      if (!this.getUserInfo) return;
+      const userId = this.getUserInfo.userId;
+      const token = this.getUserInfo.idToken;
+
+      try {
+        const updateCart = await axios.get(
+          `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId}.json?auth=${token}`
+        );
+
+        if (updateCart.statusText !== "OK")
+          throw new Error(
+            `load cart error: ${updateCart.message}` ||
+              `Something wrong! Please try later!`
+          );
+
+        const res = await updateCart;
+
+        if (!res.data) return;
+
+        const { cart } = res.data;
+
+        this.cart = cart;
+      } catch (err) {
+        console.error(err.message);
       }
     },
   },

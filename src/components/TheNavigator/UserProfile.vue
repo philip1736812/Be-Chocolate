@@ -1,7 +1,7 @@
 <template>
   <div
     id="dropdownAvatarName"
-    class="hidden z-10 w-56 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+    class="hidden z-50 w-56 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
     data-popper-reference-hidden=""
     data-popper-escaped=""
     data-popper-placement="bottom"

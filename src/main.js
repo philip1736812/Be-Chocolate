@@ -1,6 +1,5 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import axios from "axios";
 import "flowbite";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -27,6 +26,11 @@ import {
   faShop,
   faXmark,
   faFaceSadTear,
+  faTrash,
+  faTag,
+  faAngleLeft,
+  faAngleRight,
+  faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 
 import App from "./App.vue";
@@ -34,14 +38,10 @@ import router from "./router";
 
 import "./assets/main.css";
 
-const axiosInstance = axios.create({
-  withCredentials: true,
-});
 const app = createApp(App);
 
 app.use(createPinia());
 app.use(router);
-app.config.globalProperties.$axios = { ...axiosInstance };
 
 // font awesome
 library.add(
@@ -65,7 +65,12 @@ library.add(
   faStar,
   faShop,
   faXmark,
-  faFaceSadTear
+  faFaceSadTear,
+  faTrash,
+  faTag,
+  faAngleLeft,
+  faAngleRight,
+  faTriangleExclamation
 );
 app.component("font-awesome-icon", FontAwesomeIcon);
 
