@@ -7,7 +7,8 @@
       type="text"
       placeholder="search for..."
       class="w-full h-10 sm:h-10"
-      v-model="inputSearchText"
+      :value="inputSearchText"
+      @input="(evt) => (inputSearchText = evt.target.value)"
     />
     <button>
       <font-awesome-icon

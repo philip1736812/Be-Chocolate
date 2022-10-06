@@ -81,7 +81,7 @@
 
     <main class="container mx-auto" v-else>
       <section
-        class="container w-3/4 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
+        class="container w-full lg:w-3/4 px-2 md:px-4 lg:p-0 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
       >
         <div class="my-8">
           <p class="text-3xl text-bold">
