@@ -28,11 +28,11 @@
       <base-search-bar @submitSearchEmit="submitSearch"></base-search-bar>
     </div>
 
-    <main class="container mx-auto" v-if="!searchVal">
-      <teleport to="body">
-        <cart-balloon></cart-balloon>
-      </teleport>
+    <teleport to="body">
+      <cart-balloon></cart-balloon>
+    </teleport>
 
+    <main class="container mx-auto" v-if="!searchVal">
       <section
         class="container w-full lg:w-3/4 px-2 md:px-4 lg:p-0 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
       >
@@ -63,7 +63,9 @@
         class="container w-full lg:w-3/4 px-4 lg:p-0 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
       >
         <div class="my-8">
-          <p class="text-lg md:text-xl text-slate-700">Blend To Bar Chocolate</p>
+          <p class="text-lg md:text-xl text-slate-700">
+            Blend To Bar Chocolate
+          </p>
         </div>
         <div
           class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"
@@ -163,7 +165,7 @@ export default {
     getHeaderPic() {
       // wait getHorizontalPic Fn
       if (!this.loadPic) return;
-      return this.loadPic.slice(0,8);
+      return this.loadPic.slice(0, 8);
     },
     itemInCart() {
       return this.cartList.itemInCart;
