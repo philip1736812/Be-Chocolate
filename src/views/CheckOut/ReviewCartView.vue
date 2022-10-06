@@ -1,13 +1,13 @@
 <template>
   <div class="lg:container w-full xl:w-8/12 mx-auto my-12 text-slate-800">
     <section
-      class="grid grid-cols-6 lg:grid-cols-7 bg-white px-8 py-4 rounded-lg text-sm text-stale-800"
+      class="grid grid-cols-11 bg-white px-8 py-4 rounded-lg text-sm text-stale-800"
     >
-      <h2 class="col-span-2 lg:col-span-3">Products</h2>
-      <p class="text-center">Unit Price</p>
-      <p class="text-center">Quantity</p>
-      <p class="text-center">Total Price</p>
-      <p class="text-center">Actions</p>
+      <h2 class="col-span-4 text-sm md:text-base">Products</h2>
+      <p class="col-span-1 text-center text-sm md:text-base">Unit Price</p>
+      <p class="col-span-3 text-center text-sm md:text-base">Quantity</p>
+      <p class="col-span-2 text-center text-sm md:text-base">Total Price</p>
+      <p class="col-span-1 text-center text-sm md:text-base">Actions</p>
     </section>
 
     <div class="flex flex-col space-y-4 divide-y mb-32 divide-slate-200">
@@ -24,26 +24,26 @@
     <transition name="move-in-out" mode="out-in">
       <div
         v-if="(newCartArr.length -= 0)"
-        class="fixed w-full h-28 xl:w-10/12 mx-auto bottom-0 right-1/2 translate-x-1/2 bg-white rounded-lg shadow-md p-4 flex items-center"
+        class="fixed w-full xl:w-4/6 h-28 mx-auto bottom-0 right-1/2 translate-x-1/2 bg-white rounded-lg shadow-md px-4 py-2 sm:px-8 md:p-4 flex items-center justify-between"
       >
-        <div class="flex flex-1 items-center">
-          <h2 class="mr-6">
+        <div class="flex flex-col sm:flex-row items-center">
+          <h2 class="mr-6 text-sm md:text-base">
             <span class="inline mr-2"><font-awesome-icon icon="fa-tag" /></span>
             Platform Voucher:
           </h2>
           <base-button
             @click="toggleCodeVoucher"
-            class="text-sky-600 hover:text-sky-800 border-dashed border-sky-600 hover:border-sky-900 transition-all rounded-sm border px-3 py-1"
+            class="text-sm mt-2 md:mt-0 md:text-base text-sky-600 hover:text-sky-800 border-dashed border-sky-600 hover:border-sky-900 transition-all rounded-sm border px-3 py-1"
             >Select Or Enter Code</base-button
           >
         </div>
-        <div class="flex flex-row items-center">
-          <h2 class="mr-6 text-lg">
+        <div class="flex flex-col md:flex-row items-end md:items-center">
+          <h2 class="mr-3 md:mr-6 mb-2 md:mb-0 text-sm md:text-lg">
             Total Selected
             <span class="font-bold text-red-700"
               >({{ newCartArr.length }})</span
             >
-            :<span class="ml-6">{{ getTotalPrice }}</span>
+            :<span class="ml-1 md:ml-6">{{ getTotalPrice }}</span>
           </h2>
           <base-button link :to="{ name: 'checkOutCart' }" mode="mainBtn">
             Check Out

@@ -9,8 +9,8 @@
       </h2>
       <p class="text-sm font-light"><span>-</span> {{ itemInCart.type }}</p>
     </div>
-    <div class="px-8 py-4 grid grid-cols-6 lg:grid-cols-7 my-4">
-      <div class="col-span-2 lg:col-span-3 grid lg:grid-cols-5">
+    <div class="px-3 md:px-8 py-4 grid grid-cols-11 my-4">
+      <div class="col-span-3 grid lg:grid-cols-5">
         <div class="flex col-span-3 items-center">
           <input
             type="checkbox"
@@ -19,39 +19,45 @@
             v-model="isSelectedItem"
             @change="clickSelectedEmit"
             id="product"
-            class="rounded-full mr-4"
+            class="rounded-full mr-1.5 md:mr-4"
           />
-          <div class="text-sm flex items-center">
+          <div class="text-sm flex flex-col md:flex-row items-center">
             <img
               :src="itemInCart.picUrl"
               :alt="itemInCart.storeName"
-              class="w-12 h-12 object-cover mr-4 rounded-md"
+              class="w-12 h-12 object-cover m-0 md:mr-4 rounded-md"
             />
-            <p>{{ itemInCart.name || itemInCart.type }}</p>
+            <p class="mt-2 md:m-0">{{ itemInCart.name || itemInCart.type }}</p>
           </div>
         </div>
-        <div class="flex mt-3 lg:m-0 col-span-2 items-center text-sm">
-          <h2>Variations...</h2>
-        </div>
       </div>
-      <div class="flex items-center justify-center text-sm">
+      <div
+        class="col-span-2 flex items-center justify-end md:justify-center text-sm"
+      >
         <p>{{ getPrice }}</p>
       </div>
-      <div class="flex items-center justify-center text-sm">
+      <div
+        class="col-span-3 md:col-span-3 flex items-center justify-end md:justify-center text-sm"
+      >
         <base-button class="w-8 h-8 rounded-lg bg-white" @click="decreaseItem"
           ><font-awesome-icon icon="fa-minus" class="text-sm"
         /></base-button>
-        <div class="mx-4">
+        <div class="mx-2 md:mx-4">
           {{ itemInCart.prodItem_qty }}
         </div>
         <base-button class="w-8 h-8 rounded-lg bg-white" @click="increaseItem"
           ><font-awesome-icon icon="fa-plus" class="text-sm"
         /></base-button>
       </div>
-      <div class="flex items-center justify-center text-sm">
+      <div
+        class="col-span-2 flex items-center justify-end md:justify-center text-sm"
+      >
         {{ getTotalPrice }}
       </div>
-      <div class="flex items-center justify-center text-sm text-slate-800" @click="allDelete">
+      <div
+        class="col-span-1 flex items-center justify-end md:justify-center text-sm text-slate-800"
+        @click="allDelete"
+      >
         <font-awesome-icon icon="fa-trash" />
       </div>
     </div>
