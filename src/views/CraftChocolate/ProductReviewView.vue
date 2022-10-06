@@ -1,5 +1,7 @@
 <template>
-  <div class="container w-3/4 mt-16 mx-auto text-slate-700">
+  <div
+    class="container w-full md:w-3/4 px-3 md:p-0 mt-16 mx-auto text-slate-700"
+  >
     <div class="container">
       <base-button @click="$router.go(-1)">
         <font-awesome-icon
@@ -55,43 +57,45 @@
     <div id="reviewProduct" class="mt-36">
       <div>
         <h2 class="text-lg font-medium">Comments</h2>
-        <div class="mt-10 px-16">
-          <ul class="flex flex-row">
+        <div class="mt-10 px-3 md:px-16">
+          <ul
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+          >
             <li
-              class="py-3.5 xl:py-2 mx-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
             >
               <p>All</p>
-              <p class="mx-0 xl:ml-2 text-sm mt-0.5">(1245)</p>
+              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">(1245)</p>
             </li>
             <li
-              class="py-3.5 xl:py-2 mx-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
             >
               <p>0-2 Star</p>
-              <p class="mx-0 xl:ml-2 text-sm mt-0.5">(1245)</p>
+              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">(1245)</p>
             </li>
             <li
-              class="py-3.5 xl:py-2 mx-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
             >
               <p>3-5 Star</p>
-              <p class="mx-0 xl:ml-2 text-sm mt-0.5">(1245)</p>
+              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">(1245)</p>
             </li>
             <li
-              class="py-3.5 xl:py-2 mx-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
             >
               <p>6-8 Star</p>
-              <p class="mx-0 xl:ml-2 text-sm mt-0.5">(1245)</p>
+              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">(1245)</p>
             </li>
             <li
-              class="py-3.5 xl:py-2 mx-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
             >
               <p>9-10 Star</p>
-              <p class="mx-0 xl:ml-2 text-sm mt-0.5">(1245)</p>
+              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">(1245)</p>
             </li>
           </ul>
         </div>
       </div>
 
-      <div class="px-16">
+      <div class="px-3 md:px-16">
         <base-comment-box></base-comment-box>
       </div>
     </div>
