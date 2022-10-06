@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed z-50 right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl p-6"
+    class="fixed z-50 right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 bg-white rounded-lg border shadow-md w-11/12 md:6/12 md:flex-row md:max-w-xl p-6"
   >
     <a href="#" class="flex flex-col items-center">
       <div class="mx-6">

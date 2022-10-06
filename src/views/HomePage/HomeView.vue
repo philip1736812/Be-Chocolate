@@ -37,7 +37,7 @@
 
       <div class="mt-3 mb-20">
         <div
-          class="hotItemsTopic mx-auto flex items-end max-w-5xl w-full xl:w-9/12 mb-4"
+          class="hotItemsTopic mx-auto flex items-end max-w-5xl w-full xl:w-9/12 mb-4 px-3 xl:px-0"
         >
           <div class="flex flex-1">
             <font-awesome-icon
@@ -54,7 +54,7 @@
             />
             <transition name="hotItems" mode="out-in">
               <p
-                class="w-44 overflow-hidden text-base md:text-lg font-light text-center mx-3 text-slate-500"
+                class="w-28 md:w-36 xl:w-44 overflow-hidden text-base md:text-lg font-light text-center mx-3 text-slate-500"
               >
                 {{ hotItem }}
               </p>
