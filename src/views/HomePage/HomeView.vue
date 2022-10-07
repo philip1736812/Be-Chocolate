@@ -23,7 +23,11 @@
 
       <teleport to="body">
         <transition name="popUp" mode="out-in">
-          <div v-if="activeWelcomePopUp && isAuth && isGuestId">
+          <div
+            v-if="
+              activeWelcomePopUp && isAuth && isGuestId && !isActiveWelcomePopUp
+            "
+          >
             <who-are-guest-pop-up
               @closeNameWelcome="closeNameWelcome"
               @submitNameForm="submitName"
@@ -199,6 +203,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
+      if (this.indexStore.AlreadyActiveGuestPopUp) return;
       this.activeWelcomePopUp = true;
     }, 500);
   },
@@ -221,6 +226,9 @@ export default {
     },
     isGuestId() {
       return this.indexStore.isGuestId;
+    },
+    isActiveWelcomePopUp() {
+      return this.indexStore.AlreadyActiveGuestPopUp;
     },
   },
   methods: {
@@ -245,9 +253,11 @@ export default {
       this.productItems.next_prev_hotProduct("prev");
     },
     closeNameWelcome() {
+      this.indexStore.AlreadyActiveGuestPopUp = true;
       this.activeWelcomePopUp = false;
     },
     submitName(str) {
+      this.indexStore.AlreadyActiveGuestPopUp = true;
       this.indexStore.sentStrName_welcomeForm(str);
       this.closeNameWelcome();
     },

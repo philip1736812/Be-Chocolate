@@ -15,6 +15,7 @@ export const useIndexStore = defineStore({
       isAuth: false,
       user: null,
       errMessage: null,
+      AlreadyActiveGuestPopUp: false,
     };
   },
   getters: {
