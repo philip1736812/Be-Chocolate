@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import axios from "axios";
 
 export const useIndexStore = defineStore({
   id: "indexStore",
@@ -10,6 +11,7 @@ export const useIndexStore = defineStore({
       isActiveNotification: false,
       windowWidth: window.innerWidth,
       API_FIREBASE_KEY: `AIzaSyCeDgaXuYfNyKUnZqY4uVCn1THb_vJwCKw`,
+      _GUEST_ACCOUNT_ID: "dlJRa2zM5CUUflEsdWwTdCzfs6I2",
       isAuth: false,
       user: null,
       errMessage: null,
@@ -27,6 +29,11 @@ export const useIndexStore = defineStore({
     },
     getUserInfo(state) {
       return state.user;
+    },
+    isGuestId(state) {
+      if (!state._GUEST_ACCOUNT_ID) return;
+
+      return state.user.userId == state._GUEST_ACCOUNT_ID;
     },
   },
   actions: {
@@ -116,6 +123,24 @@ export const useIndexStore = defineStore({
     signOutFn() {
       this.user = null;
       this.isAuth = false;
+    },
+
+    async sentStrName_welcomeForm(str) {
+      try {
+        const guestRes = await axios.post(
+          `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/guestUserName.json`,
+          {
+            guestName: str,
+          }
+        );
+
+        if (statusText !== "OK")
+          throw new Error(`Sent Failed! Thankyou for try`);
+
+        const data = await guestRes;
+      } catch (err) {
+        this.errMessage = err.message;
+      }
     },
   },
 });

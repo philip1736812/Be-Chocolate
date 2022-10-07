@@ -106,7 +106,7 @@
             <transition name="notificationPop">
               <div
                 v-if="isNotificationActive && !isLeaveHeader"
-                class="z-50 absolute top-16 right-40"
+                class="z-50 absolute top-16 right-1/2 translate-x-1/2 md:right-40 md:translate-x-0"
               >
                 <notifications @disActive="activeNotifications"></notifications>
               </div>

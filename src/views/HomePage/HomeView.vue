@@ -21,6 +21,21 @@
         <cart-balloon></cart-balloon>
       </teleport>
 
+      <teleport to="body">
+        <transition name="popUp" mode="out-in">
+          <div v-if="activeWelcomePopUp && isAuth && isGuestId">
+            <who-are-guest-pop-up
+              @closeNameWelcome="closeNameWelcome"
+              @submitNameForm="submitName"
+            ></who-are-guest-pop-up>
+            <div
+              @click="closeNameWelcome"
+              class="z-40 w-full h-full overlay bg-black fixed right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 opacity-20"
+            ></div>
+          </div>
+        </transition>
+      </teleport>
+
       <div
         class="itemNav_container relative grid grid-cols-3 sm:grid-cols-4 md:flex md:items-center md:justify-center mx-auto py-14 before:right-1/2 before:translate-x-1/2"
       >
@@ -110,6 +125,7 @@
 <script>
 import { useProductStore } from "@/stores/ProductItems/Store_product";
 import { userCartList } from "@/stores/Cart/Cart_items";
+import { useIndexStore } from "../../stores/Store_index";
 
 import BaseCardNav from "@/components/UI/BaseCardNav.vue";
 import BaseProductCard from "@/components/UI/BaseProductCard.vue";
@@ -117,6 +133,7 @@ import CraftChocolateSection from "@/components/HomeView/CraftChocolateSection.v
 import CartBalloon from "@/components/TheNavigator/CartBalloon.vue";
 import BaseSearchBar from "@/components/UI/BaseSearchBar.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
+import WhoAreGuestPopUp from "./WhoAreGuestPopUp.vue";
 
 export default {
   components: {
@@ -126,12 +143,14 @@ export default {
     CartBalloon,
     BaseSearchBar,
     BaseButton,
+    WhoAreGuestPopUp,
   },
   setup() {
     const cartList = userCartList();
     const productItems = useProductStore();
+    const indexStore = useIndexStore();
 
-    return { cartList, productItems };
+    return { cartList, productItems, indexStore };
   },
   data() {
     return {
@@ -175,7 +194,13 @@ export default {
 
       productCardActive: false,
       hoverKey: null,
+      activeWelcomePopUp: false,
     };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.activeWelcomePopUp = true;
+    }, 500);
   },
   computed: {
     getProducts() {
@@ -190,6 +215,12 @@ export default {
     },
     hotItem() {
       return this.selectedNavName.replace(/([A-Z])/g, " $1").trim();
+    },
+    isAuth() {
+      return this.indexStore.isAuthentication;
+    },
+    isGuestId() {
+      return this.indexStore.isGuestId;
     },
   },
   methods: {
@@ -212,6 +243,13 @@ export default {
     },
     prevHotItems() {
       this.productItems.next_prev_hotProduct("prev");
+    },
+    closeNameWelcome() {
+      this.activeWelcomePopUp = false;
+    },
+    submitName(str) {
+      this.indexStore.sentStrName_welcomeForm(str);
+      this.closeNameWelcome();
     },
   },
 };
@@ -291,6 +329,28 @@ main {
   @keyframes fadeTransition {
     0% {
       opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .popUp-enter-active {
+    animation: popUpTransition 0.25s ease-in;
+  }
+
+  .popUp-leave-active {
+    animation: popUpTransition 0.25s ease-in reverse;
+  }
+
+  @keyframes popUpTransition {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    85% {
+      transform: scale(1.3);
+      opacity: 1;
     }
     100% {
       opacity: 1;

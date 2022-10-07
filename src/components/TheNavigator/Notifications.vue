@@ -2,7 +2,10 @@
   <!-- Dropdown menu -->
   <div
     id="dropdownNotification"
-    class="w-96 max-w-sm bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-800 dark:divide-gray-700"
+    class="md:w-96 md:max-w-sm bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-800 dark:divide-gray-700"
+    :style="{
+      width: isSmallestWidth && `${isSmallestWidth}px`,
+    }"
     aria-labelledby="dropdownNotificationButton"
     data-popper-reference-hidden=""
     data-popper-escaped=""
@@ -65,3 +68,22 @@
     </teleport>
   </div>
 </template>
+
+<script>
+import { useIndexStore } from "@/stores/Store_index";
+
+export default {
+  setup() {
+    const indexStore = useIndexStore();
+
+    return { indexStore };
+  },
+  computed: {
+    isSmallestWidth() {
+      return this.indexStore.windowWidth <= 640
+        ? this.indexStore.windowWidth - 12
+        : false;
+    },
+  },
+};
+</script>

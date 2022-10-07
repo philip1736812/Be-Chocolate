@@ -40,6 +40,7 @@ module.exports = {
     "./src/components/CheckOut/ItemInCart.vue",
     "./src/views/CheckOut/CodeVoucherView.vue",
     "./src/components/UI/BaseErrorPopUp.vue",
+    "./src/views/HomePage/WhoAreGuestPopUp.vue",
   ],
   theme: {
     extend: {},
