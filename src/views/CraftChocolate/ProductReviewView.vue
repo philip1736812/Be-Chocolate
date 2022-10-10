@@ -57,46 +57,133 @@
     <div id="reviewProduct" class="mt-36">
       <div>
         <h2 class="text-lg font-medium">Comments</h2>
-        <div class="mt-10 px-3 md:px-16">
+        <div class="mt-10 px-0 md:px-16">
           <ul
             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
           >
             <li
-              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700 opacity-50 transition-all"
+              :class="
+                filterCommentBy === 'all' ? 'border-slate-800 opacity-100' : ''
+              "
+              @click="filterCommentByStar('all')"
             >
               <p>All</p>
-              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">(1245)</p>
+              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">
+                ({{ getCommentReview.length }})
+              </p>
             </li>
             <li
-              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700 opacity-50 transition-all"
+              :class="
+                filterCommentBy === '0_2' ? 'border-slate-800 opacity-100' : ''
+              "
+              @click="filterCommentByStar('0_2')"
             >
               <p>0-2 Star</p>
-              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">(1245)</p>
+              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">
+                ({{ get0_2_amount.length }})
+              </p>
             </li>
             <li
-              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700 opacity-50 transition-all"
+              :class="
+                filterCommentBy === '3_5' ? 'border-slate-800 opacity-100' : ''
+              "
+              @click="filterCommentByStar('3_5')"
             >
               <p>3-5 Star</p>
-              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">(1245)</p>
+              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">
+                ({{ get3_5_amount.length }})
+              </p>
             </li>
             <li
-              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700 opacity-50 transition-all"
+              :class="
+                filterCommentBy === '6_8' ? 'border-slate-800 opacity-100' : ''
+              "
+              @click="filterCommentByStar('6_8')"
             >
               <p>6-8 Star</p>
-              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">(1245)</p>
+              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">
+                ({{ get6_8_amount.length }})
+              </p>
             </li>
             <li
-              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700"
+              class="py-3.5 xl:py-2 mx-1 my-1 cursor-pointer text-sm lg:text-base font-medium text-center flex flex-1 flex-col xl:flex-row items-center justify-center w-auto max-w-md bg-white rounded-lg border sm:p-3.5 dark:bg-gray-800 dark:border-gray-700 opacity-50 transition-all"
+              :class="
+                filterCommentBy === '9_10' ? 'border-slate-800 opacity-100' : ''
+              "
+              opacity-70
+              @click="filterCommentByStar('9_10')"
             >
               <p>9-10 Star</p>
-              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">(1245)</p>
+              <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">
+                ({{ get9_10_amount.length }})
+              </p>
             </li>
           </ul>
         </div>
       </div>
 
-      <div class="px-3 md:px-16">
-        <base-comment-box></base-comment-box>
+      <div class="px-0 md:px-16">
+        <div v-if="getCommentReview.length">
+          <div v-for="comment in filterComment" :key="comment.id">
+            <base-comment-box :comment="comment"></base-comment-box>
+          </div>
+        </div>
+
+        <div v-else class="flex items-center justify-center h-80">
+          <p>No any comments</p>
+        </div>
+
+        <div class="flex items-center justify-center my-12">
+          <!-- Previous Button -->
+          <base-button
+            @click="prevCommentPage"
+            class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white transition-all"
+          >
+            <svg
+              aria-hidden="true"
+              class="mr-2 w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            Previous
+          </base-button>
+          <p class="w-12 mx-4 text-center font-medium">
+            {{ activePage }}
+            <span class="text-sm font-normal text-slate-400"
+              >of {{ pageCommentAmount }}</span
+            >
+          </p>
+          <base-button
+            @click="nextCommentPage"
+            class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white transition-all"
+          >
+            Next
+            <svg
+              aria-hidden="true"
+              class="ml-2 w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </base-button>
+        </div>
       </div>
     </div>
   </div>
@@ -105,6 +192,8 @@
 <script>
 import { useCraftChocolateStore } from "@/stores/CraftChocolate/Store_craftChocolate.js";
 import { userCartList } from "@/stores/Cart/Cart_items";
+import { useCommentsAndReviewStore } from "../../stores/Comments/Store_commentsReview";
+
 import StarRender from "@/components/RatingView/StarRender.vue";
 import Carousel from "@/components/CraftChocolateView/Carousel.vue";
 import BaseBtnAddToCart from "@/components/UI/BaseBtnAddToCart.vue";
@@ -123,12 +212,28 @@ export default {
   setup() {
     const craftChocolateStore = useCraftChocolateStore();
     const cartList = userCartList();
+    const commentAndReviewStore = useCommentsAndReviewStore();
 
-    return { craftChocolateStore, cartList };
+    const filterRange = (item, min, max) => {
+      return item.rating.ratingStar >= min && item.rating.ratingStar <= max;
+    };
+
+    // Load Comment
+    commentAndReviewStore.loadComment();
+
+    return {
+      craftChocolateStore,
+      cartList,
+      commentAndReviewStore,
+      filterRange,
+    };
   },
   data() {
     return {
       selectedProd: false,
+      filterCommentBy: "all",
+      activePage: 1,
+      PAGINATION_PER_PAGE: 3,
     };
   },
   computed: {
@@ -142,9 +247,70 @@ export default {
       return this.cartList?.cart.find((prod) => prod.id === this.getProduct.id)
         ?.prodItem_qty;
     },
+
+    getCommentReview() {
+      return this.commentAndReviewStore.comments
+        .filter((item) => item.postId == this.productId)
+        .filter((item) => {
+          if (this.filterCommentBy === "all") return item;
+
+          if (this.filterCommentBy === "0_2")
+            return this.filterRange(item, 0, 2);
+
+          if (this.filterCommentBy === "3_5")
+            return this.filterRange(item, 3, 5);
+
+          if (this.filterCommentBy === "6_8")
+            return this.filterRange(item, 6, 8);
+
+          if (this.filterCommentBy === "9_10")
+            return this.filterRange(item, 9, 10);
+        });
+    },
+
+    pageCommentAmount() {
+      return (
+        Math.ceil(this.getCommentReview.length / this.PAGINATION_PER_PAGE) || 1
+      );
+    },
+
+    filterComment() {
+      const filterComments = this.getCommentReview
+        .slice()
+        .splice(
+          (this.activePage - 1) * this.PAGINATION_PER_PAGE,
+          this.PAGINATION_PER_PAGE * this.activePage
+        );
+
+      return filterComments;
+    },
+
+    get0_2_amount() {
+      return this.commentAndReviewStore.comments
+        .filter((item) => item.postId == this.productId)
+        .filter((item) => this.filterRange(item, 0, 2));
+    },
+    get3_5_amount() {
+      return this.commentAndReviewStore.comments
+        .filter((item) => item.postId == this.productId)
+        .filter((item) => this.filterRange(item, 3, 5));
+    },
+    get6_8_amount() {
+      return this.commentAndReviewStore.comments
+        .filter((item) => item.postId == this.productId)
+        .filter((item) => this.filterRange(item, 6, 8));
+    },
+    get9_10_amount() {
+      return this.commentAndReviewStore.comments
+        .filter((item) => item.postId == this.productId)
+        .filter((item) => this.filterRange(item, 9, 10));
+    },
   },
 
   methods: {
+    filterCommentByStar(star) {
+      this.filterCommentBy = star;
+    },
     addToCart() {
       this.selectedProd = true;
 
@@ -159,6 +325,16 @@ export default {
             Math.floor(Math.random() * this.getProduct.pictureUrl.length)
           ],
       });
+    },
+    prevCommentPage() {
+      this.activePage > 1 && this.activePage <= this.pageCommentAmount
+        ? (this.activePage -= 1)
+        : 1;
+    },
+    nextCommentPage() {
+      this.activePage >= 1 && this.activePage < this.pageCommentAmount
+        ? (this.activePage += 1)
+        : 1;
     },
     deleteFromCart() {
       this.cartList.deleteFromCart(+this.productId);

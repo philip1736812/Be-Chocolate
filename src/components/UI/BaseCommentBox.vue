@@ -8,7 +8,7 @@
       />
       <div class="space-y-1 font-medium dark:text-white">
         <p>
-          Jese Leos
+          {{ getEmail }}
           <time
             datetime="2014-08-16 19:00"
             class="block text-sm text-gray-500 dark:text-gray-400"
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="flex items-center mb-1">
-      <star-render :ratingStarCount="10"></star-render>
+      <star-render :ratingStarCount="getRatingStar"></star-render>
 
       <h3 class="ml-2 text-sm font-semibold text-gray-900 dark:text-white">
         Thinking to buy another one!
@@ -35,18 +35,11 @@
       :class="{ fullComment: isFullComment }"
     >
       <p class="mb-2 font-light text-base text-gray-500 dark:text-gray-400">
-        This is my third Invicta Pro Diver. They are just fantastic value for
-        money. This one arrived yesterday and the first thing I did was set the
-        time, popped on an identical strap from another Invicta and went in the
-        shower with it to test the waterproofing.... No problems.
-      </p>
-      <p class="mb-3 font-light text-lg text-gray-500 dark:text-gray-400">
-        It is obviously not the same build quality as those very expensive
-        watches. But that is like comparing a Citroën to a Ferrari. This watch
-        was well under £100! An absolute bargain.
+        {{ getComments }}
       </p>
     </div>
     <base-button
+      v-if="false"
       @click="readMoreComment"
       class="block mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
       >Read more
@@ -79,10 +72,27 @@ import BaseButton from "./BaseButton.vue";
 
 export default {
   components: { StarRender, BaseButton },
+  props: {
+    comment: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       isFullComment: false,
     };
+  },
+  computed: {
+    getComments() {
+      return this.comment.body;
+    },
+    getEmail() {
+      return this.comment.email;
+    },
+    getRatingStar() {
+      return this.comment.rating.ratingStar;
+    },
   },
   methods: {
     readMoreComment() {
