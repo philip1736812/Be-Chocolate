@@ -41,6 +41,7 @@ const router = createRouter({
         navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
         default: () => import("@/views/Store/StoreInformation.vue"),
       },
+      meta: { requiredAuth: true },
     },
     {
       path: "/craft-chocolate",
@@ -105,8 +106,18 @@ const router = createRouter({
       },
     },
     {
-      path: "/community-mall/article/articleId",
+      path: "/community-mall/search-by-tag/:hashTagName",
+      name: "searchByTagName",
+      props: true,
+      components: {
+        navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
+        default: () => import("@/views/Community/SearchByTagName.vue"),
+      },
+    },
+    {
+      path: "/community-mall/article/:articleId",
       name: "readArticle",
+      props: true,
       components: {
         navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
         default: () => import("@/views/Community/ReadArticle.vue"),
@@ -115,10 +126,32 @@ const router = createRouter({
     {
       path: "/my-store",
       name: "myStore",
+      redirect: { name: "myStore-dashboard" },
       components: {
         navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
-        default: () => import("@/views/Store/My Store/myStoreDashboard.vue"),
+        default: () => import("@/views/Store/MyStore/myStoreDashboard.vue"),
       },
+      meta: { requiredAuth: true },
+      children: [
+        {
+          path: "dashboard",
+          name: "myStore-dashboard",
+          component: () =>
+            import("@/views/Store/MyStore/MyStore_dashboard.vue"),
+        },
+        {
+          path: "inventory",
+          name: "myStore-inventory",
+          component: () =>
+            import("@/views/Store/MyStore/MyStore_inventory.vue"),
+        },
+        {
+          path: "orderList",
+          name: "myStore-orderList",
+          component: () =>
+            import("@/views/Store/MyStore/MyStore_orderList.vue"),
+        },
+      ],
     },
     {
       path: "/review-cart",
@@ -127,6 +160,7 @@ const router = createRouter({
         navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
         default: () => import("@/views/CheckOut/ReviewCartView.vue"),
       },
+      meta: { requiredAuth: true },
     },
     {
       path: "/review-cart/check-out",
@@ -135,6 +169,7 @@ const router = createRouter({
         navigation: () => import("@/components/TheNavigator/TheHeader.vue"),
         default: () => import("@/views/CheckOut/CheckOutView.vue"),
       },
+      meta: { requiredAuth: true },
     },
     {
       path: "/:pathMatch(.*)*",
@@ -150,6 +185,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const indexStore = useIndexStore();
   const isAuthentication = indexStore.isAuthentication;
+
   if (to.meta.requiredAuth && !isAuthentication)
     next({ name: `signIn`, query: { next: to.name } });
   else next();

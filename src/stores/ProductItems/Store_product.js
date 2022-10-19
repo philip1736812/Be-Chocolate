@@ -13,6 +13,7 @@ export const useProductStore = defineStore("productItems", () => {
         storeName: "Lala Chocolate",
         type: "cacaoPods",
         price: 150,
+        unit: "kg",
         remaining: 75,
         soldCount: 1523,
         picUrl: [
@@ -23,10 +24,26 @@ export const useProductStore = defineStore("productItems", () => {
         ],
       },
       {
+        id: 548125478563219,
+        storeName: "CocoaLaLa Craft To Bar",
+        type: "cacaoPods",
+        price: 151,
+        unit: "kg",
+        remaining: 35,
+        soldCount: 1112,
+        picUrl: [
+          "https://cdn.shopify.com/s/files/1/0447/0453/articles/Aduna_Super-Cacao_Pod_tree_bfbbcdc1-502c-4b62-a2bd-e56529f41947.jpg?v=1578334469",
+          "https://img.theculturetrip.com/wp-content/uploads/2018/05/cacao.jpg",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbD31hdMrFmwPEp7qvAynCXIzjn_XhJb-Fgetj07Ko_q2WZAadiKO2Ufp3uKEzRwJUEg8&usqp=CAU",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuTgPSiOM08zyZKyArJ-FpR23miSsn4hVZFWQ3pHW3t91BYFqAMV16Ko4_2oxwRFuYzME&usqp=CAU",
+        ],
+      },
+      {
         id: 152365214589652,
         storeName: "Cherubin Chocolate Cafe",
         type: "cacaoPods",
         price: 154,
+        unit: "kg",
         remaining: 40,
         soldCount: 750,
         picUrl: [
@@ -41,6 +58,7 @@ export const useProductStore = defineStore("productItems", () => {
         storeName: "95 cacao cafe",
         type: "cacaoPods",
         price: 150,
+        unit: "kg",
         remaining: 60,
         soldCount: 350,
         picUrl: [
@@ -55,6 +73,7 @@ export const useProductStore = defineStore("productItems", () => {
         storeName: "Bake Bake",
         type: "cacaoPods",
         price: 180,
+        unit: "kg",
         remaining: 150,
         soldCount: 200,
         picUrl: [
@@ -69,6 +88,7 @@ export const useProductStore = defineStore("productItems", () => {
         storeName: "Sweety Secret",
         type: "cacaoPods",
         price: 148,
+        unit: "kg",
         remaining: 10,
         soldCount: 1950,
         picUrl: [
@@ -79,13 +99,44 @@ export const useProductStore = defineStore("productItems", () => {
         ],
       },
     ],
-    // craftChocolateItems: craftChocolateStore.craftChocolateProduct,
-    chocolatePlateItems: [],
-    cacaoBeanItems: [],
+    chocolatePlateItems: [
+      {
+        id: 612478541236548,
+        storeName: "CocoaLaLa Craft To Bar",
+        type: "chocolatePlate",
+        price: 156,
+        unit: "kg",
+        remaining: 50,
+        soldCount: 2542,
+        picUrl: [
+          "https://homemadehooplah.com/wp-content/uploads/2021/05/chocolate-truffles-1-1200-700x1048.jpg",
+          "https://www.scotchandscones.com/wp-content/uploads/2018/06/temper-chocolate-dipped-treats-square.jpeg",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSePXjJlWZEDvEpHz1HmOPCM1U8FFG2hNacpQfjXE40lKRSQ-Qd5hMN2p_E3AtlwzDH7II&usqp=CAU",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSp-d-oRVP6fEQyRFqFoB_ouX45v4Xaf5T0A&usqp=CAU",
+        ],
+      },
+    ],
+    cacaoBeanItems: [
+      {
+        id: 875315624895236,
+        storeName: "CocoaLaLa Craft To Bar",
+        type: "cacaoBean",
+        price: 175,
+        unit: "kg",
+        remaining: 150,
+        soldCount: 785,
+        picUrl: [
+          "https://cdn.britannica.com/82/230782-050-120FFCA0/Woman-holding-cocoa-beans-in-her-hands.jpg",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMMYX6Y01lTTXK2AbxjdaHdfp2ek9l-Ba5qyPZewmwGEhLVp-uyObcRqnn_HgUjXmcrqQ&usqp=CAU",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTttyn7NmskrvFj5wqRAc95rOqunok8ZqnUcw&usqp=CAU",
+          "https://i.insider.com/591b5d7514429326228b5b7b?width=1000&format=jpeg&auto=webp",
+        ],
+      },
+    ],
     cocoaPowdersItems: [],
     cocoaButterItems: [],
     chocolateItems: [],
-    chocolateBarItems: [],
+    chocolateBarItems: [...craftChocolateStore.craftChocolateProduct],
   };
 
   const headerPic_productTypeList = {

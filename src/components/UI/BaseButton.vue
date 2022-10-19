@@ -56,6 +56,14 @@ export default {
   }
 }
 
+.minimalBtn {
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  border-width: 1px;
+}
+
 .articleBtn {
   width: auto;
   padding: 0.7rem 2rem;

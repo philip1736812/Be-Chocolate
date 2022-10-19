@@ -29,7 +29,7 @@
           >
         </div>
         <p class="text-sm">
-          {{ new Intl.NumberFormat("en-US").format(getProduct.rating.vote) }}
+          {{ getVoteScore }}
           Vote
         </p>
       </div>
@@ -70,7 +70,7 @@
             >
               <p>All</p>
               <p class="mx-0 xl:ml-2 text-sm md:text-sm mt-0.5">
-                ({{ getCommentReview.length }})
+                ({{ getCommentThisId.length }})
               </p>
             </li>
             <li
@@ -127,63 +127,24 @@
       </div>
 
       <div class="px-0 md:px-16">
-        <div v-if="getCommentReview.length">
-          <div v-for="comment in filterComment" :key="comment.id">
-            <base-comment-box :comment="comment"></base-comment-box>
+        <div>
+          <div v-if="getCommentReview.length">
+            <div v-for="comment in filterComment" :key="comment.id">
+              <base-comment-box :comment="comment"></base-comment-box>
+            </div>
+          </div>
+
+          <div v-else class="flex items-center justify-center h-80">
+            <p>No any comments</p>
           </div>
         </div>
 
-        <div v-else class="flex items-center justify-center h-80">
-          <p>No any comments</p>
-        </div>
-
-        <div class="flex items-center justify-center my-12">
-          <!-- Previous Button -->
-          <base-button
-            @click="prevCommentPage"
-            class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white transition-all"
-          >
-            <svg
-              aria-hidden="true"
-              class="mr-2 w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            Previous
-          </base-button>
-          <p class="w-12 mx-4 text-center font-medium">
-            {{ activePage }}
-            <span class="text-sm font-normal text-slate-400"
-              >of {{ pageCommentAmount }}</span
-            >
-          </p>
-          <base-button
-            @click="nextCommentPage"
-            class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white transition-all"
-          >
-            Next
-            <svg
-              aria-hidden="true"
-              class="ml-2 w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </base-button>
-        </div>
+        <the-pagination
+          :activePage="activePage"
+          @prevCommentPageEmit="prevCommentPage"
+          @nextCommentPageEmit="nextCommentPage"
+          :amountOfPage="pageCommentAmount"
+        ></the-pagination>
       </div>
     </div>
   </div>
@@ -193,12 +154,14 @@
 import { useCraftChocolateStore } from "@/stores/CraftChocolate/Store_craftChocolate.js";
 import { userCartList } from "@/stores/Cart/Cart_items";
 import { useCommentsAndReviewStore } from "../../stores/Comments/Store_commentsReview";
+import { numberFormat } from "../../components/hooks/UseNumberFormat";
 
 import StarRender from "@/components/RatingView/StarRender.vue";
 import Carousel from "@/components/CraftChocolateView/Carousel.vue";
 import BaseBtnAddToCart from "@/components/UI/BaseBtnAddToCart.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
 import BaseCommentBox from "../../components/UI/BaseCommentBox.vue";
+import ThePagination from "../../components/ReUseComp/ThePagination.vue";
 
 export default {
   props: ["productId"],
@@ -208,6 +171,7 @@ export default {
     BaseBtnAddToCart,
     BaseButton,
     BaseCommentBox,
+    ThePagination,
   },
   setup() {
     const craftChocolateStore = useCraftChocolateStore();
@@ -243,29 +207,34 @@ export default {
       );
     },
 
+    getVoteScore() {
+      return numberFormat(this.getProduct.rating.vote);
+    },
+
     qty_thisItem() {
       return this.cartList?.cart.find((prod) => prod.id === this.getProduct.id)
         ?.prodItem_qty;
     },
 
+    getCommentThisId() {
+      return this.commentAndReviewStore.comments.filter(
+        (item) => item.postId == this.productId
+      );
+    },
+
     getCommentReview() {
-      return this.commentAndReviewStore.comments
-        .filter((item) => item.postId == this.productId)
-        .filter((item) => {
-          if (this.filterCommentBy === "all") return item;
+      return this.getCommentThisId.filter((item) => {
+        if (this.filterCommentBy === "all") return item;
 
-          if (this.filterCommentBy === "0_2")
-            return this.filterRange(item, 0, 2);
+        if (this.filterCommentBy === "0_2") return this.filterRange(item, 0, 2);
 
-          if (this.filterCommentBy === "3_5")
-            return this.filterRange(item, 3, 5);
+        if (this.filterCommentBy === "3_5") return this.filterRange(item, 3, 5);
 
-          if (this.filterCommentBy === "6_8")
-            return this.filterRange(item, 6, 8);
+        if (this.filterCommentBy === "6_8") return this.filterRange(item, 6, 8);
 
-          if (this.filterCommentBy === "9_10")
-            return this.filterRange(item, 9, 10);
-        });
+        if (this.filterCommentBy === "9_10")
+          return this.filterRange(item, 9, 10);
+      });
     },
 
     pageCommentAmount() {

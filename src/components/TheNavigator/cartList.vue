@@ -61,8 +61,7 @@
           </div>
           <div class="w-2/4 text-end">
             <p>
-              <span class="inline font-medium">฿</span>
-              {{ item.price * item.prodItem_qty }}
+              {{ currencyFormat(item.price * item.prodItem_qty) }}
             </p>
           </div>
         </li>
@@ -102,6 +101,7 @@
 import BaseButton from "../UI/BaseButton.vue";
 import { useIndexStore } from "@/stores/Store_index";
 import { userCartList } from "../../stores/Cart/Cart_items";
+import { currencyFormat } from "../../components/hooks/UseNumberFormat";
 
 export default {
   props: ["userCart", "cartAmount", "isActiveCartList"],
@@ -140,6 +140,9 @@ export default {
       setTimeout(() => {
         el.style.height = 0;
       });
+    },
+    currencyFormat(number) {
+      return currencyFormat(number);
     },
   },
   computed: {

@@ -75,7 +75,7 @@ import { useIndexStore } from "@/stores/Store_index";
 import { userCartList } from "../../stores/Cart/Cart_items";
 import itemInCart from "../../components/CheckOut/ItemInCart.vue";
 import BaseButton from "../../components/UI/BaseButton.vue";
-import { numberFormat } from "../../components/hooks/UseNumberFormat";
+import { currencyFormat } from "../../components/hooks/UseNumberFormat";
 import CodeVoucherView from "./CodeVoucherView.vue";
 
 export default {
@@ -114,7 +114,7 @@ export default {
           ? this.cartList.cart.slice()
           : this.newCartArr;
 
-      return numberFormat(
+      return currencyFormat(
         newCart.length <= 0
           ? 0
           : newCart

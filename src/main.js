@@ -31,6 +31,11 @@ import {
   faAngleLeft,
   faAngleRight,
   faTriangleExclamation,
+  faPeopleGroup,
+  faThumbsUp,
+  faCommentsDollar,
+  faBoxesStacked,
+  faTruckRampBox,
 } from "@fortawesome/free-solid-svg-icons";
 
 import App from "./App.vue";
@@ -70,7 +75,12 @@ library.add(
   faTag,
   faAngleLeft,
   faAngleRight,
-  faTriangleExclamation
+  faTriangleExclamation,
+  faPeopleGroup,
+  faThumbsUp,
+  faCommentsDollar,
+  faBoxesStacked,
+  faTruckRampBox
 );
 app.component("font-awesome-icon", FontAwesomeIcon);
 

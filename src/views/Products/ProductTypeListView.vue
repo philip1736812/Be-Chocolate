@@ -3,7 +3,7 @@
     <div>
       <div class="relative w-full h-60 md:h-80 overflow-hidden">
         <div
-          class="absolute z-30 text-white w-full md:w-2/4 h-full flex flex-col justify-center px-5 md:pl-16"
+          class="absolute z-50 text-white w-full md:w-2/4 h-full flex flex-col justify-center px-5 md:pl-16"
         >
           <h2 class="text-lg md:text-2xl mb-4 font-bold">
             {{ convertProductName }}
@@ -17,13 +17,15 @@
         </div>
 
         <div
-          class="w-3/4 h-96 absolute overlay bg-gradient-to-r from-neutral-900 z-20"
+          class="absolute w-full h-60 md:h-80 z-40 overlay bg-gradient-to-r from-neutral-900"
         ></div>
-        <img
-          class="absolute w-full h-full object-cover z-10"
-          :src="getHeaderPic"
-          :alt="productTypeName"
-        />
+        <base-picture-frame
+          stylePic="w-full h-60 sm:h-full object-cover"
+          styleLoading="top-0 w-auto sm:w-full h-60 md:h-80"
+          :picSrc="getHeaderPic"
+          :productName="productTypeName"
+        >
+        </base-picture-frame>
       </div>
     </div>
     <main>
@@ -186,6 +188,13 @@
             @deletedProduct="deleteSelectedProd"
           ></base-product-card>
         </div>
+
+        <the-pagination
+          @prevCommentPageEmit="prevCommentPage"
+          @nextCommentPageEmit="nextCommentPage"
+          :activePage="activePage"
+          :amountOfPage="amountOfPaginationPage"
+        ></the-pagination>
       </div>
       <div v-else class="container w-3/4 mx-auto my-48">
         <h1 class="text-center text-lg font-medium">
@@ -204,10 +213,18 @@ import { userCartList } from "@/stores/Cart/Cart_items";
 import CartBalloon from "@/components/TheNavigator/CartBalloon.vue";
 import BaseProductCard from "@/components/UI/BaseProductCard.vue";
 import BaseSearchBar from "../../components/UI/BaseSearchBar.vue";
+import ThePagination from "../../components/ReUseComp/ThePagination.vue";
+import BasePictureFrame from "../../components/UI/BasePictureFrame.vue";
 
 export default {
   props: ["productTypeName"],
-  components: { CartBalloon, BaseProductCard, BaseSearchBar },
+  components: {
+    CartBalloon,
+    BaseProductCard,
+    BaseSearchBar,
+    ThePagination,
+    BasePictureFrame,
+  },
   setup() {
     const productItems = useProductStore();
     const cartList = userCartList();
@@ -223,6 +240,8 @@ export default {
         byAmount: false,
         bySold: false,
       },
+      AMOUNT_PRODUCT_PER_PAGE: 3,
+      activePage: 1,
     };
   },
   computed: {
@@ -236,9 +255,20 @@ export default {
               .includes(this.searchText.toLowerCase());
           });
     },
+    amountOfPaginationPage() {
+      return Math.ceil(
+        this.getProductName.length / this.AMOUNT_PRODUCT_PER_PAGE
+      );
+    },
     getProductFromFilter() {
       // Filter By Price
-      let allProduct = this.getProductName.slice();
+      let allProduct = this.getProductName
+        .slice()
+        .splice(
+          (this.activePage - 1) * this.AMOUNT_PRODUCT_PER_PAGE,
+          this.AMOUNT_PRODUCT_PER_PAGE * this.activePage
+        );
+
       if (allProduct.length <= 0) this.isEmptyProductData = true;
 
       const filterFn = (prevVal, crrVal, filter, isFilter) => {
@@ -307,6 +337,17 @@ export default {
       for (const prod in this.isFilter) {
         this.isFilter[prod] = prod === filterBy ? !this.isFilter[prod] : false;
       }
+    },
+
+    nextCommentPage() {
+      this.activePage >= 1 && this.activePage < this.amountOfPaginationPage
+        ? (this.activePage += 1)
+        : 1;
+    },
+    prevCommentPage() {
+      this.activePage > 1 && this.activePage <= this.amountOfPaginationPage
+        ? (this.activePage -= 1)
+        : 1;
     },
   },
 };

@@ -67,7 +67,7 @@
 <script>
 import { userCartList } from "../../stores/Cart/Cart_items";
 import BaseButton from "../UI/BaseButton.vue";
-import { numberFormat } from "../hooks/UseNumberFormat";
+import { currencyFormat } from "../hooks/UseNumberFormat";
 
 export default {
   components: { BaseButton },
@@ -89,10 +89,10 @@ export default {
   },
   computed: {
     getPrice() {
-      return numberFormat(this.itemInCart.price);
+      return currencyFormat(this.itemInCart.price);
     },
     getTotalPrice() {
-      return numberFormat(this.itemInCart.price * this.itemInCart.prodItem_qty);
+      return currencyFormat(this.itemInCart.price * this.itemInCart.prodItem_qty);
     },
     isSelected() {
       return this.isSelectedItem;

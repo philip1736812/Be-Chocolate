@@ -1,14 +1,26 @@
 <template>
   <div
     class="relative w-full text-gray-800 mb-6 px-1.5 sm:px-3 py-2 rounded-lg hover:shadow-xl hover:z-50 hover:scale-105 hover:bg-slate-100 transition-all"
+    @mouseenter="showEdit_inventory"
+    @mouseleave="hideEdit_inventory"
   >
     <base-button
+      v-if="product.type == 'CraftChocolate'"
       link
       :to="{
         name: 'productReview',
         params: { productId: product.id },
       }"
     >
+      <div class="w-full h-80 overflow-hidden">
+        <img
+          class="rounded-lg w-full h-full object-cover"
+          :src="getRandomPic"
+          :alt="product.storeName"
+        />
+      </div>
+    </base-button>
+    <base-button v-else>
       <div class="w-full h-80 overflow-hidden">
         <img
           class="rounded-lg w-full h-full object-cover"
@@ -28,6 +40,7 @@
     </transition>
     <div class="mt-6">
       <base-button
+        v-if="product.type == 'CraftChocolate'"
         link
         :to="{
           name: 'productReview',
@@ -36,6 +49,11 @@
       >
         <h2 class="text-xl font-medium truncate overflow-hidden">
           {{ product.name }}
+        </h2>
+      </base-button>
+      <base-button v-else>
+        <h2 class="text-xl font-medium truncate overflow-hidden">
+          {{ product.type }}
         </h2>
       </base-button>
       <base-button
@@ -67,16 +85,26 @@
           >
         </div>
         <p class="text-md text-gray-800">
-          {{ new Intl.NumberFormat("en-US").format(product.rating.vote) }}
+          {{ getVoteScore }}
           Vote
         </p>
       </div>
-      <p class="text-2xl font-bold text-gray-800">
+      <p
+        v-if="getRouteActive !== 'myStore-inventory'"
+        class="text-2xl font-bold text-gray-800"
+      >
         <span> {{ product.price }}</span> ฿
+      </p>
+      <p v-else class="text-2xl font-bold text-gray-800">
+        <span> {{ product.price }}</span>
+        <span class="text-lg text-base"> ฿/{{ product.unit }} </span>
       </p>
     </div>
 
-    <div class="flex-1 w-3/4 mt-8">
+    <div
+      v-if="getRouteActive !== 'myStore-inventory'"
+      class="flex-1 w-3/4 mt-8"
+    >
       <base-btn-add-to-cart
         @selectedItem="addToCartEmit"
         @deleteProd="deleteProdEmit"
@@ -84,6 +112,17 @@
         :qty_thisItem="qty_thisItem"
       ></base-btn-add-to-cart>
     </div>
+
+    <transition name="addedCart" mode="out-in">
+      <div
+        v-if="
+          getRouteActive === 'myStore-inventory' && isEditItem_inventory_show
+        "
+        class="my-4 flex items-center justify-center hover:bg-white hover:border-0 transition hover:shadow-sm hover:scale-105"
+      >
+        <base-button mode="minimalBtn"> Edit </base-button>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -91,6 +130,7 @@
 import BaseBtnAddToCart from "./BaseBtnAddToCart.vue";
 import BaseButton from "./BaseButton.vue";
 import StarRender from "../RatingView/StarRender.vue";
+import { numberFormat } from "../hooks/UseNumberFormat";
 import { userCartList } from "@/stores/Cart/Cart_items";
 
 export default {
@@ -104,9 +144,13 @@ export default {
   data() {
     return {
       selectedProd: false,
+      isEditItem_inventory_show: false,
     };
   },
   computed: {
+    getRouteActive() {
+      return this.$route.name;
+    },
     qty_thisItem() {
       return this.cartList?.cart.find((prod) => prod.id === this.product.id)
         ?.prodItem_qty;
@@ -120,9 +164,11 @@ export default {
       return Math.floor(this.product.rating.ratingStar);
     },
     getRandomPic() {
-      return this.product?.pictureUrl[
-        Math.floor(Math.random() * this.product.pictureUrl.length)
-      ];
+      const picture = this.product?.pictureUrl || this.product?.picUrl;
+      return picture[Math.floor(Math.random() * picture.length)];
+    },
+    getVoteScore() {
+      return numberFormat(this.product.rating.vote);
     },
   },
   methods: {
@@ -140,6 +186,12 @@ export default {
     },
     deleteProdEmit() {
       this.$emit("deletedProduct", this.product.id);
+    },
+    showEdit_inventory() {
+      this.isEditItem_inventory_show = true;
+    },
+    hideEdit_inventory() {
+      this.isEditItem_inventory_show = false;
     },
   },
 };

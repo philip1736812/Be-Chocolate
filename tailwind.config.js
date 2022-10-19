@@ -41,6 +41,13 @@ module.exports = {
     "./src/views/CheckOut/CodeVoucherView.vue",
     "./src/components/UI/BaseErrorPopUp.vue",
     "./src/views/HomePage/WhoAreGuestPopUp.vue",
+    "./src/components/UI/BasePictureFrame.vue",
+    "./src/components/ReUseComp/ThePagination.vue",
+    "./src/views/Community/SearchByTagName.vue",
+    "./src/views/Store/MyStore/myStoreDashboard.vue",
+    "./src/views/Store/MyStore/MyStore_dashboard.vue",
+    "./src/views/Store/MyStore/MyStore_inventory.vue",
+    "./src/views/Store/MyStore/MyStore_orderList.vue"
   ],
   theme: {
     extend: {},

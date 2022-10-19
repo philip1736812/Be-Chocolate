@@ -51,7 +51,7 @@
                 {{ product.rating.ratingStar }}</span
               >
               <p class="text-md" :class="{ blackText: !isHighRanking }">
-                {{ new Intl.NumberFormat("en-US").format(product.rating.vote) }}
+                {{ getVoteScore }}
                 Vote
               </p>
             </div>
@@ -124,6 +124,7 @@ import StarRender from "../RatingView/StarRender.vue";
 
 import { userCartList } from "../../stores/Cart/Cart_items.js";
 import { getHorizontalPic } from "../hooks/getHorizontalPic";
+import { numberFormat } from "../hooks/UseNumberFormat";
 
 export default {
   components: { BaseButton, BaseBtnAddToCart, StarRender },
@@ -175,6 +176,10 @@ export default {
     },
     isHighRanking() {
       return this.index <= 2;
+    },
+
+    getVoteScore() {
+      return numberFormat(this.product.rating.vote);
     },
   },
   methods: {

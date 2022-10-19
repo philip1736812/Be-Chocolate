@@ -66,7 +66,11 @@
             <div class="relative w-full h-1">
               <transition name="routeCircle" mode="out-in">
                 <div
-                  v-if="routeUrl === 'myStore'"
+                  v-if="
+                    routeUrl === 'myStore-dashboard' ||
+                    routeUrl === 'myStore-inventory' ||
+                    routeUrl === 'myStore-orderList'
+                  "
                   class="absolute right-2/4 translate-x-2/4 w-2 h-2 mt-2 mx-auto bg-slate-700 rounded-full"
                 ></div>
               </transition>

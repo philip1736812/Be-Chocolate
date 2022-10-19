@@ -12,6 +12,7 @@ export const useCraftChocolateStore = defineStore({
           storeName: "Xoconat",
           type: "CraftChocolate",
           price: 150,
+          unit: "piece",
           rating: {
             ratingStar: 10,
             vote: 35400,
@@ -32,6 +33,7 @@ export const useCraftChocolateStore = defineStore({
           storeName: "Pridi Cacoa Fevier",
           type: "CraftChocolate",
           price: 154,
+          unit: "piece",
           rating: {
             ratingStar: 9.1,
             vote: 34100,
@@ -50,6 +52,7 @@ export const useCraftChocolateStore = defineStore({
           storeName: "Kan Vela",
           type: "CraftChocolate",
           price: 180,
+          unit: "piece",
           rating: {
             ratingStar: 10,
             vote: 36800,
@@ -68,6 +71,7 @@ export const useCraftChocolateStore = defineStore({
           storeName: "Paradai",
           type: "CraftChocolate",
           price: 148,
+          unit: "piece",
           rating: {
             ratingStar: 8.4,
             vote: 25000,
@@ -86,6 +90,7 @@ export const useCraftChocolateStore = defineStore({
           storeName: "ZORZAL",
           type: "CraftChocolate",
           price: 128,
+          unit: "piece",
           rating: {
             ratingStar: 3.3,
             vote: 12000,
@@ -104,6 +109,7 @@ export const useCraftChocolateStore = defineStore({
           storeName: "Organic Union Republic",
           type: "CraftChocolate",
           price: 131,
+          unit: "piece",
           rating: {
             ratingStar: 0,
             vote: 0,
@@ -122,6 +128,7 @@ export const useCraftChocolateStore = defineStore({
           storeName: "Ethical Cocoa",
           type: "CraftChocolate",
           price: 142,
+          unit: "piece",
           rating: {
             ratingStar: 7.3,
             vote: 28605,
@@ -141,6 +148,7 @@ export const useCraftChocolateStore = defineStore({
           storeName: "Hemisphere Craft Chocolate",
           type: "CraftChocolate",
           price: 146,
+          unit: "piece",
           rating: {
             ratingStar: 2.8,
             vote: 1065,
@@ -153,6 +161,48 @@ export const useCraftChocolateStore = defineStore({
             "https://cdn.shopify.com/s/files/1/0586/5429/4206/products/midnight-909058_387x.jpg?v=1663919906",
             "https://cdn.shopify.com/s/files/1/0586/5429/4206/products/cold-brew-332441_387x.jpg?v=1663919900",
             "http://cdn.shopify.com/s/files/1/0066/2713/1490/products/ChocolateboxAmbriona_1_1200x.png?v=1642760126",
+          ],
+        },
+        {
+          id: 567841296523015,
+          name: "Agtron Craft Chocolate",
+          storeName: "CocoaLaLa Craft To Bar",
+          type: "CraftChocolate",
+          price: 176,
+          unit: "piece",
+          rating: {
+            ratingStar: 7.8,
+            vote: 1565,
+          },
+          description:
+            "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos at quaerat quidem doloremque ut vero voluptatem, earum consequuntur molestias ipsum, veritatis ea magni, perferendis sunt. Corrupti, quae earum. Omnis, enim.",
+          pictureUrl: [
+            "https://www.agtroncraftchocolate.com/wp-content/uploads/2018/02/Home-galleryslide3-1.jpg",
+            "https://www.agtroncraftchocolate.com/wp-content/uploads/2018/02/Home-galleryslide4-1.jpg",
+            "https://www.agtroncraftchocolate.com/wp-content/uploads/2018/02/Home-galleryslide5-1.jpg",
+            "https://cf.shopee.co.th/file/dab6106cad456cf5e531e91d120d9a67",
+            "https://image.springnews.co.th/uploads/images/contents/w1024/2022/07/dd2nK5Y0Dtv64M1q1iJC.webp",
+          ],
+        },
+        {
+          id: 412549632589415,
+          name: "Agtron Classic Craft Chocolate",
+          storeName: "CocoaLaLa Craft To Bar",
+          type: "CraftChocolate",
+          price: 185,
+          unit: "piece",
+          rating: {
+            ratingStar: 8.6,
+            vote: 2565,
+          },
+          description:
+            "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos at quaerat quidem doloremque ut vero voluptatem, earum consequuntur molestias ipsum, veritatis ea magni, perferendis sunt. Corrupti, quae earum. Omnis, enim.",
+          pictureUrl: [
+            "https://cf.shopee.co.th/file/25f5c4a2512744966df71045028cd3e7",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQljn2qJSGBcZ8fPPgCNP6k6qVBsRvsdbgE-4vXznne3BoO0DoX-DP4F9UFJYir_2s89yg&usqp=CAU",
+            "https://www.agtroncraftchocolate.com/wp-content/uploads/2018/02/Home-galleryslide6-1.jpg",
+            "https://img4.foodbevg.com/894/454/299984038944541.jpg",
+            "https://www.agtroncraftchocolate.com/wp-content/uploads/2021/07/About-mainimage02.jpg",
           ],
         },
       ],

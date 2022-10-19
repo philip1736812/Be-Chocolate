@@ -6,7 +6,7 @@
     :class="{ containerHover: isHover }"
   >
     <div
-      class="content col-span-5 xl:col-span-2 md:col-span-3"
+      class="content col-span-4 sm:col-span-3 xl:col-span-2 md:col-span-3"
       :class="{ hover: isHover, selected: selected_prod && qty_thisItem >= 1 }"
     >
       <base-button
@@ -19,11 +19,12 @@
         }}</base-button
       >
       <h2 class="text-xl md:text-2xl font-medium mb-3 mt-1">
-        {{ product.price }} Bath/kg.
+        {{ product.price }} Bath/{{ product.unit }}
       </h2>
-      <p class="remaining mb-4">
+      <p v-if="product.remaining" class="remaining mb-4">
         Only <strong> {{ product.remaining }} kg.</strong> left in stock!
       </p>
+      <p v-else class="remaining mb-4">{{ product.name }}</p>
 
       <base-btn-add-to-cart
         :qty_thisItem="qty_thisItem"
@@ -35,17 +36,20 @@
     </div>
 
     <div
-      class="pictureContainer col-span-2 xl:col-span-5 md:col-span-4 relative flex items-center sm:items-center justify-end"
+      class="pictureContainer pl-1 col-span-3 sm:col-span-4 xl:col-span-5 md:col-span-4 relative flex items-center sm:items-center justify-end"
     >
-      <img
-        class="pictureItems w-20 h-20 object-cover sm:w-24 sm:h-24 mx-1 xl:mx-1.5"
+      <base-picture-frame
         v-for="picUrl in filterPictureByWidth"
         :key="picUrl"
-        :src="picUrl"
-        :alt="product.type"
-      />
-      <p class="sold">
-        <strong>{{ product.soldCount }} </strong> Sold
+        stylePic="w-20 h-20 object-cover sm:w-24 sm:h-24 mx-0.5 sm:mx-1 xl:mx-1.5 rounded"
+        styleLoading=" w-20 h-20 sm:w-24 sm:h-24 top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 mb-4 "
+        :picSrc="picUrl"
+        :productName="product.type"
+      >
+      </base-picture-frame>
+
+      <p v-if="!!this.product.soldCount" class="sold">
+        <strong>{{ soldCount }} </strong> Sold
       </p>
     </div>
 
@@ -54,7 +58,10 @@
         v-if="isAddedInCart"
         class="addedInCart absolute w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-red-500 text-sm sm:text-xl -right-2.5 -top-1.5 sm:-top-2.5"
       >
-        <font-awesome-icon icon="fa-cart-arrow-down" class="base-sm sm:text-base"/>
+        <font-awesome-icon
+          icon="fa-cart-arrow-down"
+          class="base-sm sm:text-base"
+        />
       </div>
     </transition>
   </div>
@@ -62,12 +69,15 @@
 
 <script>
 import { userCartList } from "@/stores/Cart/Cart_items";
+import { useIndexStore } from "../../stores/Store_index";
+import { numberFormat } from "../hooks/UseNumberFormat";
+
 import BaseButton from "./BaseButton.vue";
 import BaseBtnAddToCart from "./BaseBtnAddToCart.vue";
-import { useIndexStore } from "../../stores/Store_index";
+import BasePictureFrame from "./BasePictureFrame.vue";
 
 export default {
-  components: { BaseButton, BaseBtnAddToCart },
+  components: { BaseButton, BaseBtnAddToCart, BasePictureFrame },
   props: ["product"],
   setup() {
     const cartList = userCartList();
@@ -80,13 +90,16 @@ export default {
       isHover: false,
       selected_prod: false,
       windowWidth: window.innerWidth,
-      propsPicture: this.product.picUrl,
+      propsPicture: this.product.picUrl || this.product.pictureUrl,
     };
   },
   computed: {
     qty_thisItem() {
       return this.cartList?.cart.find((prod) => prod.id === this.product.id)
         ?.prodItem_qty;
+    },
+    soldCount() {
+      return numberFormat(this.product.soldCount);
     },
     isAddedInCart() {
       return this.cartList.cart.length <= 0
@@ -95,22 +108,22 @@ export default {
     },
     filterPictureByWidth() {
       const windowWidth = this.indexStore.windowWidth;
-      let newPicArr = this.propsPicture.slice();
+      let newPicArr = this.propsPicture.slice().splice(0,4);
       this.isHover = false;
 
       if (windowWidth >= 1024 && newPicArr.length > 5)
         return newPicArr.splice(5);
-      else if (windowWidth < 1024 && windowWidth > 768 && newPicArr.length > 4)
+      else if (windowWidth < 1024 && windowWidth > 830 && newPicArr.length > 4)
         return newPicArr.splice(0, 4);
-      else if (windowWidth <= 768 && windowWidth > 640 && newPicArr.length > 3)
+      else if (windowWidth <= 830 && windowWidth > 716 && newPicArr.length > 3)
         return newPicArr.splice(0, 3);
       else if (
-        windowWidth <= 640 &&
-        windowWidth > 540 &&
+        windowWidth <= 716 &&
+        windowWidth > 500 &&
         newPicArr.length > 2
       ) {
         return newPicArr.splice(0, 2);
-      } else if (windowWidth <= 540 && newPicArr.length > 1) {
+      } else if (windowWidth <= 500 && newPicArr.length > 1) {
         this.isHover = true;
         return newPicArr.splice(0, 1);
       } else return newPicArr;
@@ -190,18 +203,6 @@ export default {
   }
   .pictureContainer {
     padding-left: 1rem;
-
-    img.pictureItems {
-      cursor: pointer;
-      border-radius: 5px;
-      max-width: 120px;
-      transition: all 0.25s ease-in-out;
-
-      &:hover {
-        box-shadow: 1px 1px 10px 1px rgba(50, 50, 50, 0.6);
-        transform: scale(1.05);
-      }
-    }
 
     p.sold {
       position: absolute;

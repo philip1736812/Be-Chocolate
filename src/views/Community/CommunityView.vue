@@ -26,13 +26,18 @@
             <li
               v-for="tag in getHashTag"
               :key="tag"
-              class="min-w-20 bg-white rounded-lg border m-0.5 transition-all hover:bg-slate-800 hover:text-white"
+              class="min-w-20 cursor-pointer bg-white rounded-lg border m-0.5 transition-all hover:bg-slate-800 hover:text-white"
             >
-              <base-button class="w-full h-full p-2">
-                <p class="font-medium text-left">
-                  <span class="text-lg font-bold mr-0.5">#</span>
-                  {{ tag }}
-                </p>
+              <base-button
+                link
+                :to="{ name: 'searchByTagName', params: { hashTagName: tag } }"
+              >
+                <div class="w-full h-full p-2">
+                  <p class="font-medium text-left">
+                    <span class="text-lg font-bold mr-0.5">#</span>
+                    {{ tag }}
+                  </p>
+                </div>
               </base-button>
             </li>
           </ul>

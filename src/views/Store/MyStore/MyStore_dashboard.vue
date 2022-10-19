@@ -1,5 +1,7 @@
 <template>
-  <in-development></in-development>
+  <div class="relative">
+    <in-development :positionFixed="false" :canGoBack="false"></in-development>
+  </div>
 </template>
 
 <script>
