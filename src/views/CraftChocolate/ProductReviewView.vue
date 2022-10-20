@@ -135,7 +135,11 @@
           </div>
 
           <div v-else class="flex items-center justify-center h-80">
-            <p>No any comments</p>
+            <div v-if="isCommentLoading">
+              <base-loading></base-loading>
+            </div>
+
+            <p v-else>No any comments {{ isCommentLoading }}</p>
           </div>
         </div>
 
@@ -162,6 +166,7 @@ import BaseBtnAddToCart from "@/components/UI/BaseBtnAddToCart.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
 import BaseCommentBox from "../../components/UI/BaseCommentBox.vue";
 import ThePagination from "../../components/ReUseComp/ThePagination.vue";
+import BaseLoading from "../../components/UI/BaseLoading.vue";
 
 export default {
   props: ["productId"],
@@ -172,6 +177,7 @@ export default {
     BaseButton,
     BaseCommentBox,
     ThePagination,
+    BaseLoading,
   },
   setup() {
     const craftChocolateStore = useCraftChocolateStore();
@@ -198,6 +204,7 @@ export default {
       filterCommentBy: "all",
       activePage: 1,
       PAGINATION_PER_PAGE: 3,
+      isCommentLoading: true,
     };
   },
   computed: {
@@ -217,6 +224,10 @@ export default {
     },
 
     getCommentThisId() {
+      if (this.commentAndReviewStore.comments.length > 0) {
+        this.isCommentLoading = false;
+      }
+
       return this.commentAndReviewStore.comments.filter(
         (item) => item.postId == this.productId
       );

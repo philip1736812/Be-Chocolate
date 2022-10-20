@@ -56,7 +56,10 @@
         <ul
           class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400"
         >
-          <li class="mr-2 transition-all" @click="activeTab('myStore-dashboard')">
+          <li
+            class="mr-2 transition-all"
+            @click="activeTab('myStore-dashboard')"
+          >
             <base-button
               link
               :to="{ name: 'myStore-dashboard' }"
@@ -85,7 +88,10 @@
               Dashboard
             </base-button>
           </li>
-          <li class="mr-2 transition-all" @click="activeTab('myStore-inventory')">
+          <li
+            class="mr-2 transition-all"
+            @click="activeTab('myStore-inventory')"
+          >
             <base-button
               link
               :to="{ name: 'myStore-inventory' }"
@@ -107,7 +113,10 @@
               Inventory
             </base-button>
           </li>
-          <li class="mr-2 transition-all" @click="activeTab('myStore-orderList')">
+          <li
+            class="mr-2 transition-all"
+            @click="activeTab('myStore-orderList')"
+          >
             <base-button
               link
               :to="{ name: 'myStore-orderList' }"
@@ -132,7 +141,11 @@
       </div>
 
       <div class="my-8">
-        <router-view></router-view>
+        <router-view v-slot="slotProps">
+          <transition name="navigation" mode="out-in">
+            <component :is="slotProps.Component"></component>
+          </transition>
+        </router-view>
       </div>
     </main>
   </div>
@@ -180,3 +193,22 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.navigation-enter-active {
+  animation: fade-in-out 0.25s ease-in;
+}
+
+.navigation-leave-active {
+  animation: fade-in-out 0.25s ease-in reverse;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+</style>

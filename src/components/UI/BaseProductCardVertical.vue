@@ -12,28 +12,30 @@
         params: { productId: product.id },
       }"
     >
-      <div class="w-full h-80 overflow-hidden">
-        <img
-          class="rounded-lg w-full h-full object-cover"
-          :src="getRandomPic"
-          :alt="product.storeName"
+      <div class="w-full h-80 overflow-hidden object-cover">
+        <base-picture-frame
+          stylePic="rounded-lg w-72 md:w-96 h-full object-cover"
+          styleLoading="top-0 w-full h-full "
+          :picSrc="getRandomPic"
+          :productName="product.storeName"
         />
       </div>
     </base-button>
-    <base-button v-else>
-      <div class="w-full h-80 overflow-hidden">
-        <img
-          class="rounded-lg w-full h-full object-cover"
-          :src="getRandomPic"
-          :alt="product.storeName"
+    <div v-else>
+      <div class="w-full h-80 overflow-hidden object-cover">
+        <base-picture-frame
+          stylePic="rounded-lg w-72 md:w-96 h-full object-cover"
+          styleLoading="top-0 w-full h-full "
+          :picSrc="getRandomPic"
+          :productName="product.storeName"
         />
       </div>
-    </base-button>
+    </div>
 
     <transition name="addedCart" mode="out-in">
       <div
-        v-if="isAddedInCart"
-        class="absolute top-0 right-0 w-8 h-8 bg-red-500 rounded-full shadow-md flex justify-center items-center"
+        v-if="isAddedInCart && getRouteActive !== 'myStore-inventory'"
+        class="absolute z-20 top-0 right-0 w-8 h-8 bg-red-500 rounded-full shadow-md flex justify-center items-center"
       >
         <font-awesome-icon icon="fa-cart-arrow-down" class="text-white" />
       </div>
@@ -116,7 +118,9 @@
     <transition name="addedCart" mode="out-in">
       <div
         v-if="
-          getRouteActive === 'myStore-inventory' && isEditItem_inventory_show
+          (getRouteActive === 'myStore-inventory' &&
+            isEditItem_inventory_show) ||
+          getWindowWidth <= 768
         "
         class="my-4 flex items-center justify-center hover:bg-white hover:border-0 transition hover:shadow-sm hover:scale-105"
       >
@@ -130,24 +134,34 @@
 import BaseBtnAddToCart from "./BaseBtnAddToCart.vue";
 import BaseButton from "./BaseButton.vue";
 import StarRender from "../RatingView/StarRender.vue";
+import BasePictureFrame from "../../components/UI/BasePictureFrame.vue";
+
 import { numberFormat } from "../hooks/UseNumberFormat";
 import { userCartList } from "@/stores/Cart/Cart_items";
+import { useIndexStore } from "../../stores/Store_index";
 
 export default {
-  components: { BaseBtnAddToCart, BaseButton, StarRender },
+  components: { BaseBtnAddToCart, BaseButton, StarRender, BasePictureFrame },
   props: ["product", "isRatingCard"],
   setup() {
     const cartList = userCartList();
+    const indexStore = useIndexStore();
 
-    return { cartList };
+    return { cartList, indexStore };
   },
   data() {
     return {
       selectedProd: false,
       isEditItem_inventory_show: false,
+      windowWidth: window.innerWidth,
     };
   },
   computed: {
+    getWindowWidth() {
+      this.windowWidth = this.indexStore.windowWidth;
+
+      return this.windowWidth;
+    },
     getRouteActive() {
       return this.$route.name;
     },

@@ -1,7 +1,7 @@
 <template>
-  <div class="relative">
+  <div class="relative w-full h-full">
     <img
-      class="relative z-20"
+      class="absolute z-20"
       :class="stylePic"
       :src="picSrc"
       :alt="productName"

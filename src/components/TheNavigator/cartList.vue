@@ -20,7 +20,7 @@
           <font-awesome-icon
             icon="fa-cart-shopping"
             class="inline mr-2.5"
-          />Shopping List
+          />Shopping List <span class="text-sm font-light">(Recently Added)</span>
         </h2>
 
         <div @click.stop="exitCart" class="cursor-pointer">
@@ -147,7 +147,7 @@ export default {
   },
   computed: {
     cartItems() {
-      return this.userCart;
+      return this.userCart.slice().splice(0,5);
     },
     cartAmountItems() {
       return this.cartAmount;

@@ -15,6 +15,7 @@
     <base-product-card-vertical
       v-for="item in getItemInventory"
       :product="item"
+      :key="item.id"
     ></base-product-card-vertical>
   </div>
 </template>
@@ -46,7 +47,6 @@ export default {
         });
       });
 
-      console.log(allItemInInventory);
       return allItemInInventory;
     });
 
