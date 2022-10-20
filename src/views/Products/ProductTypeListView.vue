@@ -3,7 +3,7 @@
     <div>
       <div class="relative w-full h-60 md:h-80 overflow-hidden">
         <div
-          class="absolute z-50 text-white w-full md:w-2/4 h-full flex flex-col justify-center px-5 md:pl-16"
+          class="absolute z-40 text-white w-full md:w-2/4 h-full flex flex-col justify-center px-5 md:pl-16"
         >
           <h2 class="text-lg md:text-2xl mb-4 font-bold">
             {{ convertProductName }}
@@ -17,7 +17,7 @@
         </div>
 
         <div
-          class="absolute w-full h-60 md:h-80 z-40 overlay bg-gradient-to-r from-neutral-900"
+          class="absolute w-full h-60 md:h-80 z-30 overlay bg-gradient-to-r from-neutral-900"
         ></div>
         <base-picture-frame
           stylePic="w-full h-60 sm:h-full object-cover"

@@ -18,7 +18,7 @@
     <!-- drawer component -->
     <div
       id="drawer-disable-body-scrolling"
-      class="fixed z-40 h-screen p-4 overflow-y-auto bg-white w-80 dark:bg-gray-800 transition-transform left-0 top-0 -translate-x-full"
+      class="fixed z-50 h-screen p-4 overflow-y-auto bg-white w-80 dark:bg-gray-800 transition-transform left-0 top-0 -translate-x-full"
       tabindex="-1"
       aria-labelledby="drawer-disable-body-scrolling-label"
       aria-hidden="true"
@@ -281,7 +281,7 @@ export default {
       edge: false,
       edgeOffset: "",
       backdropClasses:
-        "bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-30",
+        "bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40",
     };
 
     this.drawer = new Drawer(targetEl, options);
