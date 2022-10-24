@@ -7,6 +7,28 @@
   </router-view>
 </template>
 
+<script>
+import { useIndexStore } from "@/stores/Store_index";
+
+export default {
+  setup() {
+    const indexStore = useIndexStore();
+
+    return { indexStore };
+  },
+  mounted() {
+    // Get Resize Window
+    this.$nextTick(() => {
+      console.log(`Running`);
+      this.indexStore.windowResize();
+    });
+  },
+  beforeDestroy() {
+    this.indexStore.windowRemoveResize();
+  },
+};
+</script>
+
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 

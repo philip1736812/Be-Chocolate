@@ -115,18 +115,30 @@
       ></base-btn-add-to-cart>
     </div>
 
-    <transition name="addedCart" mode="out-in">
-      <div
-        v-if="
-          (getRouteActive === 'myStore-inventory' &&
-            isEditItem_inventory_show) ||
-          getWindowWidth <= 768
-        "
-        class="my-4 flex items-center justify-center hover:bg-white hover:border-0 transition hover:shadow-sm hover:scale-105"
-      >
-        <base-button mode="minimalBtn"> Edit </base-button>
-      </div>
-    </transition>
+    <div v-if="getRouteActive === 'myStore-inventory'">
+      <transition name="fade-in-out" mode="out-in">
+        <div v-if="getWindowWidth <= 768">
+          <div
+            class="my-4 flex items-center justify-center bg-white hover:border-0 transition hover:shadow-sm"
+          >
+            <base-button mode="minimalBtn"> Edit </base-button>
+          </div>
+        </div>
+      </transition>
+
+      <transition name="fade-in-out" mode="out-in">
+        <div
+          v-if="getWindowWidth > 768 && isEditItem_inventory_show"
+          class="overlay backdrop-blur-sm w-full h-full absolute z-30 top-0 right-0 bg-black/30 rounded-md px-1.5 sm:px-3 py-2"
+        >
+          <div
+            class="relative top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 my-4 flex items-center justify-center bg-white/30 hover:bg-white/60 hover:border-0 transition hover:shadow-sm text-white hover:text-slate-800"
+          >
+            <base-button mode="minimalBtn"> Edit </base-button>
+          </div>
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -159,7 +171,6 @@ export default {
   computed: {
     getWindowWidth() {
       this.windowWidth = this.indexStore.windowWidth;
-
       return this.windowWidth;
     },
     getRouteActive() {
@@ -231,6 +242,24 @@ export default {
 
   100% {
     transform: scale(1);
+  }
+}
+
+.fade-in-out-enter-active {
+  animation: fade 0.25s ease-in;
+}
+
+.fade-in-out-leave-active {
+  animation: fade 0.25s ease-out reverse;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 </style>

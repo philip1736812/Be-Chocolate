@@ -274,15 +274,8 @@ export default {
       this.dropdownAvatarButton,
       this.options
     );
+  },
 
-    // Get Resize Window
-    this.$nextTick(() => {
-      this.indexStore.windowResize();
-    });
-  },
-  beforeDestroy() {
-    this.indexStore.windowRemoveResize();
-  },
   methods: {
     activeCart() {
       this.indexStore.isActiveCartList = true;
