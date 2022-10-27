@@ -180,7 +180,6 @@ export const useProductStore = defineStore("productItems", () => {
   });
 
   // Next && Prev to change hot product view
-
   const crrProductIndex = ref(null);
   const next_prev_hotProduct = (mode) => {
     const allProduct = Object.keys(allProducts);

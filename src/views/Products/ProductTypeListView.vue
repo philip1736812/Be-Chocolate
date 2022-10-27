@@ -246,6 +246,9 @@ export default {
   },
   computed: {
     getProductName() {
+      const crrNav = this.productTypeName + `Items`;
+      this.productItems.activeProduct(crrNav);
+
       // for get data from store
       return this.searchText === ""
         ? this.productItems.getAllProductType
@@ -262,12 +265,10 @@ export default {
     },
     getProductFromFilter() {
       // Filter By Price
-      let allProduct = this.getProductName
-        .slice()
-        .splice(
-          (this.activePage - 1) * this.AMOUNT_PRODUCT_PER_PAGE,
-          this.AMOUNT_PRODUCT_PER_PAGE * this.activePage
-        );
+      let allProduct = this.getProductName.slice(
+        (this.activePage - 1) * this.AMOUNT_PRODUCT_PER_PAGE,
+        this.AMOUNT_PRODUCT_PER_PAGE * this.activePage
+      );
 
       if (allProduct.length <= 0) this.isEmptyProductData = true;
 

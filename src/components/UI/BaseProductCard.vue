@@ -42,7 +42,7 @@
         v-for="picUrl in filterPictureByWidth"
         :key="picUrl"
         stylePic="w-20 h-20 right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 object-cover sm:w-24 sm:h-24 lg:w-32 xl:w-36 rounded"
-        styleLoading=" w-20 h-20 sm:w-24 sm:h-24 top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 mb-4 "
+        styleLoading=" w-20 h-20 sm:w-24 sm:h-24 lg:w-32 xl:w-36 rounded top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2 mb-4 "
         :picSrc="picUrl"
         :productName="product.type"
       >
@@ -108,7 +108,7 @@ export default {
     },
     filterPictureByWidth() {
       const windowWidth = this.indexStore.windowWidth;
-      let newPicArr = this.propsPicture.slice().splice(0, 4);
+      let newPicArr = this.propsPicture.slice(0, 4);
       this.isHover = false;
 
       if (windowWidth >= 1024 && newPicArr.length > 5)

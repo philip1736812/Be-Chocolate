@@ -41,7 +41,6 @@ export default {
       default: "",
     },
     picSrc: {
-      type: String,
       required: true,
     },
     productName: {

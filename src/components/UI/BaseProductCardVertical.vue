@@ -115,6 +115,9 @@
       ></base-btn-add-to-cart>
     </div>
 
+    {{ isEditItem_inventory_show }}
+    {{ getWindowWidth > 768 && isEditItem_inventory_show }}
+
     <div v-if="getRouteActive === 'myStore-inventory'">
       <transition name="fade-in-out" mode="out-in">
         <div v-if="getWindowWidth <= 768">
@@ -127,16 +130,12 @@
       </transition>
 
       <transition name="fade-in-out" mode="out-in">
-        <div
+        <base-button
           v-if="getWindowWidth > 768 && isEditItem_inventory_show"
-          class="overlay backdrop-blur-sm w-full h-full absolute z-30 top-0 right-0 bg-black/30 rounded-md px-1.5 sm:px-3 py-2"
+          class="overlay backdrop-blur-sm w-full h-full absolute z-30 top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/30 rounded-md px-1.5 sm:px-3 py-2 text-white"
         >
-          <div
-            class="relative top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 my-4 flex items-center justify-center bg-white/30 hover:bg-white/60 hover:border-0 transition hover:shadow-sm text-white hover:text-slate-800"
-          >
-            <base-button mode="minimalBtn"> Edit </base-button>
-          </div>
-        </div>
+          Edit
+        </base-button>
       </transition>
     </div>
   </div>
@@ -213,9 +212,12 @@ export default {
       this.$emit("deletedProduct", this.product.id);
     },
     showEdit_inventory() {
+      console.log(`show Running`);
       this.isEditItem_inventory_show = true;
     },
     hideEdit_inventory() {
+      console.log(`hide Running`);
+
       this.isEditItem_inventory_show = false;
     },
   },

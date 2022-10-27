@@ -44,6 +44,7 @@ export const useCraftChocolateStore = defineStore({
             "http://www.masalathai.com/2015/wp-content/uploads/2020/11/Xoconat-3.jpg",
             "https://p16.topbuzzcdn.com/img/tos-alisg-v-a3e477-sg/5664a02fa7ed4be590d5e0dc0976e439~0x1600.jpg",
             "https://pbs.twimg.com/media/FW3LhMvUUAA6ldz?format=jpg&name=large",
+            "https://pbs.twimg.com/media/FW3LhMvUUAA6ldz?format=jpg&name=large",
           ],
         },
         {
@@ -62,6 +63,7 @@ export const useCraftChocolateStore = defineStore({
           pictureUrl: [
             "https://thestandard.co/wp-content/uploads/2022/02/Kanvela-4.jpeg?x42168",
             "https://thestandard.co/wp-content/uploads/2022/02/Kanvela_COVER.jpg",
+            "https://changpuakmagazine.com/images/article/12425ChocoCM11.jpg",
             "https://changpuakmagazine.com/images/article/12425ChocoCM11.jpg",
           ],
         },
@@ -82,6 +84,7 @@ export const useCraftChocolateStore = defineStore({
             "https://th-test-11.slatic.net/p/f902e5cdffd13475235fc07bf2a1466a.jpg",
             "https://cf.shopee.co.th/file/e7fff6db203b7b6ed2a1c65e745d9fe6",
             "https://cf.shopee.co.th/file/2927140842601cbe428718d509398b20",
+            "https://cf.shopee.co.th/file/2927140842601cbe428718d509398b20",
           ],
         },
         {
@@ -101,6 +104,7 @@ export const useCraftChocolateStore = defineStore({
             "https://cdn.shopify.com/s/files/1/0586/6740/1390/files/slowcocoa_original_milk_with_book_assortment_closeup_c2958a19-6ee2-4e27-96fb-626950eb5e28.jpg?v=1644961375",
             "https://cdn.shopify.com/s/files/1/0586/6740/1390/files/Original_milk_chocolate_with_sheet_music_720x.jpg?v=1636094408",
             "https://www.octochocolate.co.uk/wp-content/uploads/octo100-rawCOCO-white-2020.jpg",
+            "https://www.octochocolate.co.uk/wp-content/uploads/octo100-rawCOCO-white-2020.jpg",
           ],
         },
         {
@@ -119,6 +123,7 @@ export const useCraftChocolateStore = defineStore({
           pictureUrl: [
             "https://helenathailand.co/wp-content/uploads/elementor/thumbs/CraftChoc07-ommxmxu1pksn8ah4h30g7ukaas6fhbk1oqs3bzo70o.jpg",
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZgbmWVBytmA4uqOnJv0VYEdkZTeNR91XfZA&usqp=CAU",
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQMRWAOKiQiGvW6q7GZuvvLOmQ1ijnrGD0HQ&usqp=CAU",
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQMRWAOKiQiGvW6q7GZuvvLOmQ1ijnrGD0HQ&usqp=CAU",
           ],
         },

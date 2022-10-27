@@ -151,6 +151,12 @@ const router = createRouter({
           component: () =>
             import("@/views/Store/MyStore/MyStore_orderList.vue"),
         },
+        {
+          path: "edit-item",
+          name: "myStore-editItem",
+          component: () =>
+            import("@/views/Store/MyStore/MyStore_edit_ItemInventory.vue"),
+        },
       ],
     },
     {
