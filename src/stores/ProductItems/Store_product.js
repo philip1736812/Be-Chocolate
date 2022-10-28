@@ -1,12 +1,12 @@
 import { defineStore } from "pinia";
 import { useCraftChocolateStore } from "../CraftChocolate/Store_craftChocolate";
 
-import { computed, ref } from "vue";
+import { computed, ref, reactive } from "vue";
 
 export const useProductStore = defineStore("productItems", () => {
   const craftChocolateStore = useCraftChocolateStore();
 
-  const allProducts = {
+  const allProducts = reactive({
     cacaoPodsItems: [
       {
         id: 152364785212535,
@@ -136,8 +136,8 @@ export const useProductStore = defineStore("productItems", () => {
     cocoaPowdersItems: [],
     cocoaButterItems: [],
     chocolateItems: [],
-    chocolateBarItems: [...craftChocolateStore.craftChocolateProduct],
-  };
+    craftChocolateItems: [...craftChocolateStore.craftChocolateProduct],
+  });
 
   const headerPic_productTypeList = {
     cacaoPods: [
@@ -155,8 +155,6 @@ export const useProductStore = defineStore("productItems", () => {
     cocoaPowders: [],
     cocoaButter: [],
     chocolate: [],
-    chocolateBar: [],
-
     craftChocolate: [
       "http://drive.google.com/uc?export=view&id=1Qj8y3XsNEWnM-oVgEcxKmznVr1P91mES",
       "http://drive.google.com/uc?export=view&id=1IYgrseD6VDZ3WhrBO0ot6V_UBwwp_BGF",
@@ -206,6 +204,45 @@ export const useProductStore = defineStore("productItems", () => {
     activeProductFromNav.value = allProduct[crrProductIndex.value];
   };
 
+  // Action Edit Items in Inventory
+  const editItemsStore = (prod) => {
+    const oldItem = allProducts[`${prod.type}Items`].find(
+      (item) => item.id === prod.id
+    );
+
+    let itemReplaceWithNewData;
+
+    if (prod.type !== "craftChocolate") {
+      itemReplaceWithNewData = reactive({
+        ...oldItem,
+        type: prod.type,
+        price: prod.price,
+        remaining: prod.remaining,
+        soldCount: prod.soldCount,
+        picUrl: prod.picUrl,
+      });
+    } else {
+      itemReplaceWithNewData = reactive({
+        ...oldItem,
+        name: prod.name,
+        description: prod.description,
+        type: prod.type,
+        price: prod.price,
+        picUrl: prod.picUrl,
+      });
+    }
+
+    const replaceIndex = allProducts[`${prod.type}Items`].findIndex(
+      (item) => item.id === prod.id
+    );
+
+    allProducts[`${prod.type}Items`].splice(
+      replaceIndex,
+      0,
+      itemReplaceWithNewData
+    );
+  };
+
   return {
     headerProduct: headerPic_productTypeList,
     allProducts,
@@ -213,5 +250,6 @@ export const useProductStore = defineStore("productItems", () => {
     activeProduct,
     activeProductFromNav,
     next_prev_hotProduct,
+    editItemsStore,
   };
 });

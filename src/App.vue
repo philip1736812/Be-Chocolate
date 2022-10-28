@@ -19,7 +19,6 @@ export default {
   mounted() {
     // Get Resize Window
     this.$nextTick(() => {
-      console.log(`Running`);
       this.indexStore.windowResize();
     });
   },

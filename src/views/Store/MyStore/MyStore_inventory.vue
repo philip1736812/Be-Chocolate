@@ -125,22 +125,40 @@
         v-for="item in getItemInventory"
         :product="item"
         :key="item.id"
+        @editItems_inventoryEmit="editItems_inventory"
       ></base-product-card-vertical>
     </div>
+
+    <teleport to="body">
+      <transition name="popUpAnimated" mode="out-in">
+        <edit-item-inventory
+          v-if="isShow_editItemView"
+          @closeEmit="closeEditItem"
+          @submitEmit="submitEditItem"
+          :item="editItems"
+        ></edit-item-inventory>
+      </transition>
+    </teleport>
   </div>
 </template>
 
 <script>
 import BaseButton from "../../../components/UI/BaseButton.vue";
 import BaseProductCardVertical from "../../../components/UI/BaseProductCardVertical.vue";
+import MyStore_edit_ItemInventory from "./MyStore_edit_ItemInventory.vue";
 import { useMyStore } from "../../../stores/MyStore/Store_myStore";
 import { useProductStore } from "../../../stores/ProductItems/Store_product";
 
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import BaseBtnAddToCart from "../../../components/UI/BaseBtnAddToCart.vue";
 
 export default {
-  components: { BaseButton, BaseProductCardVertical, BaseBtnAddToCart },
+  components: {
+    BaseButton,
+    BaseProductCardVertical,
+    BaseBtnAddToCart,
+    EditItemInventory: MyStore_edit_ItemInventory,
+  },
   setup() {
     const myStore = useMyStore();
     const productItems = useProductStore();
@@ -160,7 +178,56 @@ export default {
       return allItemInInventory;
     });
 
-    return { getItemInventory };
+    // Action Edit Items in Inventory
+    const isShow_editItemView = ref(false);
+    const editItems = ref("");
+
+    const editItems_inventory = (item) => {
+      isShow_editItemView.value = true;
+      editItems.value = item;
+    };
+
+    const closeEditItem = () => {
+      isShow_editItemView.value = false;
+    };
+    const submitEditItem = (value) => {
+      isShow_editItemView.value = false;
+      productItems.editItemsStore(value);
+    };
+
+    return {
+      getItemInventory,
+      editItems_inventory,
+      isShow_editItemView,
+      editItems,
+      closeEditItem,
+      submitEditItem,
+    };
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.popUpAnimated-enter-active {
+  animation: popUpAnimated 0.25s ease-in;
+}
+
+.popUpAnimated-leave-active {
+  animation: popUpAnimated 0.35s ease-out reverse;
+}
+
+@keyframes popUpAnimated {
+  0% {
+    opacity: 0;
+    transform: translate(50%, -50%) scale(0);
+  }
+  85% {
+    opacity: 1;
+    transform: translate(50%, -50%) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(50%, -50%) scale(1);
+  }
+}
+</style>

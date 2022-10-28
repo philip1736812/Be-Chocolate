@@ -36,6 +36,7 @@ import {
   faCommentsDollar,
   faBoxesStacked,
   faTruckRampBox,
+  faCircleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 
 import App from "./App.vue";
@@ -80,7 +81,8 @@ library.add(
   faThumbsUp,
   faCommentsDollar,
   faBoxesStacked,
-  faTruckRampBox
+  faTruckRampBox,
+  faCircleExclamation
 );
 app.component("font-awesome-icon", FontAwesomeIcon);
 

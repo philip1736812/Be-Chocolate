@@ -37,7 +37,7 @@
       <div
         class="w-11/12 lg:w-3/4 mx-auto bg-slate-600 rounded-lg text-white text-center"
       >
-        <carousel :imgSource="getProduct.pictureUrl"></carousel>
+        <carousel :imgSource="getProduct.picUrl"></carousel>
       </div>
 
       <div class="container w-full lg:w-3/4 mx-auto mt-16">
@@ -301,8 +301,8 @@ export default {
         storeName: this.getProduct.storeName,
         name: this.getProduct.name,
         picUrl:
-          this.getProduct.pictureUrl[
-            Math.floor(Math.random() * this.getProduct.pictureUrl.length)
+          this.getProduct.picUrl[
+            Math.floor(Math.random() * this.getProduct.picUrl.length)
           ],
       });
     },

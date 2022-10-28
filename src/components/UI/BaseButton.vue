@@ -62,6 +62,13 @@ export default {
   padding: 0.5rem 0.75rem;
   border-radius: 4px;
   border-width: 1px;
+  color: rgb(55 65 81);
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    border: 1px solid rgb(43, 51, 63);
+    color:  rgb(43, 51, 63);
+  }
 }
 
 .articleBtn {
@@ -99,6 +106,20 @@ export default {
     background-color: rgb(179, 16, 16);
   }
 }
+
+.warning {
+  width: 100%;
+  padding: 0.7rem 2rem;
+  background-color: rgb(234 179 8);
+  color: #fff;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: rgb(202 138 4);
+  }
+}
+
 .flat {
   background-color: transparent;
   color: #3a0061;

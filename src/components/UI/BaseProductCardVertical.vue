@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative w-full text-gray-800 mb-6 px-1.5 sm:px-3 py-2 rounded-lg hover:shadow-xl hover:z-50 hover:scale-105 hover:bg-slate-100 transition-all"
+    class="relative w-full text-gray-800 mb-6 px-1.5 sm:px-3 py-2 rounded-lg hover:shadow-xl hover:z-30 hover:md:scale-105 hover:bg-slate-100 transition-all"
     @mouseenter="showEdit_inventory"
     @mouseleave="hideEdit_inventory"
   >
@@ -115,27 +115,34 @@
       ></base-btn-add-to-cart>
     </div>
 
-    {{ isEditItem_inventory_show }}
-    {{ getWindowWidth > 768 && isEditItem_inventory_show }}
-
     <div v-if="getRouteActive === 'myStore-inventory'">
       <transition name="fade-in-out" mode="out-in">
         <div v-if="getWindowWidth <= 768">
           <div
             class="my-4 flex items-center justify-center bg-white hover:border-0 transition hover:shadow-sm"
           >
-            <base-button mode="minimalBtn"> Edit </base-button>
+            <base-button
+              mode="minimalBtn"
+              @click="$emit('editItems_inventoryEmit', product)"
+            >
+              Edit
+            </base-button>
           </div>
         </div>
       </transition>
 
       <transition name="fade-in-out" mode="out-in">
-        <base-button
+        <div
           v-if="getWindowWidth > 768 && isEditItem_inventory_show"
-          class="overlay backdrop-blur-sm w-full h-full absolute z-30 top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/30 rounded-md px-1.5 sm:px-3 py-2 text-white"
+          class="overlay backdrop-blur-sm w-full h-full absolute z-30 top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 flex items-center justify-center bg-black/30 rounded-md px-1.5 sm:px-3 py-2 cursor-pointer"
         >
-          Edit
-        </base-button>
+          <base-button
+            class="text-white w-full h-full"
+            @click="$emit('editItems_inventoryEmit', product)"
+          >
+            Edit
+          </base-button>
+        </div>
       </transition>
     </div>
   </div>
@@ -152,8 +159,14 @@ import { userCartList } from "@/stores/Cart/Cart_items";
 import { useIndexStore } from "../../stores/Store_index";
 
 export default {
-  components: { BaseBtnAddToCart, BaseButton, StarRender, BasePictureFrame },
+  components: {
+    BaseBtnAddToCart,
+    BaseButton,
+    StarRender,
+    BasePictureFrame,
+  },
   props: ["product", "isRatingCard"],
+  emits: ["editItems_inventoryEmit"],
   setup() {
     const cartList = userCartList();
     const indexStore = useIndexStore();
@@ -188,7 +201,7 @@ export default {
       return Math.floor(this.product.rating.ratingStar);
     },
     getRandomPic() {
-      const picture = this.product?.pictureUrl || this.product?.picUrl;
+      const picture = this.product?.picUrl;
       return picture[Math.floor(Math.random() * picture.length)];
     },
     getVoteScore() {
@@ -212,12 +225,9 @@ export default {
       this.$emit("deletedProduct", this.product.id);
     },
     showEdit_inventory() {
-      console.log(`show Running`);
       this.isEditItem_inventory_show = true;
     },
     hideEdit_inventory() {
-      console.log(`hide Running`);
-
       this.isEditItem_inventory_show = false;
     },
   },

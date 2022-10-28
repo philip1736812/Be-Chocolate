@@ -152,8 +152,9 @@ const router = createRouter({
             import("@/views/Store/MyStore/MyStore_orderList.vue"),
         },
         {
-          path: "edit-item",
+          path: "edit-item/:prodId",
           name: "myStore-editItem",
+          props: true,
           component: () =>
             import("@/views/Store/MyStore/MyStore_edit_ItemInventory.vue"),
         },

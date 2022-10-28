@@ -47,7 +47,8 @@ module.exports = {
     "./src/views/Store/MyStore/myStoreDashboard.vue",
     "./src/views/Store/MyStore/MyStore_dashboard.vue",
     "./src/views/Store/MyStore/MyStore_inventory.vue",
-    "./src/views/Store/MyStore/MyStore_orderList.vue"
+    "./src/views/Store/MyStore/MyStore_orderList.vue",
+    "./src/views/Store/MyStore/MyStore_edit_ItemInventory.vue",
   ],
   theme: {
     extend: {},

@@ -90,7 +90,7 @@ export default {
       isHover: false,
       selected_prod: false,
       windowWidth: window.innerWidth,
-      propsPicture: this.product.picUrl || this.product.pictureUrl,
+      propsPicture: this.product.picUrl,
     };
   },
   computed: {

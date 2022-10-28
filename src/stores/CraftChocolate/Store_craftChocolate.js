@@ -10,7 +10,7 @@ export const useCraftChocolateStore = defineStore({
           id: 854236512457895,
           name: "Bad Ass Bar",
           storeName: "Xoconat",
-          type: "CraftChocolate",
+          type: "craftChocolate",
           price: 150,
           unit: "piece",
           rating: {
@@ -19,7 +19,7 @@ export const useCraftChocolateStore = defineStore({
           },
           description:
             "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi culpa neque architecto dolorum distinctio ducimus totam ex at, reprehenderit dolorem perspiciatis quod illo ratione odit minus a laboriosam, sit consequatur? Cupiditate blanditiis exercitationem laudantium sunt.",
-          pictureUrl: [
+          picUrl: [
             "https://bk.asia-city.com/sites/default/files/u143767/clean.jpg",
             "https://image.springnews.co.th/uploads/images/contents/w1024/2022/07/ynPWvXv4amxEujSBoenx.webp",
             "https://krua.co/wp-content/uploads/2020/06/ImageBannerMobile_960x633-01-139.jpg",
@@ -31,7 +31,7 @@ export const useCraftChocolateStore = defineStore({
           id: 987512456326597,
           name: "Salty Nuts",
           storeName: "Pridi Cacoa Fevier",
-          type: "CraftChocolate",
+          type: "craftChocolate",
           price: 154,
           unit: "piece",
           rating: {
@@ -40,7 +40,7 @@ export const useCraftChocolateStore = defineStore({
           },
           description:
             "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos at quaerat quidem doloremque ut vero voluptatem, earum consequuntur molestias ipsum, veritatis ea magni, perferendis sunt. Corrupti, quae earum. Omnis, enim.",
-          pictureUrl: [
+          picUrl: [
             "http://www.masalathai.com/2015/wp-content/uploads/2020/11/Xoconat-3.jpg",
             "https://p16.topbuzzcdn.com/img/tos-alisg-v-a3e477-sg/5664a02fa7ed4be590d5e0dc0976e439~0x1600.jpg",
             "https://pbs.twimg.com/media/FW3LhMvUUAA6ldz?format=jpg&name=large",
@@ -51,7 +51,7 @@ export const useCraftChocolateStore = defineStore({
           id: 751485629853647,
           name: "Kan Vale Original",
           storeName: "Kan Vela",
-          type: "CraftChocolate",
+          type: "craftChocolate",
           price: 180,
           unit: "piece",
           rating: {
@@ -60,7 +60,7 @@ export const useCraftChocolateStore = defineStore({
           },
           description:
             "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos at quaerat quidem doloremque ut vero voluptatem, earum consequuntur molestias ipsum, veritatis ea magni, perferendis sunt. Corrupti, quae earum. Omnis, enim.",
-          pictureUrl: [
+          picUrl: [
             "https://thestandard.co/wp-content/uploads/2022/02/Kanvela-4.jpeg?x42168",
             "https://thestandard.co/wp-content/uploads/2022/02/Kanvela_COVER.jpg",
             "https://changpuakmagazine.com/images/article/12425ChocoCM11.jpg",
@@ -71,7 +71,7 @@ export const useCraftChocolateStore = defineStore({
           id: 987514523654852,
           name: "Paradai Pure Original",
           storeName: "Paradai",
-          type: "CraftChocolate",
+          type: "craftChocolate",
           price: 148,
           unit: "piece",
           rating: {
@@ -80,7 +80,7 @@ export const useCraftChocolateStore = defineStore({
           },
           description:
             "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos at quaerat quidem doloremque ut vero voluptatem, earum consequuntur molestias ipsum, veritatis ea magni, perferendis sunt. Corrupti, quae earum. Omnis, enim.",
-          pictureUrl: [
+          picUrl: [
             "https://th-test-11.slatic.net/p/f902e5cdffd13475235fc07bf2a1466a.jpg",
             "https://cf.shopee.co.th/file/e7fff6db203b7b6ed2a1c65e745d9fe6",
             "https://cf.shopee.co.th/file/2927140842601cbe428718d509398b20",
@@ -91,7 +91,7 @@ export const useCraftChocolateStore = defineStore({
           id: 156325975415238,
           name: "Dark Soymilk",
           storeName: "ZORZAL",
-          type: "CraftChocolate",
+          type: "craftChocolate",
           price: 128,
           unit: "piece",
           rating: {
@@ -100,7 +100,7 @@ export const useCraftChocolateStore = defineStore({
           },
           description:
             "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos at quaerat quidem doloremque ut vero voluptatem, earum consequuntur molestias ipsum, veritatis ea magni, perferendis sunt. Corrupti, quae earum. Omnis, enim.",
-          pictureUrl: [
+          picUrl: [
             "https://cdn.shopify.com/s/files/1/0586/6740/1390/files/slowcocoa_original_milk_with_book_assortment_closeup_c2958a19-6ee2-4e27-96fb-626950eb5e28.jpg?v=1644961375",
             "https://cdn.shopify.com/s/files/1/0586/6740/1390/files/Original_milk_chocolate_with_sheet_music_720x.jpg?v=1636094408",
             "https://www.octochocolate.co.uk/wp-content/uploads/octo100-rawCOCO-white-2020.jpg",
@@ -111,7 +111,7 @@ export const useCraftChocolateStore = defineStore({
           id: 154896358951475,
           name: "Organic Craft Chocolate",
           storeName: "Organic Union Republic",
-          type: "CraftChocolate",
+          type: "craftChocolate",
           price: 131,
           unit: "piece",
           rating: {
@@ -120,7 +120,7 @@ export const useCraftChocolateStore = defineStore({
           },
           description:
             "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos at quaerat quidem doloremque ut vero voluptatem, earum consequuntur molestias ipsum, veritatis ea magni, perferendis sunt. Corrupti, quae earum. Omnis, enim.",
-          pictureUrl: [
+          picUrl: [
             "https://helenathailand.co/wp-content/uploads/elementor/thumbs/CraftChoc07-ommxmxu1pksn8ah4h30g7ukaas6fhbk1oqs3bzo70o.jpg",
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZgbmWVBytmA4uqOnJv0VYEdkZTeNR91XfZA&usqp=CAU",
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQMRWAOKiQiGvW6q7GZuvvLOmQ1ijnrGD0HQ&usqp=CAU",
@@ -131,7 +131,7 @@ export const useCraftChocolateStore = defineStore({
           id: 654785234159652,
           name: "Green & Black's Organic Dark Chocolate 70%",
           storeName: "Ethical Cocoa",
-          type: "CraftChocolate",
+          type: "craftChocolate",
           price: 142,
           unit: "piece",
           rating: {
@@ -140,7 +140,7 @@ export const useCraftChocolateStore = defineStore({
           },
           description:
             "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos at quaerat quidem doloremque ut vero voluptatem, earum consequuntur molestias ipsum, veritatis ea magni, perferendis sunt. Corrupti, quae earum. Omnis, enim.",
-          pictureUrl: [
+          picUrl: [
             "https://cf.shopee.co.th/file/6bf75b560a5c65c7695228c29e465da7",
             "https://www.tastingtable.com/img/gallery/can-you-get-sick-from-eating-2-year-old-chocolate/l-intro-1654198813.jpg",
             "https://wonderlustinglynda.files.wordpress.com/2016/10/green-blacks-personalised-chocolate.jpg?w=770",
@@ -151,7 +151,7 @@ export const useCraftChocolateStore = defineStore({
           id: 352178459632451,
           name: "Single Origin Ecuador",
           storeName: "Hemisphere Craft Chocolate",
-          type: "CraftChocolate",
+          type: "craftChocolate",
           price: 146,
           unit: "piece",
           rating: {
@@ -160,7 +160,7 @@ export const useCraftChocolateStore = defineStore({
           },
           description:
             "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos at quaerat quidem doloremque ut vero voluptatem, earum consequuntur molestias ipsum, veritatis ea magni, perferendis sunt. Corrupti, quae earum. Omnis, enim.",
-          pictureUrl: [
+          picUrl: [
             "https://cdn.shopify.com/s/files/1/0012/5825/8532/products/IMG_8686_1024x1024@2x.jpg?v=1616683059",
             "http://cdn.shopify.com/s/files/1/0586/5429/4206/products/ecuador-781246.jpg?v=1663919877",
             "https://cdn.shopify.com/s/files/1/0586/5429/4206/products/midnight-909058_387x.jpg?v=1663919906",
@@ -172,7 +172,7 @@ export const useCraftChocolateStore = defineStore({
           id: 567841296523015,
           name: "Agtron Craft Chocolate",
           storeName: "CocoaLaLa Craft To Bar",
-          type: "CraftChocolate",
+          type: "craftChocolate",
           price: 176,
           unit: "piece",
           rating: {
@@ -181,7 +181,7 @@ export const useCraftChocolateStore = defineStore({
           },
           description:
             "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos at quaerat quidem doloremque ut vero voluptatem, earum consequuntur molestias ipsum, veritatis ea magni, perferendis sunt. Corrupti, quae earum. Omnis, enim.",
-          pictureUrl: [
+          picUrl: [
             "https://www.agtroncraftchocolate.com/wp-content/uploads/2018/02/Home-galleryslide3-1.jpg",
             "https://www.agtroncraftchocolate.com/wp-content/uploads/2018/02/Home-galleryslide4-1.jpg",
             "https://www.agtroncraftchocolate.com/wp-content/uploads/2018/02/Home-galleryslide5-1.jpg",
@@ -193,7 +193,7 @@ export const useCraftChocolateStore = defineStore({
           id: 412549632589415,
           name: "Agtron Classic Craft Chocolate",
           storeName: "CocoaLaLa Craft To Bar",
-          type: "CraftChocolate",
+          type: "craftChocolate",
           price: 185,
           unit: "piece",
           rating: {
@@ -202,7 +202,7 @@ export const useCraftChocolateStore = defineStore({
           },
           description:
             "  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos at quaerat quidem doloremque ut vero voluptatem, earum consequuntur molestias ipsum, veritatis ea magni, perferendis sunt. Corrupti, quae earum. Omnis, enim.",
-          pictureUrl: [
+          picUrl: [
             "https://cf.shopee.co.th/file/25f5c4a2512744966df71045028cd3e7",
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQljn2qJSGBcZ8fPPgCNP6k6qVBsRvsdbgE-4vXznne3BoO0DoX-DP4F9UFJYir_2s89yg&usqp=CAU",
             "https://www.agtroncraftchocolate.com/wp-content/uploads/2018/02/Home-galleryslide6-1.jpg",
@@ -224,7 +224,7 @@ export const useCraftChocolateStore = defineStore({
     genHeaderPic() {
       let pic = [];
       this.craftHeaderPic = this.craftChocolateProduct.forEach((prod) => {
-        prod.pictureUrl.forEach((picUrl) => {
+        prod.picUrl.forEach((picUrl) => {
           pic.unshift(picUrl);
         });
       });

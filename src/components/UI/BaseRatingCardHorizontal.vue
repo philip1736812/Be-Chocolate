@@ -143,7 +143,7 @@ export default {
   },
 
   async created() {
-    this.loadPic = await getHorizontalPic(this.product.pictureUrl);
+    this.loadPic = await getHorizontalPic(this.product.picUrl);
   },
   mounted() {
     this.$nextTick(() => {
@@ -167,8 +167,8 @@ export default {
       // Get URl With Greater Width
       if (!this.loadPic) return;
 
-      if (this.product.pictureUrl.length <= 1)
-        return this.product.pictureUrl[0];
+      if (this.product.picUrl.length <= 1)
+        return this.product.picUrl[0];
 
       return this.loadPic?.length > 1
         ? this.loadPic?.[Math.floor(Math.random() * this.loadPic.length)]

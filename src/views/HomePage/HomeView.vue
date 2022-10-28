@@ -47,7 +47,7 @@
           v-for="prod in productsNav"
           :key="prod.name"
           :navName="prod.name"
-          :urlNav="prod.pictureUrl"
+          :urlNav="prod.picUrl"
           :activeProduct="selectedNavName"
           @productSelected="selectedNav"
           @clickThisNav="selectedNav"
@@ -161,37 +161,37 @@ export default {
       productsNav: [
         {
           name: "Cacao Pods",
-          pictureUrl:
+          picUrl:
             "https://drive.google.com/uc?id=1wX3sQsWiGy6966WUOLkU_Fj7zGcnHxe8",
         },
         {
           name: "Chocolate Plate",
-          pictureUrl:
+          picUrl:
             "https://drive.google.com/uc?id=1PR2EOctLjV6YA4evyLqe7VzniwfEGkdg",
         },
         {
           name: "Cacao Bean",
-          pictureUrl:
+          picUrl:
             "https://drive.google.com/uc?id=1DPWC6zn3LLHkdJb23AEjsyEpfXzjkbZp",
         },
         {
           name: "Cocoa Powders",
-          pictureUrl:
+          picUrl:
             "https://drive.google.com/uc?id=1qrDs-i_qwQfWC84YPE1rPyioF-ANbrQR",
         },
         {
           name: "Cocoa Butter",
-          pictureUrl:
+          picUrl:
             "https://drive.google.com/uc?id=1sr2_giCe1nFLoCydU94tDRwmTydPEoz8",
         },
         {
           name: "Chocolate",
-          pictureUrl:
+          picUrl:
             "https://drive.google.com/uc?id=1aUF-tJ77XS2lUUWiKMoCjMG3djfW10q0",
         },
         {
-          name: "Chocolate Bar",
-          pictureUrl:
+          name: "Craft Chocolate",
+          picUrl:
             "https://drive.google.com/uc?id=1y1wzm59mJdg6jFDL4zAAYRwVHxqV7-jZ",
         },
       ],
