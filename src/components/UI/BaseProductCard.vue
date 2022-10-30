@@ -1,9 +1,10 @@
 <template>
   <div
-    class="card_container max-w-5xl w-full xl:w-9/12 relative grid grid-cols-7 mx-auto my-1 py-2 px-3.5 sm:px-9 xl:mb-2 xl:py-3 hover:py-4 xl:px-12 text-slate-800"
+    class="card_container animate-[MoveInRight_0.6s_ease-in-out_both] max-w-5xl w-full xl:w-9/12 relative grid grid-cols-7 mx-auto my-1 py-2 px-3.5 sm:px-9 xl:mb-2 xl:py-3 hover:py-4 xl:px-12 text-slate-800"
     @mouseenter="hover"
     @mouseleave="mouseOut"
     :class="{ containerHover: isHover }"
+    :style="{ animationDelay: `${index * 170}ms` }"
   >
     <div
       class="content col-span-4 sm:col-span-3 xl:col-span-2 md:col-span-3"
@@ -78,7 +79,7 @@ import BasePictureFrame from "./BasePictureFrame.vue";
 
 export default {
   components: { BaseButton, BaseBtnAddToCart, BasePictureFrame },
-  props: ["product"],
+  props: ["product", "index"],
   setup() {
     const cartList = userCartList();
     const indexStore = useIndexStore();

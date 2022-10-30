@@ -51,7 +51,24 @@ module.exports = {
     "./src/views/Store/MyStore/MyStore_edit_ItemInventory.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        MoveInRight: "MoveInRight 0.6s ease-in-out both",
+        scaleUp: "scaleUp 0.4s ease-in-out both"
+      },
+      keyframes: () => ({
+        MoveInRight: {
+          "0%": { transform: "translateX(-100px)", opacity: "0" },
+          "85%": { transform: "translateX(1.5px)", opacity: "1" },
+          "100%": { transform: "translateX(0px)", opacity: "1" },
+        },
+        scaleUp: {
+          "0%": { transform: 'scale(0)', opacity: "0" },
+          "85%": { transform: "scale(1.03)", opacity: "1" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
+      }),
+    },
   },
   plugins: [require("flowbite/plugin")],
 };

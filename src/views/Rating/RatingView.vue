@@ -8,7 +8,9 @@
       <div
         class="p-4 w-full 2xl:w-3/4 lg:w-full mx-auto text-center sm:p-8 dark:bg-gray-800 dark:border-gray-700"
       >
-        <h5 class="mb-2 text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
+        <h5
+          class="mb-2 text-xl md:text-2xl font-bold text-gray-900 dark:text-white"
+        >
           Voting now
         </h5>
         <p
@@ -75,10 +77,11 @@
       class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"
     >
       <base-product-card-vertical
-        v-for="prod in filterTopAfterFive"
+        v-for="(prod, index) in filterTopAfterFive"
         :key="prod.id"
         :product="prod"
         :isRatingCard="true"
+        :index="index"
         @addToCart="addToCart"
         @deletedProduct="DeleteFromCart"
       ></base-product-card-vertical>

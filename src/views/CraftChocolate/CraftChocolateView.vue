@@ -50,9 +50,10 @@
           class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"
         >
           <base-product-card-vertical
-            v-for="item in getProduct"
+            v-for="(item, index) in getProduct"
             :key="item.id"
             :product="item"
+            :index="index"
             @addToCart="addToCartStore"
             @deletedProduct="deleteFromStore"
           ></base-product-card-vertical>
@@ -71,11 +72,12 @@
           class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"
         >
           <base-product-card-vertical
-            v-for="item in getProduct"
+            v-for="(item, index) in getProduct"
             @addToCart="addToCartStore"
             @deletedProduct="deleteFromStore"
             :key="item.id"
             :product="item"
+            :index="index"
           ></base-product-card-vertical>
         </div>
       </section>
@@ -99,9 +101,10 @@
           class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"
         >
           <base-product-card-vertical
-            v-for="item in getProduct"
+            v-for="(item, index) in getProduct"
             :key="item.id"
             :product="item"
+            :index="index"
             @addToCart="addToCartStore"
             @deletedProduct="deleteFromStore"
           ></base-product-card-vertical>

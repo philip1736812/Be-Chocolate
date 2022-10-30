@@ -181,9 +181,10 @@
         </div>
         <div class="px-4">
           <base-product-card
-            v-for="prod in getProductFromFilter"
+            v-for="(prod, index) in getProductFromFilter"
             :key="prod"
             :product="prod"
+            :index="index"
             @selectedProductToCart="addToCart"
             @deletedProduct="deleteSelectedProd"
           ></base-product-card>

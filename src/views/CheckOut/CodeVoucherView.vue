@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed z-50 right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 sm:w-6/12 h-5/6 bg-white rounded-sm shadow-md"
+    class="fixed z-50 right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 w-11/12 sm:w-6/12 h-5/6 bg-white rounded-sm shadow-md"
   >
     <div
       class="absolute right-8 top-6 cursor-pointer"

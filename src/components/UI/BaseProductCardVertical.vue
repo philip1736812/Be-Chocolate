@@ -1,6 +1,7 @@
 <template>
   <div
-    class="relative w-full text-gray-800 mb-6 px-1.5 sm:px-3 py-2 rounded-lg hover:shadow-xl hover:z-30 hover:md:scale-105 hover:bg-slate-100 transition-all"
+    class="animate-[scaleUp_0.4s_ease-in-out_both] relative w-full text-gray-800 mb-6 px-1.5 sm:px-3 py-2 rounded-lg hover:shadow-xl hover:z-30 hover:md:scale-105 hover:bg-slate-100 transition-all"
+    :style="{ animationDelay: `${index * 140}ms` }"
     @mouseenter="showEdit_inventory"
     @mouseleave="hideEdit_inventory"
   >
@@ -42,7 +43,7 @@
     </transition>
     <div class="mt-6">
       <base-button
-        v-if="product.type == 'CraftChocolate'"
+        v-if="product.type == 'craftChocolate'"
         link
         :to="{
           name: 'productReview',
@@ -55,7 +56,7 @@
       </base-button>
       <base-button v-else>
         <h2 class="text-xl font-medium truncate overflow-hidden">
-          {{ product.type }}
+          {{ convertToTitleCase(product.type) }}
         </h2>
       </base-button>
       <base-button
@@ -153,6 +154,7 @@ import BaseBtnAddToCart from "./BaseBtnAddToCart.vue";
 import BaseButton from "./BaseButton.vue";
 import StarRender from "../RatingView/StarRender.vue";
 import BasePictureFrame from "../../components/UI/BasePictureFrame.vue";
+import { convertCamelCaseToTitleCase } from "../hooks/ConvertText";
 
 import { numberFormat } from "../hooks/UseNumberFormat";
 import { userCartList } from "@/stores/Cart/Cart_items";
@@ -165,7 +167,7 @@ export default {
     StarRender,
     BasePictureFrame,
   },
-  props: ["product", "isRatingCard"],
+  props: ["product", "isRatingCard","index"],
   emits: ["editItems_inventoryEmit"],
   setup() {
     const cartList = userCartList();
@@ -229,6 +231,9 @@ export default {
     },
     hideEdit_inventory() {
       this.isEditItem_inventory_show = false;
+    },
+    convertToTitleCase(str) {
+      return convertCamelCaseToTitleCase(str);
     },
   },
 };

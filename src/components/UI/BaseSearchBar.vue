@@ -6,7 +6,8 @@
     <input
       type="text"
       placeholder="search for..."
-      class="w-full h-10 sm:h-10"
+      class="w-full h-10 sm:h-10 rounded-md py-2.5"
+      :class="classStyle"
       :value="inputSearchText"
       @input="(evt) => (inputSearchText = evt.target.value)"
     />
@@ -25,7 +26,8 @@
     <input
       type="text"
       placeholder="search for..."
-      class="w-full h-10 sm:h-10"
+      class="w-full h-10 sm:h-10 rounded-md py-2.5"
+      :class="classStyle && classStyle"
       v-model="inputSearchText"
     />
     <button>
@@ -43,6 +45,9 @@ export default {
     action: {
       type: String,
       default: "input",
+    },
+    classStyle: {
+      type: String,
     },
   },
   emits: ["submitSearchEmit"],
@@ -80,9 +85,7 @@ form {
 }
 
 input {
-  border-radius: 10px;
   outline: none;
-  padding: 0 1.3rem;
   font-size: 19px;
   border: 1px solid #c4c4c4;
   transition: all 0.25s ease-in;

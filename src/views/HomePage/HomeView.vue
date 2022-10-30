@@ -91,8 +91,9 @@
             v-if="getProducts && getProducts.length !== 0"
           >
             <base-product-card
-              v-for="item in getProducts"
+              v-for="(item, index) in getProducts"
               :key="item"
+              :index="index"
               :product="item"
               @selectedProductToCart="addToCart"
               @deletedProduct="deleteSelectedProd"

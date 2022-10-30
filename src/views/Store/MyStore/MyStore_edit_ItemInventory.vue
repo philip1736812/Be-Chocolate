@@ -2,7 +2,7 @@
   <div
     class="fixed w-11/12 2xl:w-4/6 h-5/6 overflow-y-scroll md:overflow-visible md:h-auto right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 z-40 rounded-md bg-white p-4 md:p-12 shadow-sm"
   >
-    <form @submit.prevent="$emit('submitEmit', editItem)">
+    <form @submit.stop.prevent="$emit('submitEmit', editItem)">
       <div class="grid gap-6 mb-6 grid-cols-1 md:grid-cols-2">
         <div class="flex flex-col w-full h-auto">
           <div class="w-full h-80">
@@ -42,13 +42,16 @@
             </label>
             <div class="flex space-x-4">
               <input
+                @keydown.prevent.enter="addMorePic"
                 type="url"
                 id="pictureUrl"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Picture Url"
+                v-model="newPicture"
               />
 
               <base-button
+                @click.prevent="addMorePic"
                 mode="articleBtn"
                 type="submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -185,8 +188,8 @@
         <base-error-pop-up
           v-if="warningMsg !== ''"
           :errMsg="warningMsg"
-          descriptionMsg="you have unsaved changes content, and will be lose unless you save it."
-          mode="warning"
+          :descriptionMsg="descriptionWarningMsg"
+          :mode="modeErr"
           @closePopUp="confirmClosePopUp"
           @cancelAction="cancelAction"
         ></base-error-pop-up>
@@ -253,16 +256,89 @@ const editItem = reactive({
 
 // Question Before Leave
 const warningMsg = ref("");
+const descriptionWarningMsg = ref("");
+const modeErr = ref("");
 
 const discardItem = () => {
+  modeErr.value = `warning`;
   warningMsg.value = `Are you sure you want to leave this site?`;
+  descriptionWarningMsg.value = `you have unsaved changes content, and will be lose unless you save it.`;
 };
 
 const confirmClosePopUp = () => {
+  if (modeErr.value === "error") {
+    warningMsg.value = ``;
+    descriptionWarningMsg.value = ``;
+    modeErr.value = "";
+
+    return;
+  }
   emits("closeEmit");
 };
 const cancelAction = () => {
   warningMsg.value = "";
+};
+
+// Add More Picture Url
+const newPicture = ref("");
+const addMorePic = () => {
+  console.log(newPicture.value);
+
+  if (newPicture.value === "") {
+    modeErr.value = `error`;
+    warningMsg.value = `Please press a correct url picture.`;
+    descriptionWarningMsg.value = `press at least one character.`;
+
+    return;
+  }
+
+  // Check Correct Img Url
+  const isCorrectPic = ref("");
+
+  function testImage(url, timeoutT) {
+    return new Promise(function (resolve, reject) {
+      var timeout = timeoutT || 5000;
+      var timer,
+        img = new Image();
+      img.onerror = img.onabort = function () {
+        clearTimeout(timer);
+        reject(false);
+      };
+      img.onload = function () {
+        clearTimeout(timer);
+        resolve(true);
+      };
+      timer = setTimeout(function () {
+        // reset .src to invalid URL so it stops previous
+        // loading, but doens't trigger new load
+        img.src = "//!!!!/noexist.jpg";
+        reject("timeout");
+      }, timeout);
+      img.src = url;
+    });
+  }
+
+  function record(url, result) {
+    isCorrectPic.value = result;
+
+    if (!isCorrectPic.value) {
+      modeErr.value = `error`;
+      warningMsg.value = `Please press a correct url picture.`;
+      descriptionWarningMsg.value = `your picture url is not correct, maybe try other.`;
+
+      return;
+    }
+
+    // add new pic
+    editItem.picUrl.unshift(newPicture.value);
+    newPicture.value = "";
+  }
+
+  function runImage(url) {
+    testImage(url).then(record.bind(null, url), record.bind(null, url));
+  }
+
+  runImage(newPicture.value);
 };
 </script>
 

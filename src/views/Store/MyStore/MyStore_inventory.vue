@@ -8,102 +8,28 @@
             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
             >Your Email</label
           >
-          <button
-            id="dropdown-button"
-            data-dropdown-toggle="dropdown"
-            class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 dark:border-gray-700 dark:text-white rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-            type="button"
+
+          <select
+            id="countries"
+            v-model="selectedOption"
+            class="flex-shrink-0 z-10 inline-flex w-40 items-center px-2 md:px-4 text-sm font-medium text-gray-900 bg-gray-100 border border-gray-300 dark:border-gray-700 dark:text-white rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
           >
-            All categories
-            <svg
-              aria-hidden="true"
-              class="ml-1 w-4 h-4"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
+            <option value="default" selected>All Product</option>
+            <option
+              v-for="type in allProductType"
+              :key="type"
+              :value="convertToCamelCase(type)"
             >
-              <path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </button>
-          <div
-            id="dropdown"
-            class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
-            data-popper-reference-hidden=""
-            data-popper-escaped=""
-            data-popper-placement="bottom"
-            style="
-              position: absolute;
-              inset: 0px auto auto 0px;
-              margin: 0px;
-              transform: translate(0px, 10px);
-            "
-          >
-            <ul
-              class="py-1 text-sm text-gray-700 dark:text-gray-200"
-              aria-labelledby="dropdown-button"
-            >
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Shopping</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Images</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >News</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Finance</a
-                >
-              </li>
-            </ul>
-          </div>
+              {{ convertToTitleCase(type) }}
+            </option>
+          </select>
+
           <div class="relative w-full">
-            <input
-              type="search"
-              id="search-dropdown"
-              class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-100 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-              placeholder="Search"
-              required=""
-            />
-            <button
-              type="submit"
-              class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              <svg
-                aria-hidden="true"
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                ></path>
-              </svg>
-            </button>
+            <base-search-bar
+              action="input"
+              classStyle="rounded-none py-2.5 rounded-r-md"
+              @submitSearchEmit="submitSearch"
+            ></base-search-bar>
           </div>
         </div>
       </form>
@@ -122,9 +48,10 @@
         </base-button>
       </div>
       <base-product-card-vertical
-        v-for="item in getItemInventory"
+        v-for="(item, index) in getItemInventory"
         :product="item"
         :key="item.id"
+        :index="index"
         @editItems_inventoryEmit="editItems_inventory"
       ></base-product-card-vertical>
     </div>
@@ -145,11 +72,17 @@
 <script>
 import BaseButton from "../../../components/UI/BaseButton.vue";
 import BaseProductCardVertical from "../../../components/UI/BaseProductCardVertical.vue";
+import BaseSearchBar from "../../../components/UI/BaseSearchBar.vue";
 import MyStore_edit_ItemInventory from "./MyStore_edit_ItemInventory.vue";
+import {
+  convertTitleCaseToCamelCase,
+  convertCamelCaseToTitleCase,
+} from "../../../components/hooks/ConvertText";
+
 import { useMyStore } from "../../../stores/MyStore/Store_myStore";
 import { useProductStore } from "../../../stores/ProductItems/Store_product";
 
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import BaseBtnAddToCart from "../../../components/UI/BaseBtnAddToCart.vue";
 
 export default {
@@ -158,25 +91,50 @@ export default {
     BaseProductCardVertical,
     BaseBtnAddToCart,
     EditItemInventory: MyStore_edit_ItemInventory,
+    BaseSearchBar,
   },
   setup() {
     const myStore = useMyStore();
     const productItems = useProductStore();
 
-    const getItemInventory = computed(() => {
-      let allItemInInventory = [];
+    const allItemInInventory = ref([]);
 
+    const getItemInventory = computed(() => {
+      allItemInInventory.value = [];
       Object.keys(myStore.inventory).forEach((item) => {
         myStore.inventory[item].forEach((id) => {
           const FindProduct = productItems.allProducts[item].find((prod) => {
             return prod.id == id;
           });
-          allItemInInventory.push(FindProduct);
+          allItemInInventory.value.push(FindProduct);
         });
       });
 
-      return allItemInInventory;
+      if (searchBy.value === "" && selectedOption.value === "default") {
+        return allItemInInventory.value;
+      } else if (selectedOption.value !== "default") {
+        return allItemInInventory.value.slice().filter((item) => {
+          return item.type
+            ?.toLowerCase()
+            .includes(selectedOption.value.toLowerCase());
+        });
+      } else {
+        return allItemInInventory.value.slice().filter((item) => {
+          return (
+            `${item.price}`
+              ?.toLowerCase()
+              .includes(searchBy.value.toLowerCase()) ||
+            item.storeName
+              ?.toLowerCase()
+              .includes(searchBy.value.toLowerCase()) ||
+            item.type?.toLowerCase().includes(searchBy.value.toLowerCase()) ||
+            item.name?.toLowerCase().includes(searchBy.value.toLowerCase())
+          );
+        });
+      }
     });
+
+    console.log(allItemInInventory.value);
 
     // Action Edit Items in Inventory
     const isShow_editItemView = ref(false);
@@ -195,6 +153,29 @@ export default {
       productItems.editItemsStore(value);
     };
 
+    // Filter By Searching Text and selected option
+    const searchBy = ref("");
+    const submitSearch = (searchStr) => {
+      searchBy.value = searchStr;
+    };
+
+    // set value and get Value from option
+    const selectedOption = ref("default");
+    const allProductType = computed(() => {
+      const allType = ref([]);
+      allItemInInventory.value.forEach((item) => {
+        allType.value.push(item.type);
+      });
+
+      return [...new Set(allType.value)];
+    });
+    const convertToTitleCase = (str) => {
+      return convertCamelCaseToTitleCase(str);
+    };
+    const convertToCamelCase = (str) => {
+      return convertTitleCaseToCamelCase(str);
+    };
+
     return {
       getItemInventory,
       editItems_inventory,
@@ -202,6 +183,11 @@ export default {
       editItems,
       closeEditItem,
       submitEditItem,
+      submitSearch,
+      allProductType,
+      convertToTitleCase,
+      convertToCamelCase,
+      selectedOption,
     };
   },
 };
@@ -220,6 +206,7 @@ export default {
   0% {
     opacity: 0;
     transform: translate(50%, -50%) scale(0);
+    transform: translateX();
   }
   85% {
     opacity: 1;
