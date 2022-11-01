@@ -2,7 +2,10 @@
   <div
     class="fixed w-11/12 2xl:w-4/6 h-5/6 overflow-y-scroll md:overflow-visible md:h-auto right-1/2 top-1/2 translate-x-1/2 -translate-y-1/2 z-40 rounded-md bg-white p-4 md:p-12 shadow-sm"
   >
-    <form @submit.stop.prevent="$emit('submitEmit', editItem)">
+    <form
+      @submit.stop.prevent="submitEmit"
+      @keydown.stop.prevent.enter="submitEmit"
+    >
       <div class="grid gap-6 mb-6 grid-cols-1 md:grid-cols-2">
         <div class="flex flex-col w-full h-auto">
           <div class="w-full h-80">
@@ -20,13 +23,13 @@
             >
               <div
                 class="w-24 h-24 snap-start shrink-0"
-                v-for="pic in editItem.picUrl"
+                v-for="pic in getItemProduct.picUrl"
                 @click="setPicture(pic)"
                 :key="pic"
               >
                 <base-picture-frame
                   :picSrc="pic"
-                  :productName="editItem.type || editItem.name"
+                  :productName="getItemProduct.type || getItemProduct.name"
                   stylePic="w-24 h-24 object-cover rounded-sm"
                   styleLoading="w-24 h-24"
                 ></base-picture-frame>
@@ -40,24 +43,40 @@
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >Add More Picture
             </label>
-            <div class="flex space-x-4">
-              <input
-                @keydown.prevent.enter="addMorePic"
-                type="url"
-                id="pictureUrl"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Picture Url"
-                v-model="newPicture"
-              />
+            <div class="flex flex-col">
+              <div class="flex w-full space-x-4">
+                <input
+                  type="url"
+                  id="pictureUrl"
+                  class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  :class="
+                    !isCorrectInput && !getItemProduct.picUrl.length < 4
+                      ? 'border-red-500'
+                      : 'border-gray-300'
+                  "
+                  placeholder="Picture Url"
+                  v-model="newPicture"
+                />
 
-              <base-button
-                @click.prevent="addMorePic"
-                mode="articleBtn"
-                type="submit"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                <base-button
+                  @click.prevent="addMorePic"
+                  mode="articleBtn"
+                  type="submit"
+                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Add
+                </base-button>
+              </div>
+
+              <p
+                v-if="!isCorrectInput && !getItemProduct.picUrl.length < 4"
+                class="text-sm font-medium text-red-700"
               >
-                Add
-              </base-button>
+                <span
+                  ><font-awesome-icon icon="fa-triangle-exclamation"
+                /></span>
+                we are recommence at least 4 picture for describe your product.
+              </p>
             </div>
           </div>
         </div>
@@ -71,10 +90,15 @@
             >
             <select
               id="countries"
-              v-model="selectedOption"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              v-model="getItemProduct.type"
+              class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              :class="
+                !isCorrectInput && !getItemProduct.type
+                  ? 'border-red-500'
+                  : 'border-gray-300'
+              "
             >
-              <option value="default" selected>Choose a country</option>
+              <option value="">Choose a country</option>
               <option
                 v-for="name in valueItem"
                 :key="name"
@@ -83,8 +107,16 @@
                 {{ convertCamelCaseToTitleCase(name) }}
               </option>
             </select>
+
+            <p
+              v-if="!isCorrectInput && !getItemProduct.type"
+              class="text-sm font-medium text-red-700"
+            >
+              <span><font-awesome-icon icon="fa-triangle-exclamation" /></span>
+              Required Field
+            </p>
           </div>
-          <div class="my-2" v-if="selectedOption == 'craftChocolate'">
+          <div class="my-2" v-if="getItemProduct.type == 'craftChocolate'">
             <label
               for="phone"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -93,9 +125,22 @@
             <input
               type="text"
               id="name"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              :value="editItem.name"
+              class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              :class="
+                !isCorrectInput && !getItemProduct.name
+                  ? 'border-red-500'
+                  : 'border-gray-300'
+              "
+              v-model="getItemProduct.name"
+              placeholder="Name"
             />
+            <p
+              v-if="!isCorrectInput && !getItemProduct.name"
+              class="text-sm font-medium text-red-700"
+            >
+              <span><font-awesome-icon icon="fa-triangle-exclamation" /></span>
+              Required Field
+            </p>
           </div>
           <div class="my-2">
             <p class="truncate text-gray-900 dark:text-gray-300 text-sm my-1">
@@ -105,10 +150,10 @@
                   class="mr-1 md:mr-2 text-sm"
                 />
               </span>
-              {{ editItem.storeName }}
+              {{ getItemProduct.storeName }}
             </p>
           </div>
-          <div class="my-2" v-if="selectedOption == 'craftChocolate'">
+          <div class="my-2" v-if="getItemProduct.type == 'craftChocolate'">
             <label
               for="description"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -117,9 +162,22 @@
             <input
               type="text"
               id="description"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              v-model="description"
+              class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              :class="
+                !isCorrectInput && !getItemProduct.description
+                  ? 'border-red-500'
+                  : 'border-gray-300'
+              "
+              v-model="getItemProduct.description"
+              placeholder="Description"
             />
+            <p
+              v-if="!isCorrectInput && !getItemProduct.description"
+              class="text-sm font-medium text-red-700"
+            >
+              <span><font-awesome-icon icon="fa-triangle-exclamation" /></span>
+              Required Field
+            </p>
           </div>
           <div
             class="my-2 flex flex-col lg:flex-row justify-between space-y-2 lg:space-y-0 lg:space-x-6"
@@ -134,15 +192,35 @@
                 <input
                   type="number"
                   id="price"
-                  class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  v-model.number="editItem.price"
+                  class="w-full bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  :class="
+                    !isCorrectInput && !getItemProduct.price
+                      ? 'border-red-500'
+                      : 'border-gray-300'
+                  "
+                  placeholder="Price"
+                  v-model.number="getItemProduct.price"
                 />
+
                 <div class="flex items-end ml-2 text-md font-medium">
-                  <span> B/{{ editItem.unit }} </span>
+                  <span>
+                    ฿/{{
+                      getItemProduct.type == "craftChocolate" ? "piece" : "kg"
+                    }}
+                  </span>
                 </div>
               </div>
+              <p
+                v-if="!isCorrectInput && !getItemProduct.price"
+                class="text-sm font-medium text-red-700"
+              >
+                <span
+                  ><font-awesome-icon icon="fa-triangle-exclamation"
+                /></span>
+                Required Field
+              </p>
             </div>
-            <div class="w-full" v-if="selectedOption !== 'craftChocolate'">
+            <div class="w-full" v-if="getItemProduct.type !== 'craftChocolate'">
               <label
                 for="available"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -152,13 +230,28 @@
                 <input
                   type="number"
                   id="available"
-                  class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  v-model.number="editItem.remaining"
+                  class="w-full bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  :class="
+                    !isCorrectInput && !getItemProduct.remaining
+                      ? 'border-red-500'
+                      : 'border-gray-300'
+                  "
+                  placeholder="Pieces Available"
+                  v-model.number="getItemProduct.remaining"
                 />
                 <div class="flex items-end ml-2 text-md font-medium">
                   <span> available </span>
                 </div>
               </div>
+              <p
+                v-if="!isCorrectInput && !getItemProduct.remaining"
+                class="text-sm font-medium text-red-700"
+              >
+                <span
+                  ><font-awesome-icon icon="fa-triangle-exclamation"
+                /></span>
+                Required Field
+              </p>
             </div>
           </div>
         </div>
@@ -166,11 +259,7 @@
     </form>
 
     <div class="mt-12">
-      <base-button
-        mode="articleBtn"
-        type="submit"
-        @click.prevent="$emit('submitEmit', editItem)"
-      >
+      <base-button mode="articleBtn" type="submit" @click.prevent="submitEmit">
         Submit
       </base-button>
       <base-button
@@ -211,6 +300,7 @@ import BaseButton from "../../../components/UI/BaseButton.vue";
 import BaseErrorPopUp from "../../../components/UI/BaseErrorPopUp.vue";
 
 import { useProductStore } from "./../../../stores/ProductItems/Store_product";
+import { useMyStore } from "../../../stores/MyStore/Store_myStore";
 import {
   convertCamelCaseToTitleCase,
   convertTitleCaseToCamelCase,
@@ -219,40 +309,85 @@ import { computed, defineProps, defineEmits, ref, reactive } from "vue";
 
 const props = defineProps({
   item: {
-    type: Object,
-    required: true,
+    type: Object || null,
   },
 });
 
 const emits = defineEmits(["closeEmit", "submitEmit"]);
 
-// Set Picture
+// Edit Item
+const myStore = useMyStore();
 
-const pictureSelected = ref(props.item.picUrl[0]);
+const getItemProduct = reactive({
+  ...props.item,
+  id:
+    props.item.id ||
+    Math.trunc(
+      Math.random() * (900000000000000 - 100000000000000) + 100000000000000
+    ),
+  name: props.item.name || "",
+  storeName: myStore.myStoreName,
+  description: props.item.description || "",
+  type: props.item.type || "",
+  price: props.item.price || "",
+  remaining: props.item.remaining || "",
+  soldCount: props.item.soldCount || "",
+  picUrl: props.item.picUrl || [],
+});
+
+const pictureSelected = ref(getItemProduct?.picUrl?.[0]);
 const setPicture = (picUrl) => {
   pictureSelected.value = picUrl;
 };
 
-const description = ref(props.item.description);
-
 const productItems = useProductStore();
 const valueItem = [];
-const selectedOption = ref(props.item.type);
 for (const [value] of Object.entries(productItems.allProducts)) {
   valueItem.unshift(value.replace("Items", ""));
 }
 
-// Edit Item
-const editItem = reactive({
-  ...props.item,
-  name: props.item.name,
-  description: props.item.description,
-  type: props.item.type,
-  price: props.item.price,
-  remaining: props.item.remaining,
-  soldCount: props.item.soldCount,
-  picUrl: props.item.picUrl,
-});
+// Submit Edit and Add New item
+let isCorrectInput = ref(true);
+
+const submitEmit = () => {
+  // Check Empty Form
+  const isEmptyForm = () => {
+    let checkValue = {};
+    if (getItemProduct.type == "craftChocolate") {
+      checkValue = {
+        name: getItemProduct.name,
+        type: getItemProduct.type,
+        price: getItemProduct.price,
+        description: getItemProduct.description,
+        picUrl: getItemProduct.picUrl,
+      };
+    } else {
+      checkValue = {
+        type: getItemProduct.type,
+        price: getItemProduct.price,
+        remaining: getItemProduct.remaining,
+        picUrl: getItemProduct.picUrl,
+      };
+    }
+
+    Object.values(checkValue).forEach((item) => {
+      if (item !== "") return;
+      isCorrectInput.value = false;
+    });
+
+    return isCorrectInput.value;
+  };
+
+  if (!isEmptyForm()) {
+    modeErr.value = `error`;
+    warningMsg.value = `Please fill all fields!`;
+    descriptionWarningMsg.value = `Looks like you missed something. Please fill in all fields with valid information.`;
+
+    return;
+  }
+
+  emits("submitEmit", getItemProduct);
+};
 
 // Question Before Leave
 const warningMsg = ref("");
@@ -260,6 +395,10 @@ const descriptionWarningMsg = ref("");
 const modeErr = ref("");
 
 const discardItem = () => {
+  // if content not change
+  // close immediately
+
+  // if content change
   modeErr.value = `warning`;
   warningMsg.value = `Are you sure you want to leave this site?`;
   descriptionWarningMsg.value = `you have unsaved changes content, and will be lose unless you save it.`;
@@ -282,8 +421,6 @@ const cancelAction = () => {
 // Add More Picture Url
 const newPicture = ref("");
 const addMorePic = () => {
-  console.log(newPicture.value);
-
   if (newPicture.value === "") {
     modeErr.value = `error`;
     warningMsg.value = `Please press a correct url picture.`;
@@ -309,8 +446,6 @@ const addMorePic = () => {
         resolve(true);
       };
       timer = setTimeout(function () {
-        // reset .src to invalid URL so it stops previous
-        // loading, but doens't trigger new load
         img.src = "//!!!!/noexist.jpg";
         reject("timeout");
       }, timeout);
@@ -330,7 +465,22 @@ const addMorePic = () => {
     }
 
     // add new pic
-    editItem.picUrl.unshift(newPicture.value);
+    if (!getItemProduct.picUrl) {
+      getItemProduct.picUrl = [];
+    }
+
+    const isDuplicatedPicUrl = getItemProduct.picUrl.find(
+      (url) => url === newPicture.value
+    );
+    if (isDuplicatedPicUrl) {
+      modeErr.value = `error`;
+      warningMsg.value = `Url's picture are duplicated.`;
+      descriptionWarningMsg.value = `please check url picture and use other url picture.`;
+
+      return;
+    }
+    getItemProduct.picUrl.unshift(newPicture.value);
+    pictureSelected.value = getItemProduct.picUrl[0];
     newPicture.value = "";
   }
 

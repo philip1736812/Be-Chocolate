@@ -38,9 +38,10 @@
       class="container w-full grid grid-cols-2 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 mx-auto mt-8"
     >
       <div
-        class="text-slate-800 relative w-full text-gray-800 mb-6 px-1.5 sm:px-3 py-2 rounded-lg hover:z-50 hover:scale-105 transition-all"
+        class="text-slate-800 relative w-full text-gray-800 mb-6 px-1.5 sm:px-3 py-2 rounded-lg hover:z-20 hover:scale-105 transition-all"
       >
         <base-button
+          @click="addNewItem"
           class="w-full h-full border rounded-md flex items-center justify-center transition-all hover:shadow-md"
         >
           <span><font-awesome-icon icon="fa-plus" class="text-sm mr-1" /></span>
@@ -134,11 +135,9 @@ export default {
       }
     });
 
-    console.log(allItemInInventory.value);
-
     // Action Edit Items in Inventory
     const isShow_editItemView = ref(false);
-    const editItems = ref("");
+    const editItems = ref({});
 
     const editItems_inventory = (item) => {
       isShow_editItemView.value = true;
@@ -147,10 +146,16 @@ export default {
 
     const closeEditItem = () => {
       isShow_editItemView.value = false;
+      editItems.value = {};
     };
     const submitEditItem = (value) => {
       isShow_editItemView.value = false;
+      // update to global product
       productItems.editItemsStore(value);
+
+      // update inventory in my store
+      myStore.updateInventory(value);
+      editItems.value = {};
     };
 
     // Filter By Searching Text and selected option
@@ -176,6 +181,11 @@ export default {
       return convertTitleCaseToCamelCase(str);
     };
 
+    // Click Add New Item to Inventory
+    const addNewItem = () => {
+      isShow_editItemView.value = true;
+    };
+
     return {
       getItemInventory,
       editItems_inventory,
@@ -188,6 +198,7 @@ export default {
       convertToTitleCase,
       convertToCamelCase,
       selectedOption,
+      addNewItem,
     };
   },
 };

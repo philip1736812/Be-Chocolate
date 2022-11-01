@@ -206,7 +206,7 @@ export const useProductStore = defineStore("productItems", () => {
 
   // Action Edit Items in Inventory
   const editItemsStore = (prod) => {
-    const oldItem = allProducts[`${prod.type}Items`].find(
+    const oldItem = allProducts[`${prod.type}Items`]?.find(
       (item) => item.id === prod.id
     );
 
@@ -215,8 +215,11 @@ export const useProductStore = defineStore("productItems", () => {
     if (prod.type !== "craftChocolate") {
       itemReplaceWithNewData = reactive({
         ...oldItem,
+        id: prod.id,
+        storeName: prod.storeName,
         type: prod.type,
         price: prod.price,
+        unit: "kg",
         remaining: prod.remaining,
         soldCount: prod.soldCount,
         picUrl: prod.picUrl,
@@ -224,21 +227,33 @@ export const useProductStore = defineStore("productItems", () => {
     } else {
       itemReplaceWithNewData = reactive({
         ...oldItem,
+        id: prod.id,
         name: prod.name,
-        description: prod.description,
+        storeName: prod.storeName,
         type: prod.type,
         price: prod.price,
+        unit: "piece",
+        rating: {
+          ratingStar: 0,
+          vote: 0,
+        },
+        description: prod.description,
         picUrl: prod.picUrl,
       });
     }
 
+    // add new Product
+    if (!oldItem) {
+      allProducts[`${prod.type}Items`].push(itemReplaceWithNewData);
+    }
+
+    // Edit item with new Data
     const replaceIndex = allProducts[`${prod.type}Items`].findIndex(
       (item) => item.id === prod.id
     );
-
     allProducts[`${prod.type}Items`].splice(
       replaceIndex,
-      0,
+      1,
       itemReplaceWithNewData
     );
   };
