@@ -1,4 +1,8 @@
 import { defineStore } from "pinia";
+import { useProductStore } from "./ProductItems/Store_product";
+import { useMyStore } from "./MyStore/Store_myStore";
+import { useCraftChocolateStore } from "./CraftChocolate/Store_craftChocolate";
+
 import axios from "axios";
 
 export const useIndexStore = defineStore({
@@ -38,6 +42,19 @@ export const useIndexStore = defineStore({
     },
   },
   actions: {
+    init() {
+      const productItems = useProductStore();
+      const myStore = useMyStore();
+      const craftChocolateStore = useCraftChocolateStore();
+      console.log(`init`);
+
+      // init load all product from firebase
+      productItems.loadProductFromFirebase();
+      craftChocolateStore.loadProductFromStore();
+
+      if (!this.user) return;
+      myStore.loadInventoryFromFirebase();
+    },
     createObserver() {
       this.observer = new IntersectionObserver(this.onElementObserved, {
         root: null,
@@ -118,6 +135,8 @@ export const useIndexStore = defineStore({
       } catch (err) {
         this.errMessage = err.message;
         console.error(err.message);
+      } finally {
+        this.init();
       }
     },
 

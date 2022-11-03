@@ -3,7 +3,7 @@
     <header
       class="h-60 lg:h-96 w-full px-3 xl:p-20 sm:p-8 flex flex-col items-center justify-center text-slate-200"
     >
-      <h2 class="text-lg sm:text-2xl font-medium mb-8">
+      <h2 class="text-lg sm:text-2xl font-medium mb-8" @click="upload">
         Find Your Ingredient.
       </h2>
       <base-search-bar
@@ -171,9 +171,9 @@ export default {
             "https://drive.google.com/uc?id=1PR2EOctLjV6YA4evyLqe7VzniwfEGkdg",
         },
         {
-          name: "Cacao Bean",
+          name: "Cocoa Butter",
           picUrl:
-            "https://drive.google.com/uc?id=1DPWC6zn3LLHkdJb23AEjsyEpfXzjkbZp",
+            "https://drive.google.com/uc?id=1sr2_giCe1nFLoCydU94tDRwmTydPEoz8",
         },
         {
           name: "Cocoa Powders",
@@ -181,19 +181,19 @@ export default {
             "https://drive.google.com/uc?id=1qrDs-i_qwQfWC84YPE1rPyioF-ANbrQR",
         },
         {
-          name: "Cocoa Butter",
-          picUrl:
-            "https://drive.google.com/uc?id=1sr2_giCe1nFLoCydU94tDRwmTydPEoz8",
-        },
-        {
-          name: "Chocolate",
-          picUrl:
-            "https://drive.google.com/uc?id=1aUF-tJ77XS2lUUWiKMoCjMG3djfW10q0",
-        },
-        {
           name: "Craft Chocolate",
           picUrl:
             "https://drive.google.com/uc?id=1y1wzm59mJdg6jFDL4zAAYRwVHxqV7-jZ",
+        },
+        {
+          name: "Cacao Bean",
+          picUrl:
+            "https://drive.google.com/uc?id=1DPWC6zn3LLHkdJb23AEjsyEpfXzjkbZp",
+        },
+        {
+          name: "Cacao Juice",
+          picUrl:
+            "https://drive.google.com/uc?id=1aUF-tJ77XS2lUUWiKMoCjMG3djfW10q0",
         },
       ],
 
@@ -318,8 +318,41 @@ main {
       content: "";
       border-bottom: 1px solid #e8e8e8;
       padding: 0 0 40px 0;
+      right: 50%;
+      transform: translateX(50%);
 
       bottom: -60%;
+
+      @media (max-width: 1280px) {
+        & {
+          bottom: -54%;
+        }
+      }
+      @media (max-width: 1024px) {
+        & {
+          bottom: -38%;
+        }
+      }
+      @media (max-width: 768px) {
+        & {
+          bottom: -46%;
+        }
+      }
+      @media (max-width: 640px) {
+        & {
+          bottom: -57%;
+        }
+      }
+      @media (max-width: 363px) {
+        & {
+          bottom: -60%;
+        }
+      }
+      @media (max-width: 315px) {
+        & {
+          bottom: -64%;
+        }
+      }
     }
 
     a {

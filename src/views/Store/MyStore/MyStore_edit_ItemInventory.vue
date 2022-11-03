@@ -341,9 +341,9 @@ const setPicture = (picUrl) => {
 };
 
 const productItems = useProductStore();
-const valueItem = [];
-for (const [value] of Object.entries(productItems.allProducts)) {
-  valueItem.unshift(value.replace("Items", ""));
+const valueItem = ref([]);
+for (const [value] of Object.entries(productItems.getAllProduct)) {
+  valueItem.value.unshift(value.replace("Items", ""));
 }
 
 // Submit Edit and Add New item
@@ -351,6 +351,8 @@ let isCorrectInput = ref(true);
 
 const submitEmit = () => {
   // Check Empty Form
+  isCorrectInput.value = true;
+
   const isEmptyForm = () => {
     let checkValue = {};
     if (getItemProduct.type == "craftChocolate") {
@@ -370,9 +372,16 @@ const submitEmit = () => {
       };
     }
 
-    Object.values(checkValue).forEach((item) => {
-      if (item !== "") return;
-      isCorrectInput.value = false;
+    Object.entries(checkValue).forEach((item) => {
+      const [key, value] = item;
+
+      if (key !== "picUrl") {
+        if (value !== "") return;
+        isCorrectInput.value = false;
+      } else {
+        if (value.length >= 4) return;
+        isCorrectInput.value = false;
+      }
     });
 
     return isCorrectInput.value;

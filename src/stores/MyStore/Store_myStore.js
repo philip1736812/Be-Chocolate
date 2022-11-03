@@ -1,10 +1,13 @@
 import { defineStore } from "pinia";
 import { useProductStore } from "../../stores/ProductItems/Store_product";
-import { reactive } from "vue";
+import { useIndexStore } from "../Store_index";
+import { reactive, computed } from "vue";
+import axios from "axios";
 
 export const useMyStore = defineStore("myStore", () => {
   const myStoreName = "CocoaLaLa Craft To Bar";
   const productItems = useProductStore();
+  const indexStore = useIndexStore();
 
   // Generate inventory from store keys
   let inventory = reactive({});
@@ -12,12 +15,47 @@ export const useMyStore = defineStore("myStore", () => {
     inventory[value] = [];
   }
 
-  inventory = {
-    ...inventory,
-    cacaoPodsItems: [548125478563219],
-    chocolatePlateItems: [612478541236548],
-    cacaoBeanItems: [875315624895236],
-    craftChocolateItems: [567841296523015, 412549632589415],
+  // Load inventory from Firebase
+  const loadInventoryFromFirebase = async () => {
+    try {
+      if (!indexStore.getUserInfo) return;
+      const userId = indexStore.getUserInfo.userId;
+      const token = indexStore.getUserInfo.idToken;
+
+      const loadRes = await axios.get(
+        `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId}/myInventoryItem.json?auth=${token}`
+      );
+
+      if (loadRes.statusText !== "OK")
+        throw new Error(`cannot load inventory, please try later!`);
+      const { data } = await loadRes;
+
+      inventory = reactive({
+        ...data.myInventoryItem,
+      });
+    } catch (err) {
+      console.warn(err.message);
+    }
+  };
+
+  // Update inventory to Firebase
+  const updateInventoryToFirebase = async () => {
+    try {
+      const updateRes = await axios.put(
+        `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId}/myInventoryItem.json?auth=${token}`,
+        {
+          myInventoryItem: inventory,
+        }
+      );
+
+      if (!updateRes.statusText !== "OK")
+        throw new Error(`cannot update item in inventory, please try later.`);
+
+      const { data } = updateRes;
+      console.log(data);
+    } catch (err) {
+      console.warn(err.message);
+    }
   };
 
   const updateInventory = (prod) => {
@@ -26,7 +64,18 @@ export const useMyStore = defineStore("myStore", () => {
     if (isOldItem) return;
 
     itemTarget.push(prod.id);
+    updateInventoryToFirebase();
   };
 
-  return { myStoreName, inventory, updateInventory };
+  const getAllItemInventory = computed(() => {
+    return inventory;
+  });
+
+  return {
+    myStoreName,
+    inventory,
+    updateInventory,
+    loadInventoryFromFirebase,
+    getAllItemInventory,
+  };
 });

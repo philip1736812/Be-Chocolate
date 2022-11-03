@@ -14,7 +14,7 @@ export const userCartList = defineStore({
       return state.cart;
     },
     itemInCartAmount(state) {
-      return state.cart.length;
+      return state.cart?.length || 0;
     },
     getUserInfo() {
       const indexStore = useIndexStore();
@@ -92,7 +92,7 @@ export const userCartList = defineStore({
 
       try {
         const updateCart = await axios.put(
-          `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId}.json?auth=${token}`,
+          `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId}/cart.json?auth=${token}`,
           {
             cart: this.cart,
           }
@@ -120,7 +120,7 @@ export const userCartList = defineStore({
 
       try {
         const updateCart = await axios.get(
-          `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId}.json?auth=${token}`
+          `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId}/cart.json?auth=${token}`
         );
 
         if (updateCart.statusText !== "OK")

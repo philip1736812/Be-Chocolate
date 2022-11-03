@@ -32,6 +32,9 @@
       <cart-balloon></cart-balloon>
     </teleport>
 
+    <div v-if="!getProduct">
+      <base-loading mode="loadPage"></base-loading>
+    </div>
     <main class="container mx-auto" v-if="!searchVal">
       <section
         class="container w-full lg:w-3/4 px-2 md:px-4 lg:p-0 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
@@ -88,13 +91,13 @@
         class="container w-full lg:w-3/4 px-2 md:px-4 lg:p-0 mx-auto mb-12 pb-6 border-b-2 border-gray-800"
       >
         <div class="my-8">
-          <p class="text-3xl text-bold">
+          <p class="text-lg md:text-xl text-slate-700">
             <span class="inline">
               <font-awesome-icon
-                icon="fa-fire-flame-curved"
-                class="mr-2 text-orange-600"
+                class="searchIcon text-lg sm:text-xl"
+                icon="fa-magnifying-glass"
             /></span>
-            Popular Choice
+            Search {{ searchVal }}
           </p>
         </div>
         <div
@@ -119,6 +122,7 @@ import { useCraftChocolateStore } from "../../stores/CraftChocolate/Store_craftC
 import { userCartList } from "@/stores/Cart/Cart_items";
 import { getHorizontalPic } from "../../components/hooks/getHorizontalPic";
 
+import BaseLoading from "../../components/UI/BaseLoading.vue";
 import CartBalloon from "@/components/TheNavigator/CartBalloon.vue";
 import BaseSearchBar from "../../components/UI/BaseSearchBar.vue";
 import BaseProductCardVertical from "../../components/UI/BaseProductCardVertical.vue";
@@ -130,6 +134,7 @@ export default {
     BaseSearchBar,
     BaseProductCardVertical,
     Carousel,
+    BaseLoading,
   },
   setup() {
     const craftChocolateStore = useCraftChocolateStore();

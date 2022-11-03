@@ -85,7 +85,7 @@
 
           <!-- overlay -->
           <div
-            v-if="isHighRanking || windowHeight <= 1280"
+            v-if="isHighRanking || windowHeight <= 1535"
             class="overlay w-3/4 h-full absolute top-0 overlay bg-gradient-to-r from-neutral-900 z-10"
           ></div>
           <a
@@ -103,7 +103,7 @@
           <a
             v-else
             href="#"
-            class="absolute z-0 top-0 right-0 w-full xl:w-2/4 md:w-full h-full rounded-ful"
+            class="absolute z-0 top-0 right-0 w-full xl:2/6 2xl:w-2/4 md:w-full h-full rounded-ful"
           >
             <img
               class="w-full h-full xl:w-full xl:h-auto sm:object-cover object-none object-center"
@@ -210,7 +210,7 @@ export default {
 .blackText {
   color: rgb(30 41 59) !important;
 
-  @media (max-width: 1280px) {
+  @media (max-width: 1535px) {
     color: rgb(255, 255, 255) !important;
   }
 }

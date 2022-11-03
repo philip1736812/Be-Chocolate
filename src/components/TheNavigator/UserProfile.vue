@@ -17,24 +17,25 @@
       <div class="truncate text-base">{{ userData.email }}</div>
     </div>
     <ul
-      class="py-1 opacity-40 text-sm text-gray-700 dark:text-gray-200"
+      class="py-1 text-sm text-gray-700 dark:text-gray-200"
       aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
     >
       <li>
-        <a
-          href="#"
+        <base-button
+          link
+          :to="{ name: 'myStore-dashboard' }"
           class="block text-sm py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-          >Dashboard</a
+          >Dashboard</base-button
         >
       </li>
-      <li>
+      <li class="opacity-40">
         <a
           href="#"
           class="block text-sm py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
           >Settings</a
         >
       </li>
-      <li>
+      <li class="opacity-40">
         <a
           href="#"
           class="block text-sm py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"

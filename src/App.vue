@@ -14,6 +14,9 @@ export default {
   setup() {
     const indexStore = useIndexStore();
 
+    // init (load and wait for res)
+    indexStore.init();
+
     return { indexStore };
   },
   mounted() {

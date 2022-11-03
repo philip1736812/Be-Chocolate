@@ -115,7 +115,7 @@ export default {
   },
   data() {
     return {
-      deadLineSetting: "October 30, 2022",
+      deadLineSetting: "November 30, 2022",
     };
   },
   computed: {

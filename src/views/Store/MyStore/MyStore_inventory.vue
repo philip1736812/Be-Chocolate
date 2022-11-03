@@ -6,7 +6,7 @@
           <label
             for="search-dropdown"
             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
-            >Your Email</label
+            >choose product type</label
           >
 
           <select
@@ -16,7 +16,7 @@
           >
             <option value="default" selected>All Product</option>
             <option
-              v-for="type in allProductType"
+              v-for="type in findAllProductType"
               :key="type"
               :value="convertToCamelCase(type)"
             >
@@ -83,7 +83,7 @@ import {
 import { useMyStore } from "../../../stores/MyStore/Store_myStore";
 import { useProductStore } from "../../../stores/ProductItems/Store_product";
 
-import { computed, ref, onMounted } from "vue";
+import { computed, ref, onMounted, isReactive, isRef } from "vue";
 import BaseBtnAddToCart from "../../../components/UI/BaseBtnAddToCart.vue";
 
 export default {
@@ -102,9 +102,12 @@ export default {
 
     const getItemInventory = computed(() => {
       allItemInInventory.value = [];
-      Object.keys(myStore.inventory).forEach((item) => {
-        myStore.inventory[item].forEach((id) => {
-          const FindProduct = productItems.allProducts[item].find((prod) => {
+
+      if (Object.keys(productItems.getAllProduct).length === 0) return;
+
+      Object.keys(myStore.getAllItemInventory).forEach((item) => {
+        myStore.getAllItemInventory[item].forEach((id) => {
+          const FindProduct = productItems.getAllProduct[item].find((prod) => {
             return prod.id == id;
           });
           allItemInInventory.value.push(FindProduct);
@@ -149,12 +152,12 @@ export default {
       editItems.value = {};
     };
     const submitEditItem = (value) => {
-      isShow_editItemView.value = false;
       // update to global product
       productItems.editItemsStore(value);
 
       // update inventory in my store
       myStore.updateInventory(value);
+      isShow_editItemView.value = false;
       editItems.value = {};
     };
 
@@ -166,7 +169,8 @@ export default {
 
     // set value and get Value from option
     const selectedOption = ref("default");
-    const allProductType = computed(() => {
+
+    const findAllProductType = computed(() => {
       const allType = ref([]);
       allItemInInventory.value.forEach((item) => {
         allType.value.push(item.type);
@@ -174,6 +178,7 @@ export default {
 
       return [...new Set(allType.value)];
     });
+
     const convertToTitleCase = (str) => {
       return convertCamelCaseToTitleCase(str);
     };
@@ -194,11 +199,11 @@ export default {
       closeEditItem,
       submitEditItem,
       submitSearch,
-      allProductType,
       convertToTitleCase,
       convertToCamelCase,
       selectedOption,
       addNewItem,
+      findAllProductType,
     };
   },
 };
