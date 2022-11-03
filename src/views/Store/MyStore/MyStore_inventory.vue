@@ -107,10 +107,12 @@ export default {
 
       Object.keys(myStore.getAllItemInventory).forEach((item) => {
         myStore.getAllItemInventory[item].forEach((id) => {
-          const FindProduct = productItems.getAllProduct[item].find((prod) => {
-            return prod.id == id;
-          });
-          allItemInInventory.value.push(FindProduct);
+          const FindProduct = productItems.getAllProduct[item].filter(
+            (prod) => {
+              return prod.id == id;
+            }
+          );
+          allItemInInventory.value.push(...FindProduct);
         });
       });
 
@@ -172,6 +174,7 @@ export default {
 
     const findAllProductType = computed(() => {
       const allType = ref([]);
+
       allItemInInventory.value.forEach((item) => {
         allType.value.push(item.type);
       });

@@ -46,7 +46,6 @@ export const useIndexStore = defineStore({
       const productItems = useProductStore();
       const myStore = useMyStore();
       const craftChocolateStore = useCraftChocolateStore();
-      console.log(`init`);
 
       // init load all product from firebase
       productItems.loadProductFromFirebase();

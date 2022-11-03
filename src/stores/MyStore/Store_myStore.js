@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { useProductStore } from "../../stores/ProductItems/Store_product";
 import { useIndexStore } from "../Store_index";
-import { reactive, computed } from "vue";
+import { reactive, computed, ref } from "vue";
 import axios from "axios";
 
 export const useMyStore = defineStore("myStore", () => {
@@ -15,24 +15,27 @@ export const useMyStore = defineStore("myStore", () => {
     inventory[value] = [];
   }
 
+  const userId = ref(null);
+  const token = ref(null);
+
   // Load inventory from Firebase
   const loadInventoryFromFirebase = async () => {
     try {
       if (!indexStore.getUserInfo) return;
-      const userId = indexStore.getUserInfo.userId;
-      const token = indexStore.getUserInfo.idToken;
+      userId.value = indexStore.getUserInfo.userId;
+      token.value = indexStore.getUserInfo.idToken;
 
       const loadRes = await axios.get(
-        `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId}/myInventoryItem.json?auth=${token}`
+        `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId.value}/myInventoryItem.json?auth=${token.value}`
       );
 
       if (loadRes.statusText !== "OK")
         throw new Error(`cannot load inventory, please try later!`);
       const { data } = await loadRes;
 
-      inventory = reactive({
-        ...data.myInventoryItem,
-      });
+      for (const value of Object.keys(productItems.getAllProduct)) {
+        inventory[value] = data.myInventoryItem[value] || [];
+      }
     } catch (err) {
       console.warn(err.message);
     }
@@ -42,17 +45,21 @@ export const useMyStore = defineStore("myStore", () => {
   const updateInventoryToFirebase = async () => {
     try {
       const updateRes = await axios.put(
-        `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId}/myInventoryItem.json?auth=${token}`,
+        `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId.value}/myInventoryItem.json?auth=${token.value}`,
         {
           myInventoryItem: inventory,
         }
       );
 
-      if (!updateRes.statusText !== "OK")
+      const res = await updateRes;
+      if (res.statusText !== "OK")
         throw new Error(`cannot update item in inventory, please try later.`);
 
-      const { data } = updateRes;
-      console.log(data);
+      const { data } = res;
+      for (const value of Object.entries(data.myInventoryItem)) {
+        const [name, val] = value;
+        inventory[name] = val;
+      }
     } catch (err) {
       console.warn(err.message);
     }

@@ -45,13 +45,12 @@ export const useProductStore = defineStore("productItems", () => {
         throw new Error(`Cannot update item! please try later.`);
 
       const { data } = await loadRes;
+      Object.entries(data.allProducts).forEach((item) => {
+        const [name, value] = item;
 
-      allProducts = reactive({
-        ...data.allProducts,
+        allProducts[name] = value;
       });
 
-      console.log(allProducts);
-      
       return new Promise((resolve, reject) => {
         if (Object.keys(allProducts).length > 1) resolve(allProducts);
       });
@@ -169,8 +168,9 @@ export const useProductStore = defineStore("productItems", () => {
     // add new Product
     if (!oldItem) {
       allProducts[`${prod.type}Items`].push(itemReplaceWithNewData);
+
       // update data product in firebase
-      // updateProductToFirebase();
+      updateProductToFirebase();
 
       return;
     }
