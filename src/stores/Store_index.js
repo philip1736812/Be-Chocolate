@@ -52,6 +52,7 @@ export const useIndexStore = defineStore({
       craftChocolateStore.loadProductFromStore();
 
       if (!this.user) return;
+      myStore.loadStoreName();
       myStore.loadInventoryFromFirebase();
     },
     createObserver() {

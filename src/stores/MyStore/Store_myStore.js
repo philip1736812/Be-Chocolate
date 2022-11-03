@@ -5,18 +5,31 @@ import { reactive, computed, ref } from "vue";
 import axios from "axios";
 
 export const useMyStore = defineStore("myStore", () => {
-  const myStoreName = "CocoaLaLa Craft To Bar";
+  const myStoreName = ref("");
   const productItems = useProductStore();
   const indexStore = useIndexStore();
+
+  const userId = ref(null);
+  const token = ref(null);
+
+  // Load Store Name
+  const loadStoreName = async () => {
+    userId.value = indexStore.getUserInfo.userId;
+    token.value = indexStore.getUserInfo.idToken;
+
+    const loadNameRes = await axios.get(
+      `https://be-chocolate-default-rtdb.asia-southeast1.firebasedatabase.app/user/${userId.value}/myStoreName.json?auth=${token.value}`
+    );
+
+    const { data } = await loadNameRes;
+    myStoreName.value = data;
+  };
 
   // Generate inventory from store keys
   let inventory = reactive({});
   for (const value of Object.keys(productItems.allProducts)) {
     inventory[value] = [];
   }
-
-  const userId = ref(null);
-  const token = ref(null);
 
   // Load inventory from Firebase
   const loadInventoryFromFirebase = async () => {
@@ -66,11 +79,20 @@ export const useMyStore = defineStore("myStore", () => {
   };
 
   const updateInventory = (prod) => {
-    const itemTarget = inventory[`${prod.type}Items`];
-    const isOldItem = itemTarget.some((prodId) => prodId === prod.id);
+    const itemTarget = ref(inventory[`${prod.type}Items`]);
+    const isOldItem = itemTarget.value?.some((prodId) => prodId === prod.id);
     if (isOldItem) return;
 
-    itemTarget.push(prod.id);
+    // mockup create store simple ---> need user click open store
+    if (!itemTarget.value) {
+      for (const value of Object.keys(productItems.allProducts)) {
+        inventory[value] = [];
+      }
+
+      itemTarget.value = inventory[`${prod.type}Items`];
+    }
+
+    itemTarget.value.push(prod.id);
     updateInventoryToFirebase();
   };
 
@@ -84,5 +106,6 @@ export const useMyStore = defineStore("myStore", () => {
     updateInventory,
     loadInventoryFromFirebase,
     getAllItemInventory,
+    loadStoreName,
   };
 });

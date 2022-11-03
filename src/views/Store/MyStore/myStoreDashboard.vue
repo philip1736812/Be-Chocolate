@@ -12,7 +12,12 @@
       />
       <div>
         <div class="flex-1">
-          <h2 class="text-lg font-medium mb-3">Store Name</h2>
+          <h2 class="text-lg font-medium mb-3">
+            <span
+              ><font-awesome-icon icon="fa-store" class="mr-1 md:mr-2 text-sm"
+            /></span>
+            {{ getStoreName }}
+          </h2>
           <p class="text-sm text-slate-500">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum iure
             ab fuga voluptates provident numquam?
@@ -157,12 +162,14 @@ import BaseButton from "../../../components/UI/BaseButton.vue";
 
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import { useMyStore } from "../../../stores/MyStore/Store_myStore";
 
 export default {
   components: { InDevelopment, BaseButton },
   setup() {
     const route = useRoute();
     const tabsActive = ref(route.matched[1].name);
+    const myStore = useMyStore();
 
     // computed style tabs && icon tabs
     const tabsActiveStyleComputed = computed(() => {
@@ -178,6 +185,10 @@ export default {
       return "mr-2 w-5 h-5 text-gray-400 group-hover:text-gray-500";
     });
 
+    const getStoreName = computed(() => {
+      return myStore.myStoreName;
+    });
+
     const activeTab = (tagActive) => {
       tabsActive.value = tagActive;
     };
@@ -189,6 +200,7 @@ export default {
       iconActiveStyleComputed,
       iconDisActiveStyleComputed,
       activeTab,
+      getStoreName,
     };
   },
 };

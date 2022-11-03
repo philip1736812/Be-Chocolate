@@ -6,7 +6,7 @@
     @mouseleave="hideEdit_inventory"
   >
     <base-button
-      v-if="product.type == 'CraftChocolate'"
+      v-if="product.type == 'craftChocolate'"
       link
       :to="{
         name: 'productReview',
@@ -15,7 +15,7 @@
     >
       <div class="w-full h-80 overflow-hidden object-cover">
         <base-picture-frame
-          stylePic="rounded-lg w-72 md:w-96 h-full object-cover"
+          stylePic="rounded-lg w-full h-full object-cover"
           styleLoading="top-0 w-full h-full "
           :picSrc="getRandomPic"
           :productName="product.storeName"
@@ -167,8 +167,8 @@ export default {
     StarRender,
     BasePictureFrame,
   },
-  props: ["product", "isRatingCard","index"],
-  emits: ["editItems_inventoryEmit"],
+  props: ["product", "isRatingCard", "index"],
+  emits: ["editItems_inventoryEmit", "addToCart"],
   setup() {
     const cartList = userCartList();
     const indexStore = useIndexStore();
