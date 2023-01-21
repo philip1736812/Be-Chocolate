@@ -86,6 +86,8 @@
         @deletedProduct="DeleteFromCart"
       ></base-product-card-vertical>
     </div>
+
+    <guest-user-ask-name></guest-user-ask-name>
   </div>
 </template>
 
@@ -98,6 +100,7 @@ import BaseButton from "../../components/UI/BaseButton.vue";
 import BaseProductCardVertical from "../../components/UI/BaseProductCardVertical.vue";
 import BaseRatingCardHorizontal from "../../components/UI/BaseRatingCardHorizontal.vue";
 import CartBalloon from "../../components/TheNavigator/CartBalloon.vue";
+import GuestUserAskName from "../../components/PopUp/GuestUserAskName.vue";
 
 export default {
   components: {
@@ -106,6 +109,7 @@ export default {
     BaseRatingCardHorizontal,
     BaseProductCardVertical,
     CartBalloon,
+    GuestUserAskName,
   },
   setup() {
     const craftChocolateStore = useCraftChocolateStore();

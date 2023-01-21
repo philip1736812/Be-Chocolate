@@ -1,13 +1,18 @@
 <template>
-  <div class="relative">
-    <in-development :positionFixed="false" :canGoBack="false"></in-development>
+  <div class="flex flex-row space-x-4">
+    <summary-card
+      cardBgColor="bg-amber-200"
+      titleCard="Revenue"
+      :isCurrency="true"
+    ></summary-card>
+    
+    <summary-card
+      cardBgColor="bg-red-200"
+      titleCard="Total Order"
+    ></summary-card>
   </div>
 </template>
 
-<script>
-import InDevelopment from "../../../components/PageNotFound/InDevelopment.vue";
-
-export default {
-  components: { InDevelopment },
-};
+<script setup>
+import SummaryCard from "../../../components/MyStoreView/Dashboard/SummaryCard.vue";
 </script>

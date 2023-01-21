@@ -19,14 +19,12 @@ export default {
 
     return { indexStore };
   },
+
   mounted() {
     // Get Resize Window
     this.$nextTick(() => {
       this.indexStore.windowResize();
     });
-  },
-  beforeDestroy() {
-    this.indexStore.windowRemoveResize();
   },
 };
 </script>

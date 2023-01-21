@@ -153,19 +153,22 @@
         </router-view>
       </div>
     </main>
+
+    <guest-user-ask-name></guest-user-ask-name>
   </div>
 </template>
 
 <script>
 import InDevelopment from "../../../components/PageNotFound/InDevelopment.vue";
 import BaseButton from "../../../components/UI/BaseButton.vue";
+import GuestUserAskName from "../../../components/PopUp/GuestUserAskName.vue";
 
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useMyStore } from "../../../stores/MyStore/Store_myStore";
 
 export default {
-  components: { InDevelopment, BaseButton },
+  components: { InDevelopment, BaseButton, GuestUserAskName },
   setup() {
     const route = useRoute();
     const tabsActive = ref(route.matched[1].name);

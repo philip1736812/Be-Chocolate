@@ -7,7 +7,7 @@ export const useCommunityStore = defineStore({
       hashTag: [
         "Blend To Bar",
         "Copy or Inspired",
-        "Why we are poor",
+        "Why we are poor", 
         "quantity more quality",
         "First cacao",
         "Grow without wether",

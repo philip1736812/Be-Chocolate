@@ -49,12 +49,14 @@ module.exports = {
     "./src/views/Store/MyStore/MyStore_inventory.vue",
     "./src/views/Store/MyStore/MyStore_orderList.vue",
     "./src/views/Store/MyStore/MyStore_edit_ItemInventory.vue",
+    "./src/components/MyStoreView/Dashboard/SummaryCard.vue",
+    "./src/components/PopUp/GuestUserAskName.vue",
   ],
   theme: {
     extend: {
       animation: {
         MoveInRight: "MoveInRight 0.6s ease-in-out both",
-        scaleUp: "scaleUp 0.4s ease-in-out both"
+        scaleUp: "scaleUp 0.4s ease-in-out both",
       },
       keyframes: () => ({
         MoveInRight: {
@@ -63,7 +65,7 @@ module.exports = {
           "100%": { transform: "translateX(0px)", opacity: "1" },
         },
         scaleUp: {
-          "0%": { transform: 'scale(0)', opacity: "0" },
+          "0%": { transform: "scale(0)", opacity: "0" },
           "85%": { transform: "scale(1.03)", opacity: "1" },
           "100%": { transform: "scale(1)", opacity: "1" },
         },

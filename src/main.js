@@ -4,6 +4,7 @@ import "flowbite";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faCircleUp, faCircleDown } from "@fortawesome/free-regular-svg-icons";
 import {
   faUser,
   faMagnifyingGlass,
@@ -82,7 +83,9 @@ library.add(
   faCommentsDollar,
   faBoxesStacked,
   faTruckRampBox,
-  faCircleExclamation
+  faCircleExclamation,
+  faCircleUp,
+  faCircleDown
 );
 app.component("font-awesome-icon", FontAwesomeIcon);
 

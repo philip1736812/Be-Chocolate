@@ -98,7 +98,7 @@
                   : 'border-gray-300'
               "
             >
-              <option value="">Choose a country</option>
+              <option value="">Choose a products</option>
               <option
                 v-for="name in valueItem"
                 :key="name"
@@ -305,7 +305,7 @@ import {
   convertCamelCaseToTitleCase,
   convertTitleCaseToCamelCase,
 } from "../../../components/hooks/ConvertText";
-import { computed, defineProps, defineEmits, ref, reactive } from "vue";
+import { defineProps, defineEmits, ref, reactive } from "vue";
 
 const props = defineProps({
   item: {

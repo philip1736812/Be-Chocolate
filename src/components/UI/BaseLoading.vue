@@ -136,8 +136,8 @@
       display: block;
       shape-rendering: auto;
     "
-    width="241px"
-    height="241px"
+    width="80px"
+    height="80px"
     viewBox="0 0 100 100"
     preserveAspectRatio="xMidYMid"
   >
